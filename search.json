@@ -1,0 +1,184 @@
+[
+  {
+    "objectID": "syllabus.html",
+    "href": "syllabus.html",
+    "title": "Syllabus",
+    "section": "",
+    "text": "Course: Investments\nInstructor: TBD\nOffice Hours: TBD"
+  },
+  {
+    "objectID": "syllabus.html#course-information",
+    "href": "syllabus.html#course-information",
+    "title": "Syllabus",
+    "section": "",
+    "text": "Course: Investments\nInstructor: TBD\nOffice Hours: TBD"
+  },
+  {
+    "objectID": "syllabus.html#course-description",
+    "href": "syllabus.html#course-description",
+    "title": "Syllabus",
+    "section": "Course Description",
+    "text": "Course Description\nThis course provides an introduction to the theory and practice of investments."
+  },
+  {
+    "objectID": "syllabus.html#learning-objectives",
+    "href": "syllabus.html#learning-objectives",
+    "title": "Syllabus",
+    "section": "Learning Objectives",
+    "text": "Learning Objectives\nBy the end of this course, students will be able to:\n\nUnderstand fundamental investment concepts\nAnalyze risk and return of investment portfolios\nApply quantitative methods to investment decisions"
+  },
+  {
+    "objectID": "syllabus.html#grading",
+    "href": "syllabus.html#grading",
+    "title": "Syllabus",
+    "section": "Grading",
+    "text": "Grading\n\n\n\nComponent\nWeight\n\n\n\n\nLabs\n30%\n\n\nMidterm\n30%\n\n\nFinal\n40%"
+  },
+  {
+    "objectID": "syllabus.html#academic-integrity",
+    "href": "syllabus.html#academic-integrity",
+    "title": "Syllabus",
+    "section": "Academic Integrity",
+    "text": "Academic Integrity\nStudents are expected to adhere to the university’s academic integrity policy."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Investments",
+    "section": "",
+    "text": "This is the course website for the Investments class at OU.\n\n\nThis course covers the fundamental principles of investment analysis and portfolio management.\n\n\n\n\nSchedule\nSyllabus\nLecture 1\nLecture 2"
+  },
+  {
+    "objectID": "index.html#welcome-to-investments",
+    "href": "index.html#welcome-to-investments",
+    "title": "Investments",
+    "section": "",
+    "text": "This is the course website for the Investments class at OU.\n\n\nThis course covers the fundamental principles of investment analysis and portfolio management.\n\n\n\n\nSchedule\nSyllabus\nLecture 1\nLecture 2"
+  },
+  {
+    "objectID": "lectures/lecture1/index.html",
+    "href": "lectures/lecture1/index.html",
+    "title": "Lecture 1: Introduction to Investments",
+    "section": "",
+    "text": "This lecture introduces the fundamental concepts of investments."
+  },
+  {
+    "objectID": "lectures/lecture1/index.html#overview",
+    "href": "lectures/lecture1/index.html#overview",
+    "title": "Lecture 1: Introduction to Investments",
+    "section": "",
+    "text": "This lecture introduces the fundamental concepts of investments."
+  },
+  {
+    "objectID": "lectures/lecture1/index.html#topics-covered",
+    "href": "lectures/lecture1/index.html#topics-covered",
+    "title": "Lecture 1: Introduction to Investments",
+    "section": "Topics Covered",
+    "text": "Topics Covered\n\nWhat are investments?\nTypes of financial assets\nThe investment process"
+  },
+  {
+    "objectID": "lectures/lecture1/index.html#materials",
+    "href": "lectures/lecture1/index.html#materials",
+    "title": "Lecture 1: Introduction to Investments",
+    "section": "Materials",
+    "text": "Materials\n\nPre-class Reading\nLab"
+  },
+  {
+    "objectID": "lectures/lecture2/reading.html",
+    "href": "lectures/lecture2/reading.html",
+    "title": "Lecture 2: Pre-class Reading",
+    "section": "",
+    "text": "Please complete the following reading before class:\n\nChapter 2: Risk and Return\nFocus on the mathematical foundations\n\n\n\n\n\nExpected Return: The probability-weighted average of possible returns.\nVariance: A measure of the dispersion of returns around the expected value.\nStandard Deviation: The square root of variance; a common measure of risk.\nDiversification: The strategy of reducing risk by investing in multiple assets.\n\n\n\n\nExpected Return: \\[E(R) = \\sum_{i=1}^{n} p_i \\cdot R_i\\]\nVariance: \\[\\sigma^2 = \\sum_{i=1}^{n} p_i \\cdot (R_i - E(R))^2\\]\n\n\n\n\nWhy is standard deviation a useful measure of risk?\nHow does diversification reduce portfolio risk?"
+  },
+  {
+    "objectID": "lectures/lecture2/reading.html#pre-class-reading",
+    "href": "lectures/lecture2/reading.html#pre-class-reading",
+    "title": "Lecture 2: Pre-class Reading",
+    "section": "",
+    "text": "Please complete the following reading before class:\n\nChapter 2: Risk and Return\nFocus on the mathematical foundations\n\n\n\n\n\nExpected Return: The probability-weighted average of possible returns.\nVariance: A measure of the dispersion of returns around the expected value.\nStandard Deviation: The square root of variance; a common measure of risk.\nDiversification: The strategy of reducing risk by investing in multiple assets.\n\n\n\n\nExpected Return: \\[E(R) = \\sum_{i=1}^{n} p_i \\cdot R_i\\]\nVariance: \\[\\sigma^2 = \\sum_{i=1}^{n} p_i \\cdot (R_i - E(R))^2\\]\n\n\n\n\nWhy is standard deviation a useful measure of risk?\nHow does diversification reduce portfolio risk?"
+  },
+  {
+    "objectID": "lectures/lecture2/lab.html",
+    "href": "lectures/lecture2/lab.html",
+    "title": "Lecture 2: Lab",
+    "section": "",
+    "text": "In this lab, you will:\n\nCalculate expected returns for a portfolio\nMeasure portfolio risk using variance and standard deviation\nExplore the benefits of diversification\n\n\n\n\n\nUse the provided dataset with multiple stock returns\nComplete the calculations for each exercise\nInterpret your results\n\n\n\n\nExercise 1: Calculate the expected return for each stock in the dataset.\nExercise 2: Compute the variance and standard deviation for each stock.\nExercise 3: Create a two-asset portfolio and calculate its expected return and risk.\nExercise 4: Vary the portfolio weights and observe how risk changes.\n\n\n\nSubmit your completed lab by the deadline posted on the schedule."
+  },
+  {
+    "objectID": "lectures/lecture2/lab.html#lab-2-risk-and-return-analysis",
+    "href": "lectures/lecture2/lab.html#lab-2-risk-and-return-analysis",
+    "title": "Lecture 2: Lab",
+    "section": "",
+    "text": "In this lab, you will:\n\nCalculate expected returns for a portfolio\nMeasure portfolio risk using variance and standard deviation\nExplore the benefits of diversification\n\n\n\n\n\nUse the provided dataset with multiple stock returns\nComplete the calculations for each exercise\nInterpret your results\n\n\n\n\nExercise 1: Calculate the expected return for each stock in the dataset.\nExercise 2: Compute the variance and standard deviation for each stock.\nExercise 3: Create a two-asset portfolio and calculate its expected return and risk.\nExercise 4: Vary the portfolio weights and observe how risk changes.\n\n\n\nSubmit your completed lab by the deadline posted on the schedule."
+  },
+  {
+    "objectID": "lectures/lecture2/index.html",
+    "href": "lectures/lecture2/index.html",
+    "title": "Lecture 2: Risk and Return",
+    "section": "",
+    "text": "This lecture covers the relationship between risk and return in investments."
+  },
+  {
+    "objectID": "lectures/lecture2/index.html#overview",
+    "href": "lectures/lecture2/index.html#overview",
+    "title": "Lecture 2: Risk and Return",
+    "section": "",
+    "text": "This lecture covers the relationship between risk and return in investments."
+  },
+  {
+    "objectID": "lectures/lecture2/index.html#topics-covered",
+    "href": "lectures/lecture2/index.html#topics-covered",
+    "title": "Lecture 2: Risk and Return",
+    "section": "Topics Covered",
+    "text": "Topics Covered\n\nMeasuring returns\nTypes of risk\nDiversification"
+  },
+  {
+    "objectID": "lectures/lecture2/index.html#materials",
+    "href": "lectures/lecture2/index.html#materials",
+    "title": "Lecture 2: Risk and Return",
+    "section": "Materials",
+    "text": "Materials\n\nPre-class Reading\nLab"
+  },
+  {
+    "objectID": "lectures/lecture1/lab.html",
+    "href": "lectures/lecture1/lab.html",
+    "title": "Lecture 1: Lab",
+    "section": "",
+    "text": "In this lab, you will:\n\nLearn to access financial data sources\nCalculate basic return statistics\nVisualize stock price data\n\n\n\n\n\nDownload the sample dataset from the course materials\nOpen the data in your preferred analysis tool\nComplete the exercises below\n\n\n\n\nExercise 1: Calculate the daily returns for the provided stock data.\nExercise 2: Compute the mean and standard deviation of returns.\nExercise 3: Create a time series plot of the stock prices.\n\n\n\nSubmit your completed lab by the deadline posted on the schedule."
+  },
+  {
+    "objectID": "lectures/lecture1/lab.html#lab-1-introduction-to-financial-data",
+    "href": "lectures/lecture1/lab.html#lab-1-introduction-to-financial-data",
+    "title": "Lecture 1: Lab",
+    "section": "",
+    "text": "In this lab, you will:\n\nLearn to access financial data sources\nCalculate basic return statistics\nVisualize stock price data\n\n\n\n\n\nDownload the sample dataset from the course materials\nOpen the data in your preferred analysis tool\nComplete the exercises below\n\n\n\n\nExercise 1: Calculate the daily returns for the provided stock data.\nExercise 2: Compute the mean and standard deviation of returns.\nExercise 3: Create a time series plot of the stock prices.\n\n\n\nSubmit your completed lab by the deadline posted on the schedule."
+  },
+  {
+    "objectID": "lectures/lecture1/reading.html",
+    "href": "lectures/lecture1/reading.html",
+    "title": "Lecture 1: Pre-class Reading",
+    "section": "",
+    "text": "Please complete the following reading before class:\n\nChapter 1: Introduction to Investments\nReview the key terms and concepts\n\n\n\n\n\nInvestment: The commitment of current resources in the expectation of deriving future benefits.\nFinancial Assets: Claims to the income generated by real assets.\nRisk-Return Tradeoff: The principle that higher potential returns come with higher risk.\n\n\n\n\n\nWhat motivates individuals to invest?\nHow do financial markets contribute to economic efficiency?"
+  },
+  {
+    "objectID": "lectures/lecture1/reading.html#pre-class-reading",
+    "href": "lectures/lecture1/reading.html#pre-class-reading",
+    "title": "Lecture 1: Pre-class Reading",
+    "section": "",
+    "text": "Please complete the following reading before class:\n\nChapter 1: Introduction to Investments\nReview the key terms and concepts\n\n\n\n\n\nInvestment: The commitment of current resources in the expectation of deriving future benefits.\nFinancial Assets: Claims to the income generated by real assets.\nRisk-Return Tradeoff: The principle that higher potential returns come with higher risk.\n\n\n\n\n\nWhat motivates individuals to invest?\nHow do financial markets contribute to economic efficiency?"
+  },
+  {
+    "objectID": "schedule.html",
+    "href": "schedule.html",
+    "title": "Schedule",
+    "section": "",
+    "text": "Week\nTopic\nReading\nLab\n\n\n\n\n1\nIntroduction to Investments\nLecture 1 Pre-class\nLab 1\n\n\n2\nRisk and Return\nLecture 2 Pre-class\nLab 2\n\n\n\nSchedule is subject to change."
+  },
+  {
+    "objectID": "schedule.html#course-schedule",
+    "href": "schedule.html#course-schedule",
+    "title": "Schedule",
+    "section": "",
+    "text": "Week\nTopic\nReading\nLab\n\n\n\n\n1\nIntroduction to Investments\nLecture 1 Pre-class\nLab 1\n\n\n2\nRisk and Return\nLecture 2 Pre-class\nLab 2\n\n\n\nSchedule is subject to change."
+  }
+]
