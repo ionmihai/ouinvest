@@ -1,0 +1,18 @@
+---
+title: "Data"
+---
+
+## Course Data Files
+
+Download the data files used in the labs and assignments.
+
+| File | Description |
+|------|-------------|
+| [stock_returns.xlsx](data/stock_returns.xlsx) | Daily stock returns for AAPL, MSFT, GOOGL, AMZN, META (2023) |
+| [factors.xlsx](data/factors.xlsx) | Fama-French factor data (Mkt-RF, SMB, HML, RMW, CMA, RF) |
+
+### Usage Notes
+
+- **stock_returns.xlsx**: Contains daily returns for 5 major tech stocks over 252 trading days
+- **factors.xlsx**: Contains Fama-French 5 factors plus the risk-free rate
+

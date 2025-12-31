@@ -8,6 +8,7 @@ website:
     contents:
       - schedule.qmd
       - syllabus.qmd
+      - data.qmd
       - section: "Lectures"
         contents:
           - section: "Lecture 1"

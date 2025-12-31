@@ -1,0 +1,4 @@
+- source: project
+  gh-pages:
+    - url: https://ionmihai.github.io/ouinvest/
+
