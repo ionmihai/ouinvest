@@ -1,0 +1,34 @@
+---
+title: "Lecture 2: Lab"
+---
+
+## Lab 2: Risk and Return Analysis
+
+### Objectives
+
+In this lab, you will:
+
+1. Calculate expected returns for a portfolio
+2. Measure portfolio risk using variance and standard deviation
+3. Explore the benefits of diversification
+
+### Instructions
+
+1. Use the provided dataset with multiple stock returns
+2. Complete the calculations for each exercise
+3. Interpret your results
+
+### Exercises
+
+**Exercise 1:** Calculate the expected return for each stock in the dataset.
+
+**Exercise 2:** Compute the variance and standard deviation for each stock.
+
+**Exercise 3:** Create a two-asset portfolio and calculate its expected return and risk.
+
+**Exercise 4:** Vary the portfolio weights and observe how risk changes.
+
+### Submission
+
+Submit your completed lab by the deadline posted on the schedule.
+

@@ -1,0 +1,19 @@
+---
+title: "Investments"
+---
+
+## Welcome to Investments
+
+This is the course website for the Investments class at OU.
+
+### Course Overview
+
+This course covers the fundamental principles of investment analysis and portfolio management.
+
+### Quick Links
+
+- [Schedule](schedule.qmd)
+- [Syllabus](syllabus.qmd)
+- [Lecture 1](lectures/lecture1/reading.qmd)
+- [Lecture 2](lectures/lecture2/reading.qmd)
+

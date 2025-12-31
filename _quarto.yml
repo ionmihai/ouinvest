@@ -1,0 +1,30 @@
+project:
+  type: website
+
+website:
+  title: "Investments"
+  sidebar:
+    style: "docked"
+    contents:
+      - schedule.qmd
+      - syllabus.qmd
+      - section: "Lectures"
+        contents:
+          - section: "Lecture 1"
+            contents:
+              - text: "Pre-class Reading"
+                href: lectures/lecture1/reading.qmd
+              - text: "Lab"
+                href: lectures/lecture1/lab.qmd
+          - section: "Lecture 2"
+            contents:
+              - text: "Pre-class Reading"
+                href: lectures/lecture2/reading.qmd
+              - text: "Lab"
+                href: lectures/lecture2/lab.qmd
+
+format:
+  html:
+    theme: cosmo
+    toc: true
+

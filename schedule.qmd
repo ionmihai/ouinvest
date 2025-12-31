@@ -1,0 +1,13 @@
+---
+title: "Schedule"
+---
+
+## Course Schedule
+
+| Week | Topic | Reading | Lab |
+|------|-------|---------|-----|
+| 1 | Introduction to Investments | Lecture 1 Pre-class | Lab 1 |
+| 2 | Risk and Return | Lecture 2 Pre-class | Lab 2 |
+
+*Schedule is subject to change.*
+

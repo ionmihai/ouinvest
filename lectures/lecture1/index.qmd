@@ -1,0 +1,19 @@
+---
+title: "Lecture 1: Introduction to Investments"
+---
+
+## Overview
+
+This lecture introduces the fundamental concepts of investments.
+
+## Topics Covered
+
+- What are investments?
+- Types of financial assets
+- The investment process
+
+## Materials
+
+- [Pre-class Reading](reading.qmd)
+- [Lab](lab.qmd)
+
