@@ -119,18 +119,109 @@
     "text": "In this lab, you will:\n\nCalculate expected returns for a portfolio\nMeasure portfolio risk using variance and standard deviation\nExplore the benefits of diversification\n\n\n\n\n\nUse the provided dataset with multiple stock returns\nComplete the calculations for each exercise\nInterpret your results\n\n\n\n\nExercise 1: Calculate the expected return for each stock in the dataset.\nExercise 2: Compute the variance and standard deviation for each stock.\nExercise 3: Create a two-asset portfolio and calculate its expected return and risk.\nExercise 4: Vary the portfolio weights and observe how risk changes.\n\n\n\nSubmit your completed lab by the deadline posted on the schedule."
   },
   {
-    "objectID": "lectures/lecture2/reading.html",
-    "href": "lectures/lecture2/reading.html",
+    "objectID": "lectures/lecture2/reading_template.html",
+    "href": "lectures/lecture2/reading_template.html",
     "title": "Lecture 2: Pre-class Reading",
     "section": "",
     "text": "Please complete the following reading before class:\n\nChapter 2: Risk and Return\nFocus on the mathematical foundations\n\n\n\n\n\nExpected Return: The probability-weighted average of possible returns.\nVariance: A measure of the dispersion of returns around the expected value.\nStandard Deviation: The square root of variance; a common measure of risk.\nDiversification: The strategy of reducing risk by investing in multiple assets.\n\n\n\n\nExpected Return: \\[E(R) = \\sum_{i=1}^{n} p_i \\cdot R_i\\]\nVariance: \\[\\sigma^2 = \\sum_{i=1}^{n} p_i \\cdot (R_i - E(R))^2\\]\n\n\n\n\nWhy is standard deviation a useful measure of risk?\nHow does diversification reduce portfolio risk?"
   },
   {
-    "objectID": "lectures/lecture2/reading.html#pre-class-reading",
-    "href": "lectures/lecture2/reading.html#pre-class-reading",
+    "objectID": "lectures/lecture2/reading_template.html#pre-class-reading",
+    "href": "lectures/lecture2/reading_template.html#pre-class-reading",
     "title": "Lecture 2: Pre-class Reading",
     "section": "",
     "text": "Please complete the following reading before class:\n\nChapter 2: Risk and Return\nFocus on the mathematical foundations\n\n\n\n\n\nExpected Return: The probability-weighted average of possible returns.\nVariance: A measure of the dispersion of returns around the expected value.\nStandard Deviation: The square root of variance; a common measure of risk.\nDiversification: The strategy of reducing risk by investing in multiple assets.\n\n\n\n\nExpected Return: \\[E(R) = \\sum_{i=1}^{n} p_i \\cdot R_i\\]\nVariance: \\[\\sigma^2 = \\sum_{i=1}^{n} p_i \\cdot (R_i - E(R))^2\\]\n\n\n\n\nWhy is standard deviation a useful measure of risk?\nHow does diversification reduce portfolio risk?"
+  },
+  {
+    "objectID": "lectures/lecture2/reading.html",
+    "href": "lectures/lecture2/reading.html",
+    "title": "Chapter 5: Risk, Return, and the Historical Record",
+    "section": "",
+    "text": "Investment decisions fundamentally involve a trade-off between risk and expected return. This chapter provides the essential tools for measuring both, drawing insights from historical data while acknowledging the limitations of using the past to forecast the future. The “black swan” problem—the possibility that future events may be worse (or better) than anything we’ve observed historically—should always temper our confidence in historical estimates."
+  },
+  {
+    "objectID": "lectures/lecture2/reading.html#real-vs.-nominal-interest-rates",
+    "href": "lectures/lecture2/reading.html#real-vs.-nominal-interest-rates",
+    "title": "Chapter 5: Risk, Return, and the Historical Record",
+    "section": "2.1 Real vs. Nominal Interest Rates",
+    "text": "2.1 Real vs. Nominal Interest Rates\nWhen we talk about interest rates, we need to distinguish between the nominal rate (the growth rate of your money) and the real rate (the growth rate of your purchasing power). If inflation erodes the value of money, your real return is less than your nominal return.\nThe approximate relationship is simple:\n\\[r_r \\approx r_n - i\\]\nwhere \\(r_r\\) is the real rate, \\(r_n\\) is the nominal rate, and \\(i\\) is the inflation rate.\nThe exact relationship is:\n\\[1 + r_r = \\frac{1 + r_n}{1 + i} \\quad \\Rightarrow \\quad r_r = \\frac{r_n - i}{1 + i}\\]\nThe approximation works well when inflation is low but overstates the real rate when inflation is high.\n\n\n\n\n\n\nThe Fisher Equation\n\n\n\nIrving Fisher argued that nominal rates should increase one-for-one with expected inflation: \\[r_n = r_r + E(i)\\] This implies that when real rates are stable, changes in nominal rates predict changes in inflation.\n\n\n\nExample: Real Rate CalculationSolution\n\n\nA 1-year CD offers a nominal rate of 8%. You expect inflation to be 5% over the coming year. What is your expected real rate of return using both the approximation and the exact formula?\n\n\nApproximation: \\[r_r \\approx 8\\% - 5\\% = 3\\%\\]\nExact formula: \\[r_r = \\frac{0.08 - 0.05}{1 + 0.05} = \\frac{0.03}{1.05} = 0.0286 = 2.86\\%\\]\nThe approximation overstates the real rate by 14 basis points (0.14%)."
+  },
+  {
+    "objectID": "lectures/lecture2/reading.html#what-determines-interest-rates",
+    "href": "lectures/lecture2/reading.html#what-determines-interest-rates",
+    "title": "Chapter 5: Risk, Return, and the Historical Record",
+    "section": "2.2 What Determines Interest Rates?",
+    "text": "2.2 What Determines Interest Rates?\nThe equilibrium real interest rate depends on three factors:\n\nSupply of funds from household savings (upward-sloping: higher rates encourage more saving)\nDemand for funds from businesses for capital investment (downward-sloping: lower rates make more projects viable)\nGovernment policy through fiscal deficits (shifting demand) and monetary policy (shifting supply)"
+  },
+  {
+    "objectID": "lectures/lecture2/reading.html#effective-annual-rate-ear-and-apr",
+    "href": "lectures/lecture2/reading.html#effective-annual-rate-ear-and-apr",
+    "title": "Chapter 5: Risk, Return, and the Historical Record",
+    "section": "3.1 Effective Annual Rate (EAR) and APR",
+    "text": "3.1 Effective Annual Rate (EAR) and APR\nWhen investments have different holding periods, we need a common basis for comparison. The Effective Annual Rate (EAR) tells us the equivalent annual return accounting for compounding.\nGiven a total return \\(r_f(T)\\) over a period of length \\(T\\) years:\n\\[1 + EAR = [1 + r_f(T)]^{1/T}\\]\nThe Annual Percentage Rate (APR) is simpler—it’s just the per-period rate multiplied by the number of periods per year, ignoring compounding:\n\\[APR = n \\times r_f(T) \\quad \\text{where } n = 1/T\\]\nThe relationship between EAR and APR:\n\\[1 + EAR = \\left(1 + \\frac{APR}{n}\\right)^n = (1 + T \\times APR)^{1/T}\\]\n\nExample: EAR vs. APRSolution\n\n\nA 6-month Treasury bill has a total return of 2.71%. Calculate the APR and EAR.\n\n\nAPR: With \\(T = 0.5\\) years, there are \\(n = 2\\) compounding periods per year: \\[APR = 2 \\times 2.71\\% = 5.42\\%\\]\nEAR: Compounding the 6-month return over two periods: \\[1 + EAR = (1.0271)^2 = 1.0549\\] \\[EAR = 5.49\\%\\]\nThe EAR exceeds the APR because it accounts for the compounding of returns."
+  },
+  {
+    "objectID": "lectures/lecture2/reading.html#continuous-compounding",
+    "href": "lectures/lecture2/reading.html#continuous-compounding",
+    "title": "Chapter 5: Risk, Return, and the Historical Record",
+    "section": "3.2 Continuous Compounding",
+    "text": "3.2 Continuous Compounding\nAs compounding becomes more frequent, we approach continuous compounding. The continuously compounded rate \\(r_{cc}\\) relates to EAR as:\n\\[1 + EAR = e^{r_{cc}}\\]\nTo convert: \\(r_{cc} = \\ln(1 + EAR)\\)\nA key advantage of continuous compounding: the relationship between real and nominal rates becomes exact: \\[r_{cc}^{real} = r_{cc}^{nominal} - i_{cc}\\]"
+  },
+  {
+    "objectID": "lectures/lecture2/reading.html#holding-period-return-hpr",
+    "href": "lectures/lecture2/reading.html#holding-period-return-hpr",
+    "title": "Chapter 5: Risk, Return, and the Historical Record",
+    "section": "4.1 Holding Period Return (HPR)",
+    "text": "4.1 Holding Period Return (HPR)\nThe holding period return captures both price appreciation and income:\n\\[HPR = \\frac{\\text{Ending Price} - \\text{Beginning Price} + \\text{Cash Dividend}}{\\text{Beginning Price}}\\]"
+  },
+  {
+    "objectID": "lectures/lecture2/reading.html#expected-return-and-standard-deviation",
+    "href": "lectures/lecture2/reading.html#expected-return-and-standard-deviation",
+    "title": "Chapter 5: Risk, Return, and the Historical Record",
+    "section": "4.2 Expected Return and Standard Deviation",
+    "text": "4.2 Expected Return and Standard Deviation\nGiven a set of scenarios with probabilities \\(p(s)\\) and returns \\(r(s)\\), the expected return is:\n\\[E(r) = \\sum_s p(s) \\cdot r(s)\\]\nThe variance measures the expected squared deviation from the mean:\n\\[\\sigma^2 = \\sum_s p(s) \\cdot [r(s) - E(r)]^2\\]\nThe standard deviation \\(\\sigma\\) is the square root of variance and is our primary measure of risk.\n\nExample: Portfolio Risk and ReturnSolution\n\n\nYou’re analyzing a stock index fund with the following scenario analysis:\n\n\n\nState\nProbability\nHPR\n\n\n\n\nExcellent\n0.25\n31%\n\n\nGood\n0.45\n14%\n\n\nPoor\n0.25\n-6.75%\n\n\nCrash\n0.05\n-52%\n\n\n\nCalculate the expected return and standard deviation.\n\n\nExpected Return: \\[E(r) = (0.25)(0.31) + (0.45)(0.14) + (0.25)(-0.0675) + (0.05)(-0.52)\\] \\[E(r) = 0.0775 + 0.063 - 0.0169 - 0.026 = 0.0976 = 9.76\\%\\]\nVariance: \\[\\sigma^2 = 0.25(0.31-0.0976)^2 + 0.45(0.14-0.0976)^2 + 0.25(-0.0675-0.0976)^2 + 0.05(-0.52-0.0976)^2\\] \\[\\sigma^2 = 0.25(0.0451) + 0.45(0.0018) + 0.25(0.0273) + 0.05(0.3815)\\] \\[\\sigma^2 = 0.0113 + 0.0008 + 0.0068 + 0.0191 = 0.0380\\]\nStandard Deviation: \\[\\sigma = \\sqrt{0.0380} = 0.1949 = 19.49\\%\\]"
+  },
+  {
+    "objectID": "lectures/lecture2/reading.html#risk-premium-and-sharpe-ratio",
+    "href": "lectures/lecture2/reading.html#risk-premium-and-sharpe-ratio",
+    "title": "Chapter 5: Risk, Return, and the Historical Record",
+    "section": "4.3 Risk Premium and Sharpe Ratio",
+    "text": "4.3 Risk Premium and Sharpe Ratio\nThe risk premium is the expected return above the risk-free rate: \\[\\text{Risk Premium} = E(r) - r_f\\]\nThe Sharpe ratio measures reward per unit of risk: \\[\\text{Sharpe Ratio} = \\frac{E(r) - r_f}{\\sigma}\\]\nThis is the single most important measure of portfolio performance. A higher Sharpe ratio indicates better risk-adjusted returns.\n\nExample: Sharpe RatioSolution\n\n\nUsing the portfolio from the previous example with \\(E(r) = 9.76\\%\\), \\(\\sigma = 19.49\\%\\), and assuming a risk-free rate of 4%, calculate the risk premium and Sharpe ratio.\n\n\nRisk Premium: \\[E(r) - r_f = 9.76\\% - 4\\% = 5.76\\%\\]\nSharpe Ratio: \\[SR = \\frac{5.76\\%}{19.49\\%} = 0.30\\]\nA Sharpe ratio of 0.30 is roughly in line with historical stock market performance."
+  },
+  {
+    "objectID": "lectures/lecture2/reading.html#arithmetic-vs.-geometric-average",
+    "href": "lectures/lecture2/reading.html#arithmetic-vs.-geometric-average",
+    "title": "Chapter 5: Risk, Return, and the Historical Record",
+    "section": "5.1 Arithmetic vs. Geometric Average",
+    "text": "5.1 Arithmetic vs. Geometric Average\nWhen analyzing historical returns, we encounter two types of averages:\nArithmetic average: Simply the mean of observed returns \\[\\bar{r} = \\frac{1}{n}\\sum_{t=1}^{n} r_t\\]\nGeometric average: The constant return that would produce the same terminal wealth \\[(1+g)^n = (1+r_1)(1+r_2)\\cdots(1+r_n)\\] \\[g = \\left[\\prod_{t=1}^{n}(1+r_t)\\right]^{1/n} - 1\\]\nThe arithmetic average is an unbiased estimator of expected future returns. The geometric average tells us actual historical performance.\nKey relationship: For normally distributed returns, \\[E[\\text{Geometric Average}] \\approx E[\\text{Arithmetic Average}] - \\frac{1}{2}\\sigma^2\\]\n\nExample: Arithmetic vs. Geometric AverageSolution\n\n\nA portfolio has the following annual returns: -22.10%, +28.69%, +10.88%, +4.91%. Calculate both averages.\n\n\nArithmetic Average: \\[\\bar{r} = \\frac{-0.2210 + 0.2869 + 0.1088 + 0.0491}{4} = \\frac{0.2238}{4} = 0.056 = 5.6\\%\\]\nGeometric Average: \\[(1+g)^4 = (0.7790)(1.2869)(1.1088)(1.0491) = 1.1667\\] \\[1+g = 1.1667^{0.25} = 1.0393\\] \\[g = 3.93\\%\\]\nThe geometric average is lower because negative returns have an asymmetric impact on wealth. After losing 22.10%, you need a 28.4% gain just to break even—not 22.10%."
+  },
+  {
+    "objectID": "lectures/lecture2/reading.html#why-normality-matters",
+    "href": "lectures/lecture2/reading.html#why-normality-matters",
+    "title": "Chapter 5: Risk, Return, and the Historical Record",
+    "section": "6.1 Why Normality Matters",
+    "text": "6.1 Why Normality Matters\nThe normal distribution is central to investment analysis because:\n\nSymmetry: Positive and negative deviations from the mean are equally likely\nStability: Portfolios of normally distributed assets are also normally distributed\nSimplicity: Only two parameters (mean and SD) fully describe the distribution\nDependence: Correlation alone captures the relationship between assets"
+  },
+  {
+    "objectID": "lectures/lecture2/reading.html#deviations-from-normality",
+    "href": "lectures/lecture2/reading.html#deviations-from-normality",
+    "title": "Chapter 5: Risk, Return, and the Historical Record",
+    "section": "6.2 Deviations from Normality",
+    "text": "6.2 Deviations from Normality\nReal returns often deviate from normality in important ways:\nSkewness measures asymmetry: \\[\\text{Skew} = \\text{Average}\\left[\\frac{(R-\\bar{R})^3}{\\hat{\\sigma}^3}\\right]\\]\n\nPositive skew: Long right tail (extreme positive outcomes more likely)\nNegative skew: Long left tail (extreme negative outcomes more likely—more concerning for investors)\n\nKurtosis measures “fat tails”: \\[\\text{Kurtosis} = \\text{Average}\\left[\\frac{(R-\\bar{R})^4}{\\hat{\\sigma}^4}\\right] - 3\\]\n\nKurtosis &gt; 0: Fatter tails than normal (more extreme events)\nKurtosis = 0: Normal distribution"
+  },
+  {
+    "objectID": "lectures/lecture2/reading.html#measuring-tail-risk",
+    "href": "lectures/lecture2/reading.html#measuring-tail-risk",
+    "title": "Chapter 5: Risk, Return, and the Historical Record",
+    "section": "6.3 Measuring Tail Risk",
+    "text": "6.3 Measuring Tail Risk\nWhen returns aren’t normal, standard deviation may understate risk. Alternative measures include:\nValue at Risk (VaR): The loss at a specified percentile (e.g., 5% VaR is the return at the 5th percentile—95% of outcomes are better). For a normal distribution: \\[VaR(5\\%) = \\text{Mean} - 1.65 \\times SD\\]\nExpected Shortfall (ES): The expected loss given that you’re in the tail. This is more informative than VaR because it considers the magnitude of extreme losses, not just their threshold.\nLower Partial Standard Deviation (LPSD): Standard deviation calculated using only negative excess returns. The ratio of risk premium to LPSD is called the Sortino ratio—a variant of the Sharpe ratio that focuses on downside risk.\n\nExample: VaR CalculationSolution\n\n\nA portfolio has an expected monthly return of 1% and standard deviation of 6%. What is the 5% VaR assuming normality? What is the probability of a negative return?\n\n\n5% VaR (assuming normality): \\[VaR(5\\%) = 1\\% - 1.65 \\times 6\\% = 1\\% - 9.9\\% = -8.9\\%\\]\nThere’s a 5% chance of losing more than 8.9% in a month.\nProbability of negative return: A negative return is 0 - 1% = -1%, which is \\(\\frac{-1\\%}{6\\%} = -0.167\\) standard deviations below the mean.\nUsing Excel: =NORMSDIST(-0.167) = 0.4338\nThere’s a 43.4% probability of a negative monthly return."
+  },
+  {
+    "objectID": "lectures/lecture2/reading.html#key-findings-from-u.s.-history-1926-2012",
+    "href": "lectures/lecture2/reading.html#key-findings-from-u.s.-history-1926-2012",
+    "title": "Chapter 5: Risk, Return, and the Historical Record",
+    "section": "7.1 Key Findings from U.S. History (1926-2012)",
+    "text": "7.1 Key Findings from U.S. History (1926-2012)\nThe historical record provides benchmarks for risk and return:\n\n\n\n\n\n\n\n\n\nAsset Class\nAverage Excess Return\nStandard Deviation\nSharpe Ratio\n\n\n\n\nAll U.S. Stocks (value-weighted)\n7.52%\n20.46%\n0.37\n\n\nBig/Value\n12.34%\n29.25%\n0.42\n\n\nBig/Growth\n10.98%\n20.79%\n0.53\n\n\nSmall/Value\n26.28%\n41.41%\n0.63\n\n\n\nKey observations:\n\nSmall stocks earned higher returns but with much higher volatility\nValue stocks (high book-to-market) outperformed growth stocks\nThe Sharpe ratio for broad market indices has been around 0.3-0.4\nReturns exhibit fat tails—extreme events are more common than the normal distribution predicts"
   },
   {
     "objectID": "lectures/lecture1/reading.html",

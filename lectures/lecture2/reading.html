@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Investments - Lecture 2: Pre-class Reading</title>
+<title>Investments - Chapter 5: Risk, Return, and the Historical Record</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -183,14 +183,41 @@ ul.task-list li input[type="checkbox"] {
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
-  <ul>
-  <li><a href="#pre-class-reading" id="toc-pre-class-reading" class="nav-link active" data-scroll-target="#pre-class-reading">Pre-class Reading</a>
   <ul class="collapse">
-  <li><a href="#required-reading" id="toc-required-reading" class="nav-link" data-scroll-target="#required-reading">Required Reading</a></li>
-  <li><a href="#key-concepts" id="toc-key-concepts" class="nav-link" data-scroll-target="#key-concepts">Key Concepts</a></li>
-  <li><a href="#formulas" id="toc-formulas" class="nav-link" data-scroll-target="#formulas">Formulas</a></li>
-  <li><a href="#discussion-questions" id="toc-discussion-questions" class="nav-link" data-scroll-target="#discussion-questions">Discussion Questions</a></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">1</span> Introduction</a></li>
+  <li><a href="#interest-rates-the-foundation" id="toc-interest-rates-the-foundation" class="nav-link" data-scroll-target="#interest-rates-the-foundation"><span class="header-section-number">2</span> Interest Rates: The Foundation</a>
+  <ul class="collapse">
+  <li><a href="#real-vs.-nominal-interest-rates" id="toc-real-vs.-nominal-interest-rates" class="nav-link" data-scroll-target="#real-vs.-nominal-interest-rates"><span class="header-section-number">2.1</span> Real vs.&nbsp;Nominal Interest Rates</a></li>
+  <li><a href="#what-determines-interest-rates" id="toc-what-determines-interest-rates" class="nav-link" data-scroll-target="#what-determines-interest-rates"><span class="header-section-number">2.2</span> What Determines Interest Rates?</a></li>
   </ul></li>
+  <li><a href="#comparing-returns-across-different-horizons" id="toc-comparing-returns-across-different-horizons" class="nav-link" data-scroll-target="#comparing-returns-across-different-horizons"><span class="header-section-number">3</span> Comparing Returns Across Different Horizons</a>
+  <ul class="collapse">
+  <li><a href="#effective-annual-rate-ear-and-apr" id="toc-effective-annual-rate-ear-and-apr" class="nav-link" data-scroll-target="#effective-annual-rate-ear-and-apr"><span class="header-section-number">3.1</span> Effective Annual Rate (EAR) and APR</a></li>
+  <li><a href="#continuous-compounding" id="toc-continuous-compounding" class="nav-link" data-scroll-target="#continuous-compounding"><span class="header-section-number">3.2</span> Continuous Compounding</a></li>
+  </ul></li>
+  <li><a href="#measuring-risk-and-return" id="toc-measuring-risk-and-return" class="nav-link" data-scroll-target="#measuring-risk-and-return"><span class="header-section-number">4</span> Measuring Risk and Return</a>
+  <ul class="collapse">
+  <li><a href="#holding-period-return-hpr" id="toc-holding-period-return-hpr" class="nav-link" data-scroll-target="#holding-period-return-hpr"><span class="header-section-number">4.1</span> Holding Period Return (HPR)</a></li>
+  <li><a href="#expected-return-and-standard-deviation" id="toc-expected-return-and-standard-deviation" class="nav-link" data-scroll-target="#expected-return-and-standard-deviation"><span class="header-section-number">4.2</span> Expected Return and Standard Deviation</a></li>
+  <li><a href="#risk-premium-and-sharpe-ratio" id="toc-risk-premium-and-sharpe-ratio" class="nav-link" data-scroll-target="#risk-premium-and-sharpe-ratio"><span class="header-section-number">4.3</span> Risk Premium and Sharpe Ratio</a></li>
+  </ul></li>
+  <li><a href="#time-series-analysis" id="toc-time-series-analysis" class="nav-link" data-scroll-target="#time-series-analysis"><span class="header-section-number">5</span> Time Series Analysis</a>
+  <ul class="collapse">
+  <li><a href="#arithmetic-vs.-geometric-average" id="toc-arithmetic-vs.-geometric-average" class="nav-link" data-scroll-target="#arithmetic-vs.-geometric-average"><span class="header-section-number">5.1</span> Arithmetic vs.&nbsp;Geometric Average</a></li>
+  </ul></li>
+  <li><a href="#the-normal-distribution-and-deviations-from-it" id="toc-the-normal-distribution-and-deviations-from-it" class="nav-link" data-scroll-target="#the-normal-distribution-and-deviations-from-it"><span class="header-section-number">6</span> The Normal Distribution and Deviations from It</a>
+  <ul class="collapse">
+  <li><a href="#why-normality-matters" id="toc-why-normality-matters" class="nav-link" data-scroll-target="#why-normality-matters"><span class="header-section-number">6.1</span> Why Normality Matters</a></li>
+  <li><a href="#deviations-from-normality" id="toc-deviations-from-normality" class="nav-link" data-scroll-target="#deviations-from-normality"><span class="header-section-number">6.2</span> Deviations from Normality</a></li>
+  <li><a href="#measuring-tail-risk" id="toc-measuring-tail-risk" class="nav-link" data-scroll-target="#measuring-tail-risk"><span class="header-section-number">6.3</span> Measuring Tail Risk</a></li>
+  </ul></li>
+  <li><a href="#historical-evidence" id="toc-historical-evidence" class="nav-link" data-scroll-target="#historical-evidence"><span class="header-section-number">7</span> Historical Evidence</a>
+  <ul class="collapse">
+  <li><a href="#key-findings-from-u.s.-history-1926-2012" id="toc-key-findings-from-u.s.-history-1926-2012" class="nav-link" data-scroll-target="#key-findings-from-u.s.-history-1926-2012"><span class="header-section-number">7.1</span> Key Findings from U.S. History (1926-2012)</a></li>
+  </ul></li>
+  <li><a href="#long-term-investments-a-word-of-caution" id="toc-long-term-investments-a-word-of-caution" class="nav-link" data-scroll-target="#long-term-investments-a-word-of-caution"><span class="header-section-number">8</span> Long-Term Investments: A Word of Caution</a></li>
+  <li><a href="#key-formulas-summary" id="toc-key-formulas-summary" class="nav-link" data-scroll-target="#key-formulas-summary"><span class="header-section-number">9</span> Key Formulas Summary</a></li>
+  <li><a href="#practice-problems" id="toc-practice-problems" class="nav-link" data-scroll-target="#practice-problems"><span class="header-section-number">10</span> Practice Problems</a></li>
   </ul>
 </nav>
     </div>
@@ -199,7 +226,8 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Lecture 2: Pre-class Reading</h1>
+<h1 class="title">Chapter 5: Risk, Return, and the Historical Record</h1>
+<p class="subtitle lead">A Pre-Class Reading Summary</p>
 </div>
 
 
@@ -214,39 +242,415 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<section id="pre-class-reading" class="level2">
-<h2 class="anchored" data-anchor-id="pre-class-reading">Pre-class Reading</h2>
-<section id="required-reading" class="level3">
-<h3 class="anchored" data-anchor-id="required-reading">Required Reading</h3>
-<p>Please complete the following reading before class:</p>
+<section id="introduction" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Introduction</h1>
+<p>Investment decisions fundamentally involve a trade-off between risk and expected return. This chapter provides the essential tools for measuring both, drawing insights from historical data while acknowledging the limitations of using the past to forecast the future. The “black swan” problem—the possibility that future events may be worse (or better) than anything we’ve observed historically—should always temper our confidence in historical estimates.</p>
+</section>
+<section id="interest-rates-the-foundation" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Interest Rates: The Foundation</h1>
+<section id="real-vs.-nominal-interest-rates" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="real-vs.-nominal-interest-rates"><span class="header-section-number">2.1</span> Real vs.&nbsp;Nominal Interest Rates</h2>
+<p>When we talk about interest rates, we need to distinguish between the <strong>nominal rate</strong> (the growth rate of your money) and the <strong>real rate</strong> (the growth rate of your purchasing power). If inflation erodes the value of money, your real return is less than your nominal return.</p>
+<p>The approximate relationship is simple:</p>
+<p><span class="math display">\[r_r \approx r_n - i\]</span></p>
+<p>where <span class="math inline">\(r_r\)</span> is the real rate, <span class="math inline">\(r_n\)</span> is the nominal rate, and <span class="math inline">\(i\)</span> is the inflation rate.</p>
+<p>The exact relationship is:</p>
+<p><span class="math display">\[1 + r_r = \frac{1 + r_n}{1 + i} \quad \Rightarrow \quad r_r = \frac{r_n - i}{1 + i}\]</span></p>
+<p>The approximation works well when inflation is low but overstates the real rate when inflation is high.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+The Fisher Equation
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Irving Fisher argued that nominal rates should increase one-for-one with expected inflation: <span class="math display">\[r_n = r_r + E(i)\]</span> This implies that when real rates are stable, changes in nominal rates predict changes in inflation.</p>
+</div>
+</div>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" aria-current="page">Example: Real Rate Calculation</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Solution</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<p>A 1-year CD offers a nominal rate of 8%. You expect inflation to be 5% over the coming year. What is your expected real rate of return using both the approximation and the exact formula?</p>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<p><strong>Approximation:</strong> <span class="math display">\[r_r \approx 8\% - 5\% = 3\%\]</span></p>
+<p><strong>Exact formula:</strong> <span class="math display">\[r_r = \frac{0.08 - 0.05}{1 + 0.05} = \frac{0.03}{1.05} = 0.0286 = 2.86\%\]</span></p>
+<p>The approximation overstates the real rate by 14 basis points (0.14%).</p>
+</div>
+</div>
+</div>
+</section>
+<section id="what-determines-interest-rates" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="what-determines-interest-rates"><span class="header-section-number">2.2</span> What Determines Interest Rates?</h2>
+<p>The equilibrium real interest rate depends on three factors:</p>
 <ul>
-<li>Chapter 2: Risk and Return</li>
-<li>Focus on the mathematical foundations</li>
+<li><strong>Supply of funds</strong> from household savings (upward-sloping: higher rates encourage more saving)</li>
+<li><strong>Demand for funds</strong> from businesses for capital investment (downward-sloping: lower rates make more projects viable)</li>
+<li><strong>Government policy</strong> through fiscal deficits (shifting demand) and monetary policy (shifting supply)</li>
 </ul>
 </section>
-<section id="key-concepts" class="level3">
-<h3 class="anchored" data-anchor-id="key-concepts">Key Concepts</h3>
+</section>
+<section id="comparing-returns-across-different-horizons" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Comparing Returns Across Different Horizons</h1>
+<section id="effective-annual-rate-ear-and-apr" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="effective-annual-rate-ear-and-apr"><span class="header-section-number">3.1</span> Effective Annual Rate (EAR) and APR</h2>
+<p>When investments have different holding periods, we need a common basis for comparison. The <strong>Effective Annual Rate (EAR)</strong> tells us the equivalent annual return accounting for compounding.</p>
+<p>Given a total return <span class="math inline">\(r_f(T)\)</span> over a period of length <span class="math inline">\(T\)</span> years:</p>
+<p><span class="math display">\[1 + EAR = [1 + r_f(T)]^{1/T}\]</span></p>
+<p>The <strong>Annual Percentage Rate (APR)</strong> is simpler—it’s just the per-period rate multiplied by the number of periods per year, ignoring compounding:</p>
+<p><span class="math display">\[APR = n \times r_f(T) \quad \text{where } n = 1/T\]</span></p>
+<p>The relationship between EAR and APR:</p>
+<p><span class="math display">\[1 + EAR = \left(1 + \frac{APR}{n}\right)^n = (1 + T \times APR)^{1/T}\]</span></p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">Example: EAR vs.&nbsp;APR</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Solution</a></li></ul>
+<div class="tab-content">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
+<p>A 6-month Treasury bill has a total return of 2.71%. Calculate the APR and EAR.</p>
+</div>
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
+<p><strong>APR:</strong> With <span class="math inline">\(T = 0.5\)</span> years, there are <span class="math inline">\(n = 2\)</span> compounding periods per year: <span class="math display">\[APR = 2 \times 2.71\% = 5.42\%\]</span></p>
+<p><strong>EAR:</strong> Compounding the 6-month return over two periods: <span class="math display">\[1 + EAR = (1.0271)^2 = 1.0549\]</span> <span class="math display">\[EAR = 5.49\%\]</span></p>
+<p>The EAR exceeds the APR because it accounts for the compounding of returns.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="continuous-compounding" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="continuous-compounding"><span class="header-section-number">3.2</span> Continuous Compounding</h2>
+<p>As compounding becomes more frequent, we approach <strong>continuous compounding</strong>. The continuously compounded rate <span class="math inline">\(r_{cc}\)</span> relates to EAR as:</p>
+<p><span class="math display">\[1 + EAR = e^{r_{cc}}\]</span></p>
+<p>To convert: <span class="math inline">\(r_{cc} = \ln(1 + EAR)\)</span></p>
+<p>A key advantage of continuous compounding: the relationship between real and nominal rates becomes exact: <span class="math display">\[r_{cc}^{real} = r_{cc}^{nominal} - i_{cc}\]</span></p>
+</section>
+</section>
+<section id="measuring-risk-and-return" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Measuring Risk and Return</h1>
+<section id="holding-period-return-hpr" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="holding-period-return-hpr"><span class="header-section-number">4.1</span> Holding Period Return (HPR)</h2>
+<p>The holding period return captures both price appreciation and income:</p>
+<p><span class="math display">\[HPR = \frac{\text{Ending Price} - \text{Beginning Price} + \text{Cash Dividend}}{\text{Beginning Price}}\]</span></p>
+</section>
+<section id="expected-return-and-standard-deviation" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="expected-return-and-standard-deviation"><span class="header-section-number">4.2</span> Expected Return and Standard Deviation</h2>
+<p>Given a set of scenarios with probabilities <span class="math inline">\(p(s)\)</span> and returns <span class="math inline">\(r(s)\)</span>, the expected return is:</p>
+<p><span class="math display">\[E(r) = \sum_s p(s) \cdot r(s)\]</span></p>
+<p>The variance measures the expected squared deviation from the mean:</p>
+<p><span class="math display">\[\sigma^2 = \sum_s p(s) \cdot [r(s) - E(r)]^2\]</span></p>
+<p>The <strong>standard deviation</strong> <span class="math inline">\(\sigma\)</span> is the square root of variance and is our primary measure of risk.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">Example: Portfolio Risk and Return</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">Solution</a></li></ul>
+<div class="tab-content">
+<div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
+<p>You’re analyzing a stock index fund with the following scenario analysis:</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>State</th>
+<th>Probability</th>
+<th>HPR</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Excellent</td>
+<td>0.25</td>
+<td>31%</td>
+</tr>
+<tr class="even">
+<td>Good</td>
+<td>0.45</td>
+<td>14%</td>
+</tr>
+<tr class="odd">
+<td>Poor</td>
+<td>0.25</td>
+<td>-6.75%</td>
+</tr>
+<tr class="even">
+<td>Crash</td>
+<td>0.05</td>
+<td>-52%</td>
+</tr>
+</tbody>
+</table>
+<p>Calculate the expected return and standard deviation.</p>
+</div>
+<div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
+<p><strong>Expected Return:</strong> <span class="math display">\[E(r) = (0.25)(0.31) + (0.45)(0.14) + (0.25)(-0.0675) + (0.05)(-0.52)\]</span> <span class="math display">\[E(r) = 0.0775 + 0.063 - 0.0169 - 0.026 = 0.0976 = 9.76\%\]</span></p>
+<p><strong>Variance:</strong> <span class="math display">\[\sigma^2 = 0.25(0.31-0.0976)^2 + 0.45(0.14-0.0976)^2 + 0.25(-0.0675-0.0976)^2 + 0.05(-0.52-0.0976)^2\]</span> <span class="math display">\[\sigma^2 = 0.25(0.0451) + 0.45(0.0018) + 0.25(0.0273) + 0.05(0.3815)\]</span> <span class="math display">\[\sigma^2 = 0.0113 + 0.0008 + 0.0068 + 0.0191 = 0.0380\]</span></p>
+<p><strong>Standard Deviation:</strong> <span class="math display">\[\sigma = \sqrt{0.0380} = 0.1949 = 19.49\%\]</span></p>
+</div>
+</div>
+</div>
+</section>
+<section id="risk-premium-and-sharpe-ratio" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="risk-premium-and-sharpe-ratio"><span class="header-section-number">4.3</span> Risk Premium and Sharpe Ratio</h2>
+<p>The <strong>risk premium</strong> is the expected return above the risk-free rate: <span class="math display">\[\text{Risk Premium} = E(r) - r_f\]</span></p>
+<p>The <strong>Sharpe ratio</strong> measures reward per unit of risk: <span class="math display">\[\text{Sharpe Ratio} = \frac{E(r) - r_f}{\sigma}\]</span></p>
+<p>This is the single most important measure of portfolio performance. A higher Sharpe ratio indicates better risk-adjusted returns.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true">Example: Sharpe Ratio</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false">Solution</a></li></ul>
+<div class="tab-content">
+<div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
+<p>Using the portfolio from the previous example with <span class="math inline">\(E(r) = 9.76\%\)</span>, <span class="math inline">\(\sigma = 19.49\%\)</span>, and assuming a risk-free rate of 4%, calculate the risk premium and Sharpe ratio.</p>
+</div>
+<div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
+<p><strong>Risk Premium:</strong> <span class="math display">\[E(r) - r_f = 9.76\% - 4\% = 5.76\%\]</span></p>
+<p><strong>Sharpe Ratio:</strong> <span class="math display">\[SR = \frac{5.76\%}{19.49\%} = 0.30\]</span></p>
+<p>A Sharpe ratio of 0.30 is roughly in line with historical stock market performance.</p>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="time-series-analysis" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Time Series Analysis</h1>
+<section id="arithmetic-vs.-geometric-average" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="arithmetic-vs.-geometric-average"><span class="header-section-number">5.1</span> Arithmetic vs.&nbsp;Geometric Average</h2>
+<p>When analyzing historical returns, we encounter two types of averages:</p>
+<p><strong>Arithmetic average:</strong> Simply the mean of observed returns <span class="math display">\[\bar{r} = \frac{1}{n}\sum_{t=1}^{n} r_t\]</span></p>
+<p><strong>Geometric average:</strong> The constant return that would produce the same terminal wealth <span class="math display">\[(1+g)^n = (1+r_1)(1+r_2)\cdots(1+r_n)\]</span> <span class="math display">\[g = \left[\prod_{t=1}^{n}(1+r_t)\right]^{1/n} - 1\]</span></p>
+<p>The arithmetic average is an unbiased estimator of expected future returns. The geometric average tells us actual historical performance.</p>
+<p><strong>Key relationship:</strong> For normally distributed returns, <span class="math display">\[E[\text{Geometric Average}] \approx E[\text{Arithmetic Average}] - \frac{1}{2}\sigma^2\]</span></p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-5-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-1" role="tab" aria-controls="tabset-5-1" aria-selected="true">Example: Arithmetic vs.&nbsp;Geometric Average</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-5-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-2" role="tab" aria-controls="tabset-5-2" aria-selected="false">Solution</a></li></ul>
+<div class="tab-content">
+<div id="tabset-5-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-5-1-tab">
+<p>A portfolio has the following annual returns: -22.10%, +28.69%, +10.88%, +4.91%. Calculate both averages.</p>
+</div>
+<div id="tabset-5-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-5-2-tab">
+<p><strong>Arithmetic Average:</strong> <span class="math display">\[\bar{r} = \frac{-0.2210 + 0.2869 + 0.1088 + 0.0491}{4} = \frac{0.2238}{4} = 0.056 = 5.6\%\]</span></p>
+<p><strong>Geometric Average:</strong> <span class="math display">\[(1+g)^4 = (0.7790)(1.2869)(1.1088)(1.0491) = 1.1667\]</span> <span class="math display">\[1+g = 1.1667^{0.25} = 1.0393\]</span> <span class="math display">\[g = 3.93\%\]</span></p>
+<p>The geometric average is lower because negative returns have an asymmetric impact on wealth. After losing 22.10%, you need a 28.4% gain just to break even—not 22.10%.</p>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="the-normal-distribution-and-deviations-from-it" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> The Normal Distribution and Deviations from It</h1>
+<section id="why-normality-matters" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="why-normality-matters"><span class="header-section-number">6.1</span> Why Normality Matters</h2>
+<p>The normal distribution is central to investment analysis because:</p>
 <ol type="1">
-<li><p><strong>Expected Return</strong>: The probability-weighted average of possible returns.</p></li>
-<li><p><strong>Variance</strong>: A measure of the dispersion of returns around the expected value.</p></li>
-<li><p><strong>Standard Deviation</strong>: The square root of variance; a common measure of risk.</p></li>
-<li><p><strong>Diversification</strong>: The strategy of reducing risk by investing in multiple assets.</p></li>
+<li><strong>Symmetry:</strong> Positive and negative deviations from the mean are equally likely</li>
+<li><strong>Stability:</strong> Portfolios of normally distributed assets are also normally distributed</li>
+<li><strong>Simplicity:</strong> Only two parameters (mean and SD) fully describe the distribution</li>
+<li><strong>Dependence:</strong> Correlation alone captures the relationship between assets</li>
 </ol>
 </section>
-<section id="formulas" class="level3">
-<h3 class="anchored" data-anchor-id="formulas">Formulas</h3>
-<p>Expected Return: <span class="math display">\[E(R) = \sum_{i=1}^{n} p_i \cdot R_i\]</span></p>
-<p>Variance: <span class="math display">\[\sigma^2 = \sum_{i=1}^{n} p_i \cdot (R_i - E(R))^2\]</span></p>
+<section id="deviations-from-normality" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="deviations-from-normality"><span class="header-section-number">6.2</span> Deviations from Normality</h2>
+<p>Real returns often deviate from normality in important ways:</p>
+<p><strong>Skewness</strong> measures asymmetry: <span class="math display">\[\text{Skew} = \text{Average}\left[\frac{(R-\bar{R})^3}{\hat{\sigma}^3}\right]\]</span></p>
+<ul>
+<li>Positive skew: Long right tail (extreme positive outcomes more likely)</li>
+<li>Negative skew: Long left tail (extreme negative outcomes more likely—more concerning for investors)</li>
+</ul>
+<p><strong>Kurtosis</strong> measures “fat tails”: <span class="math display">\[\text{Kurtosis} = \text{Average}\left[\frac{(R-\bar{R})^4}{\hat{\sigma}^4}\right] - 3\]</span></p>
+<ul>
+<li>Kurtosis &gt; 0: Fatter tails than normal (more extreme events)</li>
+<li>Kurtosis = 0: Normal distribution</li>
+</ul>
 </section>
-<section id="discussion-questions" class="level3">
-<h3 class="anchored" data-anchor-id="discussion-questions">Discussion Questions</h3>
-<ol type="1">
-<li>Why is standard deviation a useful measure of risk?</li>
-<li>How does diversification reduce portfolio risk?</li>
-</ol>
+<section id="measuring-tail-risk" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="measuring-tail-risk"><span class="header-section-number">6.3</span> Measuring Tail Risk</h2>
+<p>When returns aren’t normal, standard deviation may understate risk. Alternative measures include:</p>
+<p><strong>Value at Risk (VaR):</strong> The loss at a specified percentile (e.g., 5% VaR is the return at the 5th percentile—95% of outcomes are better). For a normal distribution: <span class="math display">\[VaR(5\%) = \text{Mean} - 1.65 \times SD\]</span></p>
+<p><strong>Expected Shortfall (ES):</strong> The expected loss given that you’re in the tail. This is more informative than VaR because it considers the magnitude of extreme losses, not just their threshold.</p>
+<p><strong>Lower Partial Standard Deviation (LPSD):</strong> Standard deviation calculated using only negative excess returns. The ratio of risk premium to LPSD is called the <strong>Sortino ratio</strong>—a variant of the Sharpe ratio that focuses on downside risk.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-6-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-1" role="tab" aria-controls="tabset-6-1" aria-selected="true">Example: VaR Calculation</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-6-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-2" role="tab" aria-controls="tabset-6-2" aria-selected="false">Solution</a></li></ul>
+<div class="tab-content">
+<div id="tabset-6-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-6-1-tab">
+<p>A portfolio has an expected monthly return of 1% and standard deviation of 6%. What is the 5% VaR assuming normality? What is the probability of a negative return?</p>
+</div>
+<div id="tabset-6-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-6-2-tab">
+<p><strong>5% VaR (assuming normality):</strong> <span class="math display">\[VaR(5\%) = 1\% - 1.65 \times 6\% = 1\% - 9.9\% = -8.9\%\]</span></p>
+<p>There’s a 5% chance of losing more than 8.9% in a month.</p>
+<p><strong>Probability of negative return:</strong> A negative return is 0 - 1% = -1%, which is <span class="math inline">\(\frac{-1\%}{6\%} = -0.167\)</span> standard deviations below the mean.</p>
+<p>Using Excel: =NORMSDIST(-0.167) = 0.4338</p>
+<p>There’s a 43.4% probability of a negative monthly return.</p>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="historical-evidence" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Historical Evidence</h1>
+<section id="key-findings-from-u.s.-history-1926-2012" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="key-findings-from-u.s.-history-1926-2012"><span class="header-section-number">7.1</span> Key Findings from U.S. History (1926-2012)</h2>
+<p>The historical record provides benchmarks for risk and return:</p>
+<table class="table">
+<colgroup>
+<col style="width: 19%">
+<col style="width: 32%">
+<col style="width: 27%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Asset Class</th>
+<th>Average Excess Return</th>
+<th>Standard Deviation</th>
+<th>Sharpe Ratio</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>All U.S. Stocks (value-weighted)</td>
+<td>7.52%</td>
+<td>20.46%</td>
+<td>0.37</td>
+</tr>
+<tr class="even">
+<td>Big/Value</td>
+<td>12.34%</td>
+<td>29.25%</td>
+<td>0.42</td>
+</tr>
+<tr class="odd">
+<td>Big/Growth</td>
+<td>10.98%</td>
+<td>20.79%</td>
+<td>0.53</td>
+</tr>
+<tr class="even">
+<td>Small/Value</td>
+<td>26.28%</td>
+<td>41.41%</td>
+<td>0.63</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Key observations:</strong></p>
+<ul>
+<li>Small stocks earned higher returns but with much higher volatility</li>
+<li>Value stocks (high book-to-market) outperformed growth stocks</li>
+<li>The Sharpe ratio for broad market indices has been around 0.3-0.4</li>
+<li>Returns exhibit fat tails—extreme events are more common than the normal distribution predicts</li>
+</ul>
+</section>
+</section>
+<section id="long-term-investments-a-word-of-caution" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> Long-Term Investments: A Word of Caution</h1>
+<p>A common misconception is that stocks become “safer” over longer horizons because the probability of underperforming T-bills declines. While true, this reasoning is flawed because it ignores the <strong>magnitude</strong> of potential losses.</p>
+<p>As your horizon extends:</p>
+<ul>
+<li>Expected cumulative return grows proportionally with time</li>
+<li>Standard deviation of cumulative return grows with the square root of time</li>
+<li>The Sharpe ratio of cumulative returns increases with <span class="math inline">\(\sqrt{T}\)</span></li>
+</ul>
+<p>However, worst-case outcomes become increasingly severe. The cost of insuring a portfolio against shortfall actually <em>increases</em> with the investment horizon—the opposite of what we’d expect if stocks were truly safer in the long run.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+The Black Swan Problem
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>No matter how long our historical record, we cannot rule out future events worse than anything previously observed. This is especially concerning for long-term investments where compounding can magnify both gains and losses.</p>
+</div>
+</div>
+</section>
+<section id="key-formulas-summary" class="level1" data-number="9">
+<h1 data-number="9"><span class="header-section-number">9</span> Key Formulas Summary</h1>
+<table class="table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Concept</th>
+<th>Formula</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Real rate (exact)</td>
+<td><span class="math inline">\(r_r = \frac{r_n - i}{1 + i}\)</span></td>
+</tr>
+<tr class="even">
+<td>EAR from total return</td>
+<td><span class="math inline">\(1 + EAR = [1 + r_f(T)]^{1/T}\)</span></td>
+</tr>
+<tr class="odd">
+<td>Continuous compounding</td>
+<td><span class="math inline">\(r_{cc} = \ln(1 + EAR)\)</span></td>
+</tr>
+<tr class="even">
+<td>Expected return</td>
+<td><span class="math inline">\(E(r) = \sum p(s) \cdot r(s)\)</span></td>
+</tr>
+<tr class="odd">
+<td>Variance</td>
+<td><span class="math inline">\(\sigma^2 = \sum p(s) \cdot [r(s) - E(r)]^2\)</span></td>
+</tr>
+<tr class="even">
+<td>Sharpe ratio</td>
+<td><span class="math inline">\(SR = \frac{E(r) - r_f}{\sigma}\)</span></td>
+</tr>
+<tr class="odd">
+<td>VaR (5%, normal)</td>
+<td><span class="math inline">\(VaR = Mean - 1.65 \times SD\)</span></td>
+</tr>
+<tr class="even">
+<td>Geometric vs.&nbsp;arithmetic</td>
+<td><span class="math inline">\(E[g] \approx E[\bar{r}] - \frac{1}{2}\sigma^2\)</span></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="practice-problems" class="level1" data-number="10">
+<h1 data-number="10"><span class="header-section-number">10</span> Practice Problems</h1>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-7-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-1" role="tab" aria-controls="tabset-7-1" aria-selected="true">Problem 1</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-7-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-2" role="tab" aria-controls="tabset-7-2" aria-selected="false">Solution 1</a></li></ul>
+<div class="tab-content">
+<div id="tabset-7-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-7-1-tab">
+<p>The nominal interest rate is 7% and expected inflation is 4%. Calculate the exact real interest rate and compare it to the approximation.</p>
+</div>
+<div id="tabset-7-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-7-2-tab">
+<p><strong>Approximation:</strong> <span class="math inline">\(r_r \approx 7\% - 4\% = 3\%\)</span></p>
+<p><strong>Exact:</strong> <span class="math inline">\(r_r = \frac{0.07 - 0.04}{1.04} = \frac{0.03}{1.04} = 2.88\%\)</span></p>
+<p>The approximation overstates the real rate by 12 basis points.</p>
+</div>
+</div>
+</div>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-8-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-1" role="tab" aria-controls="tabset-8-1" aria-selected="true">Problem 2</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-8-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-2" role="tab" aria-controls="tabset-8-2" aria-selected="false">Solution 2</a></li></ul>
+<div class="tab-content">
+<div id="tabset-8-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-8-1-tab">
+<p>A 3-month T-bill offers a total return of 1.5%. What is the EAR and APR?</p>
+</div>
+<div id="tabset-8-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-8-2-tab">
+<p><strong>APR:</strong> <span class="math inline">\(4 \times 1.5\% = 6\%\)</span></p>
+<p><strong>EAR:</strong> <span class="math inline">\((1.015)^4 - 1 = 1.0614 - 1 = 6.14\%\)</span></p>
+</div>
+</div>
+</div>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-9-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-9-1" role="tab" aria-controls="tabset-9-1" aria-selected="true">Problem 3</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-9-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-9-2" role="tab" aria-controls="tabset-9-2" aria-selected="false">Solution 3</a></li></ul>
+<div class="tab-content">
+<div id="tabset-9-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-9-1-tab">
+<p>A risky portfolio has an expected return of 12%, standard deviation of 25%, and the risk-free rate is 3%. What is the Sharpe ratio? If the portfolio also has a lower partial standard deviation (LPSD) of 30%, what is the Sortino ratio?</p>
+</div>
+<div id="tabset-9-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-9-2-tab">
+<p><strong>Sharpe Ratio:</strong> <span class="math inline">\(\frac{12\% - 3\%}{25\%} = \frac{9\%}{25\%} = 0.36\)</span></p>
+<p><strong>Sortino Ratio:</strong> <span class="math inline">\(\frac{12\% - 3\%}{30\%} = \frac{9\%}{30\%} = 0.30\)</span></p>
+<p>The Sortino ratio is lower, reflecting greater downside volatility.</p>
+</div>
+</div>
+</div>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
