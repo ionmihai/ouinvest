@@ -1,0 +1,510 @@
+---
+title: "Portfolio Returns and Risk"
+format: html
+---
+
+## Introduction
+
+When you own a single stock, understanding its risk and return is relatively straightforward—you simply examine that stock's historical performance and volatility. But the moment you hold two or more assets, something fundamentally changes. Your portfolio becomes more than the sum of its parts, and the interactions between assets create outcomes that can be surprising and, when properly managed, beneficial.
+
+This lecture introduces the mathematical framework for understanding how portfolios behave. We begin with a simple but crucial insight: a portfolio's return is determined by two things—what you own and how much of each thing you own. These "how much" quantities are called portfolio weights, and they are the foundation of everything that follows. From there, we develop the tools to calculate both the expected return and the risk of any portfolio, no matter how many assets it contains.
+
+The key revelation of portfolio theory is that risk does not combine the way returns do. While a portfolio's expected return is simply a weighted average of its components' expected returns, portfolio risk depends critically on how assets move together. Two stocks that tend to zig when each other zags can combine to create a portfolio that is less volatile than either stock alone. This insight—that diversification can reduce risk without sacrificing expected return—is one of the most important ideas in all of finance.
+
+By the end of this lecture, you will be able to calculate portfolio returns over any holding period, estimate expected returns and total risk for portfolios of any size, and understand why the covariance between assets is the crucial ingredient that makes diversification work.
+
+## Portfolio Weights and Realized Returns
+
+Every portfolio can be completely described by answering two questions: What assets are in the portfolio? And what fraction of the portfolio's value does each asset represent? These fractions are called portfolio weights, and they are the starting point for all portfolio calculations.
+
+Consider a portfolio containing $N$ assets. Let $M_i$ represent the market value of asset $i$ at the beginning of some measurement period—this is simply the price per share multiplied by the number of shares held. The weight of asset $i$ in the portfolio is defined as:
+
+$$w_i = \frac{M_i}{M_1 + M_2 + \cdots + M_N}$$
+
+where $w_i$ is the weight of asset $i$, $M_i$ is the market value of asset $i$, and the denominator is the total portfolio value. Notice that weights must always sum to one: if you add up every asset's fraction of the total, you get the whole portfolio.
+
+Once we know the weights, calculating the portfolio's return over a period becomes straightforward. If asset $i$ earns a return of $R_i$ during the period, the portfolio return is:
+
+$$R_P = w_1 R_1 + w_2 R_2 + \cdots + w_N R_N = \sum_{i=1}^{N} w_i R_i$$
+
+where $R_P$ is the portfolio return, $w_i$ is the weight of asset $i$, and $R_i$ is the return of asset $i$. This formula tells us that the portfolio return is a weighted average of the individual asset returns. An asset that represents 60% of your portfolio contributes 60% of its return to the portfolio return, while an asset representing only 10% contributes proportionally less.
+
+One subtlety deserves attention: weights change over time as asset prices change. After one period of returns, the market values of your holdings will have shifted, and with them the weights. If one stock doubles while another stays flat, the first stock now represents a larger fraction of your portfolio. This means that calculating multi-period returns requires updating weights at the end of each period before computing the next period's return.
+
+**Example 1**
+
+*Suppose today Meta (META) is selling for \$200 per share and Netflix (NFLX) is selling for \$400 per share. You buy two shares of META and one share of NFLX. Over the next month, META has a return of 10% and NFLX has a return of 20%. The month after that, META has a return of -10% and NFLX has a return of -20%. What will be the return of the portfolio over each month? What will the return of your portfolio be over this entire two-month period?*
+
+::: {.callout-note collapse="true" title="Solution"}
+
+**Step 1: Calculate initial portfolio values and weights**
+
+At the start of Month 1:
+
+- META: 2 shares × \$200 = \$400
+- NFLX: 1 share × \$400 = \$400
+- Total portfolio value: \$800
+
+Initial weights:
+
+- $w_{META} = \$400 / \$800 = 0.50$ (50%)
+- $w_{NFLX} = \$400 / \$800 = 0.50$ (50%)
+
+**Step 2: Calculate Month 1 return**
+
+$$R_{P,1} = w_{META} \times R_{META} + w_{NFLX} \times R_{NFLX}$$
+$$R_{P,1} = 0.50 \times 10\% + 0.50 \times 20\% = 5\% + 10\% = 15\%$$
+
+**Step 3: Calculate new portfolio values and weights for Month 2**
+
+At the end of Month 1 (start of Month 2):
+
+- META value: \$400 × (1 + 0.10) = \$440
+- NFLX value: \$400 × (1 + 0.20) = \$480
+- Total portfolio value: \$920
+
+New weights:
+
+- $w_{META} = \$440 / \$920 = 0.478$ (47.8%)
+- $w_{NFLX} = \$480 / \$920 = 0.522$ (52.2%)
+
+**Step 4: Calculate Month 2 return using new weights**
+
+$$R_{P,2} = 0.478 \times (-10\%) + 0.522 \times (-20\%)$$
+$$R_{P,2} = -4.78\% + (-10.44\%) = -15.22\%$$
+
+**Step 5: Calculate two-month total return**
+
+The total two-month return compounds the monthly returns:
+
+$$R_{total} = (1 + R_{P,1}) \times (1 + R_{P,2}) - 1$$
+$$R_{total} = (1 + 0.15) \times (1 - 0.1522) - 1$$
+$$R_{total} = 1.15 \times 0.8478 - 1 = 0.975 - 1 = -2.5\%$$
+
+Alternatively, we can verify using ending and beginning portfolio values:
+
+- Final META value: \$440 × (1 - 0.10) = \$396
+- Final NFLX value: \$480 × (1 - 0.20) = \$384
+- Final portfolio value: \$780
+
+$$R_{total} = \frac{\$780 - \$800}{\$800} = -2.5\%$$
+
+**Summary:** Month 1 return = 15%, Month 2 return = -15.22%, Two-month total return = -2.5%
+
+:::
+
+## Portfolio Expected Returns
+
+While realized returns tell us what happened in the past, investment decisions require thinking about the future. The expected return of a portfolio represents our best estimate of what the portfolio will earn, on average, going forward.
+
+The formula for expected portfolio return has the same elegant structure as the formula for realized returns—it is simply a weighted average:
+
+$$E[R_P] = w_1 E[R_1] + w_2 E[R_2] + \cdots + w_N E[R_N] = \sum_{i=1}^{N} w_i E[R_i]$$
+
+where $E[R_P]$ is the expected portfolio return, $w_i$ is the weight of asset $i$, and $E[R_i]$ is the expected return of asset $i$. This formula carries an important implication: you cannot create expected return out of thin air through clever portfolio construction. The portfolio's expected return is bounded by the expected returns of its components. If all your assets have expected returns between 5% and 12%, your portfolio's expected return must also fall within that range.
+
+In practice, we typically estimate expected returns using historical average returns, though more sophisticated approaches exist. The sample mean of historical returns provides an estimate of what we might expect going forward, with the important caveat that past performance does not guarantee future results.
+
+For portfolios with just two or three assets, the formula simplifies to familiar forms that are worth memorizing:
+
+| Portfolio Size | Expected Return Formula |
+|:---------------|:------------------------|
+| Two assets | $E[R_P] = w_1 E[R_1] + w_2 E[R_2]$ |
+| Three assets | $E[R_P] = w_1 E[R_1] + w_2 E[R_2] + w_3 E[R_3]$ |
+
+**Example 2**
+
+*Suppose over the past three months META had returns of 10%, 10%, and -8%, and NFLX had returns of 20%, -10%, and -1%. Today, you invest \$1,000 in META and \$4,000 in NFLX. What is the expected return of your portfolio?*
+
+::: {.callout-note collapse="true" title="Solution"}
+
+**Step 1: Calculate portfolio weights**
+
+- Total investment: \$1,000 + \$4,000 = \$5,000
+- $w_{META} = \$1,000 / \$5,000 = 0.20$ (20%)
+- $w_{NFLX} = \$4,000 / \$5,000 = 0.80$ (80%)
+
+**Step 2: Estimate expected returns using historical averages**
+
+For META:
+$$E[R_{META}] = \frac{10\% + 10\% + (-8\%)}{3} = \frac{12\%}{3} = 4\%$$
+
+For NFLX:
+$$E[R_{NFLX}] = \frac{20\% + (-10\%) + (-1\%)}{3} = \frac{9\%}{3} = 3\%$$
+
+**Step 3: Calculate expected portfolio return**
+
+$$E[R_P] = w_{META} \times E[R_{META}] + w_{NFLX} \times E[R_{NFLX}]$$
+$$E[R_P] = 0.20 \times 4\% + 0.80 \times 3\%$$
+$$E[R_P] = 0.8\% + 2.4\% = 3.2\%$$
+
+**The expected return of the portfolio is 3.2% per month.**
+
+:::
+
+## Correlation and Covariance Between Return Series
+
+Before we can understand portfolio risk, we need to understand how different assets move together. Do they tend to rise and fall at the same time, or do they move independently, or do they actually move in opposite directions? The statistical measures that capture this co-movement are covariance and correlation, and they turn out to be the key ingredients that make diversification possible.
+
+The covariance between two assets measures whether their returns tend to move in the same direction (positive covariance), opposite directions (negative covariance), or show no consistent pattern (covariance near zero). Given historical returns for assets A and B—denoted $R_1^A, R_2^A, \ldots, R_N^A$ and $R_1^B, R_2^B, \ldots, R_N^B$—the sample covariance is calculated as:
+
+$$Cov_{A,B} = \frac{\sum_{t=1}^{N}(R_t^A - \bar{R}^A)(R_t^B - \bar{R}^B)}{N-1}$$
+
+where $Cov_{A,B}$ is the sample covariance between assets A and B, $R_t^A$ and $R_t^B$ are the returns of assets A and B in period $t$, $\bar{R}^A$ and $\bar{R}^B$ are the sample means (average returns), and $N$ is the number of observations. We divide by $N-1$ rather than $N$ to correct for the bias that arises when estimating a population parameter from a sample.
+
+The intuition behind this formula is elegant: for each time period, we ask whether both assets were above their average (product is positive), both below their average (product is also positive), or on opposite sides of their averages (product is negative). Averaging these products tells us the typical co-movement pattern.
+
+While covariance captures the direction and magnitude of co-movement, its units are difficult to interpret (percent squared). The correlation coefficient solves this by normalizing the covariance:
+
+$$Corr_{A,B} = \frac{Cov_{A,B}}{\sigma^A \sigma^B}$$
+
+where $Corr_{A,B}$ is the correlation coefficient, $Cov_{A,B}$ is the covariance, and $\sigma^A$ and $\sigma^B$ are the sample standard deviations of assets A and B. Correlation always falls between -1 and +1, making it much easier to interpret:
+
+| Correlation Value | Interpretation |
+|:------------------|:---------------|
+| +1 | Perfect positive correlation: assets move in lockstep |
+| 0 | No linear relationship: assets move independently |
+| -1 | Perfect negative correlation: assets move in opposite directions |
+
+Most pairs of stocks within the same economy have positive correlations—they tend to rise together in good times and fall together in bad times—but the correlation is usually well below 1, leaving room for diversification benefits.
+
+**Example 3**
+
+*Suppose over the past three months META had returns of 10%, 10%, and -8%, and NFLX had returns of 20%, -10%, and -1%. Calculate the sample covariance and correlation of the returns of META and NFLX.*
+
+::: {.callout-note collapse="true" title="Solution"}
+
+**Step 1: Calculate sample means**
+
+$$\bar{R}^{META} = \frac{10\% + 10\% + (-8\%)}{3} = 4\%$$
+
+$$\bar{R}^{NFLX} = \frac{20\% + (-10\%) + (-1\%)}{3} = 3\%$$
+
+**Step 2: Calculate deviations from the mean for each period**
+
+| Month | $R^{META}$ | $R^{NFLX}$ | $R^{META} - \bar{R}^{META}$ | $R^{NFLX} - \bar{R}^{NFLX}$ |
+|:------|:-----------|:-----------|:----------------------------|:----------------------------|
+| 1 | 10% | 20% | 10% - 4% = 6% | 20% - 3% = 17% |
+| 2 | 10% | -10% | 10% - 4% = 6% | -10% - 3% = -13% |
+| 3 | -8% | -1% | -8% - 4% = -12% | -1% - 3% = -4% |
+
+**Step 3: Calculate products of deviations**
+
+| Month | $(R^{META} - \bar{R}^{META}) \times (R^{NFLX} - \bar{R}^{NFLX})$ |
+|:------|:----------------------------------------------------------------|
+| 1 | 6% × 17% = 0.0102 (or 102 in percentage points squared) |
+| 2 | 6% × (-13%) = -0.0078 (or -78 in percentage points squared) |
+| 3 | (-12%) × (-4%) = 0.0048 (or 48 in percentage points squared) |
+
+Sum of products: 0.0102 + (-0.0078) + 0.0048 = 0.0072
+
+**Step 4: Calculate sample covariance**
+
+$$Cov_{META,NFLX} = \frac{0.0072}{3-1} = \frac{0.0072}{2} = 0.0036$$
+
+Or expressed in percentage terms: 0.36% (which equals 36 in percentage points squared)
+
+**Step 5: Calculate standard deviations**
+
+For META:
+$$Var^{META} = \frac{(6\%)^2 + (6\%)^2 + (-12\%)^2}{2} = \frac{0.0036 + 0.0036 + 0.0144}{2} = \frac{0.0216}{2} = 0.0108$$
+
+$$\sigma^{META} = \sqrt{0.0108} = 0.1039 = 10.39\%$$
+
+For NFLX:
+$$Var^{NFLX} = \frac{(17\%)^2 + (-13\%)^2 + (-4\%)^2}{2} = \frac{0.0289 + 0.0169 + 0.0016}{2} = \frac{0.0474}{2} = 0.0237$$
+
+$$\sigma^{NFLX} = \sqrt{0.0237} = 0.1539 = 15.39\%$$
+
+**Step 6: Calculate correlation**
+
+$$Corr_{META,NFLX} = \frac{Cov_{META,NFLX}}{\sigma^{META} \times \sigma^{NFLX}} = \frac{0.0036}{0.1039 \times 0.1539} = \frac{0.0036}{0.0160} = 0.225$$
+
+**Summary:** 
+
+- Sample covariance = 0.0036 (or 0.36%)
+- Sample correlation = 0.225
+
+The positive but relatively low correlation (0.225) indicates that META and NFLX tend to move in the same direction, but the relationship is weak. This suggests meaningful diversification benefits from holding both stocks.
+
+:::
+
+## Portfolio Total Risk
+
+Now we arrive at the central insight of portfolio theory: how risk combines across assets. Unlike expected returns, which combine as a simple weighted average, portfolio risk depends on the correlations between assets in complex and often counterintuitive ways.
+
+The variance of a portfolio's return is given by:
+
+$$Var[R_P] = \sum_{i=1}^{N} w_i^2 Var[R_i] + \sum_{i \neq j} w_i w_j Cov[R_i, R_j]$$
+
+where $Var[R_P]$ is the portfolio variance, $w_i$ is the weight of asset $i$, $Var[R_i]$ is the variance of asset $i$'s returns, and $Cov[R_i, R_j]$ is the covariance between assets $i$ and $j$. The portfolio standard deviation (total risk) is simply the square root of the variance: $\sigma_P = \sqrt{Var[R_P]}$.
+
+This formula has two distinct components. The first summation captures the individual risk contributions—each asset's variance, scaled by its squared weight. The second summation captures the interaction effects—how pairs of assets move together, weighted by the product of their weights. The factor of 2 appears because each pair $(i,j)$ contributes twice (once for $i,j$ and once for $j,i$), and the formula accounts for both.
+
+For a two-asset portfolio, the formula simplifies to:
+
+$$Var[R_P] = w_1^2 Var[R_1] + w_2^2 Var[R_2] + 2w_1 w_2 Cov[R_1, R_2]$$
+
+For a three-asset portfolio:
+
+$$Var[R_P] = w_1^2 Var[R_1] + w_2^2 Var[R_2] + w_3^2 Var[R_3] + 2w_1 w_2 Cov[R_1, R_2] + 2w_1 w_3 Cov[R_1, R_3] + 2w_2 w_3 Cov[R_2, R_3]$$
+
+The covariance terms are where the magic of diversification happens. When covariances are less than perfect (which is almost always the case), the portfolio variance will be less than the weighted average of the individual variances. In the extreme case where two assets have a correlation of -1, you can construct a portfolio with zero variance—a risk-free portfolio from risky assets! While such perfect negative correlations are rare in practice, even modest positive correlations below 1 provide meaningful diversification benefits.
+
+This is why covariance is so important: it determines how much risk you can eliminate through diversification. The lower the covariances between your assets, the more your portfolio's risk will fall below what you might naively expect from averaging the individual risks.
+
+**Example 4**
+
+*Suppose over the past three months META had returns of 10%, 10%, and -8%, and NFLX had returns of 20%, -10%, and -1%. Today, you invest \$1,000 in META and \$4,000 in NFLX. What is the total risk of your portfolio?*
+
+::: {.callout-note collapse="true" title="Solution"}
+
+**Step 1: Identify portfolio weights (from Example 2)**
+
+- $w_{META} = 0.20$ (20%)
+- $w_{NFLX} = 0.80$ (80%)
+
+**Step 2: Recall or calculate variances (from Example 3)**
+
+- $Var^{META} = 0.0108$
+- $Var^{NFLX} = 0.0237$
+- $Cov_{META,NFLX} = 0.0036$
+
+**Step 3: Apply the two-asset portfolio variance formula**
+
+$$Var[R_P] = w_{META}^2 \times Var^{META} + w_{NFLX}^2 \times Var^{NFLX} + 2 \times w_{META} \times w_{NFLX} \times Cov_{META,NFLX}$$
+
+$$Var[R_P] = (0.20)^2 \times 0.0108 + (0.80)^2 \times 0.0237 + 2 \times 0.20 \times 0.80 \times 0.0036$$
+
+$$Var[R_P] = 0.04 \times 0.0108 + 0.64 \times 0.0237 + 0.32 \times 0.0036$$
+
+$$Var[R_P] = 0.000432 + 0.015168 + 0.001152$$
+
+$$Var[R_P] = 0.016752$$
+
+**Step 4: Calculate portfolio standard deviation**
+
+$$\sigma_P = \sqrt{0.016752} = 0.1294 = 12.94\%$$
+
+**Step 5: Verify diversification benefit**
+
+Let's compare to what the risk would be if we simply weighted the standard deviations:
+
+Weighted average of standard deviations: $0.20 \times 10.39\% + 0.80 \times 15.39\% = 2.08\% + 12.31\% = 14.39\%$
+
+Actual portfolio standard deviation: 12.94%
+
+**The portfolio standard deviation (12.94%) is less than the weighted average of individual standard deviations (14.39%), demonstrating the risk reduction benefit of diversification.** This occurs because the correlation between META and NFLX is less than 1 (we calculated it as 0.225 in Example 3).
+
+:::
+
+## Key Takeaways
+
+Portfolio analysis builds on a simple foundation—weights determine how much each asset matters—but leads to profound insights about how risk and return combine. The return side is straightforward: a portfolio's expected return is just a weighted average of its components' expected returns. You cannot manufacture expected return through portfolio construction; you can only choose where to position yourself between your highest- and lowest-returning assets.
+
+Risk behaves very differently. While individual asset variances contribute to portfolio variance, so do the covariances between every pair of assets. This creates the possibility of diversification: when assets don't move in perfect lockstep, combining them produces a portfolio less volatile than you might expect. The mathematics shows this clearly—the covariance terms in the portfolio variance formula can substantially reduce total risk when correlations are low.
+
+This distinction between return (which averages simply) and risk (which depends on co-movement) is the central insight of modern portfolio theory. It explains why diversification is often called the only "free lunch" in finance: you can reduce risk without sacrificing expected return, simply by combining assets that don't move together perfectly.
+
+Remember too that portfolios are dynamic. Weights change as prices change, meaning that multi-period calculations require updating weights after each period. A portfolio that starts with equal weights will drift toward overweighting winners and underweighting losers unless actively rebalanced.
+
+## Key Formulas Summary
+
+| Concept | Formula | When to Use |
+|:--------|:--------|:------------|
+| Portfolio weight | $w_i = \frac{M_i}{\sum_{j=1}^{N} M_j}$ | Finding each asset's fraction of total portfolio value |
+| Portfolio realized return | $R_P = \sum_{i=1}^{N} w_i R_i$ | Calculating the actual return over a specific period |
+| Portfolio expected return | $E[R_P] = \sum_{i=1}^{N} w_i E[R_i]$ | Estimating future average portfolio returns |
+| Sample covariance | $Cov_{A,B} = \frac{\sum_{t=1}^{N}(R_t^A - \bar{R}^A)(R_t^B - \bar{R}^B)}{N-1}$ | Measuring how two assets move together |
+| Correlation | $Corr_{A,B} = \frac{Cov_{A,B}}{\sigma^A \sigma^B}$ | Standardizing covariance for easier interpretation |
+| Portfolio variance (general) | $Var[R_P] = \sum_{i=1}^{N} w_i^2 Var[R_i] + \sum_{i \neq j} w_i w_j Cov[R_i, R_j]$ | Calculating total portfolio risk for any number of assets |
+| Portfolio variance (2 assets) | $Var[R_P] = w_1^2 Var[R_1] + w_2^2 Var[R_2] + 2w_1 w_2 Cov[R_1, R_2]$ | Calculating risk for a two-asset portfolio |
+| Portfolio standard deviation | $\sigma_P = \sqrt{Var[R_P]}$ | Converting variance to interpretable risk measure |
+
+## Practice Problems
+
+**Practice Problem 1: Portfolio Realized Returns**
+
+*You purchase 100 shares of Apple (AAPL) at \$150 per share and 50 shares of Microsoft (MSFT) at \$300 per share. In the first quarter, AAPL returns 8% and MSFT returns -4%. In the second quarter, AAPL returns -5% and MSFT returns 12%. Calculate the portfolio return for each quarter and the total return over the two-quarter period.*
+
+::: {.callout-note collapse="true" title="Solution"}
+
+**Step 1: Calculate initial portfolio values and weights**
+
+At the start of Q1:
+
+- AAPL: 100 shares × \$150 = \$15,000
+- MSFT: 50 shares × \$300 = \$15,000
+- Total portfolio value: \$30,000
+
+Initial weights:
+
+- $w_{AAPL} = \$15,000 / \$30,000 = 0.50$ (50%)
+- $w_{MSFT} = \$15,000 / \$30,000 = 0.50$ (50%)
+
+**Step 2: Calculate Q1 return**
+
+$$R_{P,Q1} = 0.50 \times 8\% + 0.50 \times (-4\%) = 4\% - 2\% = 2\%$$
+
+**Step 3: Calculate new portfolio values and weights for Q2**
+
+At the end of Q1:
+
+- AAPL value: \$15,000 × 1.08 = \$16,200
+- MSFT value: \$15,000 × 0.96 = \$14,400
+- Total portfolio value: \$30,600
+
+New weights:
+
+- $w_{AAPL} = \$16,200 / \$30,600 = 0.529$ (52.9%)
+- $w_{MSFT} = \$14,400 / \$30,600 = 0.471$ (47.1%)
+
+**Step 4: Calculate Q2 return**
+
+$$R_{P,Q2} = 0.529 \times (-5\%) + 0.471 \times 12\% = -2.65\% + 5.65\% = 3.00\%$$
+
+**Step 5: Calculate total two-quarter return**
+
+$$R_{total} = (1 + 0.02) \times (1 + 0.03) - 1 = 1.02 \times 1.03 - 1 = 1.0506 - 1 = 5.06\%$$
+
+**Summary:** Q1 return = 2%, Q2 return = 3%, Total two-quarter return = 5.06%
+
+:::
+
+**Practice Problem 2: Portfolio Expected Returns**
+
+*Over the past four months, Stock X had returns of 5%, -3%, 8%, and 2%, while Stock Y had returns of -2%, 6%, 4%, and 0%. You invest \$6,000 in Stock X and \$9,000 in Stock Y. What is the expected return of your portfolio?*
+
+::: {.callout-note collapse="true" title="Solution"}
+
+**Step 1: Calculate portfolio weights**
+
+- Total investment: \$6,000 + \$9,000 = \$15,000
+- $w_X = \$6,000 / \$15,000 = 0.40$ (40%)
+- $w_Y = \$9,000 / \$15,000 = 0.60$ (60%)
+
+**Step 2: Estimate expected returns using historical averages**
+
+For Stock X:
+$$E[R_X] = \frac{5\% + (-3\%) + 8\% + 2\%}{4} = \frac{12\%}{4} = 3\%$$
+
+For Stock Y:
+$$E[R_Y] = \frac{(-2\%) + 6\% + 4\% + 0\%}{4} = \frac{8\%}{4} = 2\%$$
+
+**Step 3: Calculate expected portfolio return**
+
+$$E[R_P] = 0.40 \times 3\% + 0.60 \times 2\% = 1.2\% + 1.2\% = 2.4\%$$
+
+**The expected return of the portfolio is 2.4% per month.**
+
+:::
+
+**Practice Problem 3: Covariance and Correlation**
+
+*Over the past four months, Stock X had returns of 5%, -3%, 8%, and 2%, while Stock Y had returns of -2%, 6%, 4%, and 0%. Calculate the sample covariance and correlation between the returns of Stock X and Stock Y.*
+
+::: {.callout-note collapse="true" title="Solution"}
+
+**Step 1: Calculate sample means (from Practice Problem 2)**
+
+- $\bar{R}^X = 3\%$
+- $\bar{R}^Y = 2\%$
+
+**Step 2: Calculate deviations from the mean**
+
+| Month | $R^X$ | $R^Y$ | $R^X - \bar{R}^X$ | $R^Y - \bar{R}^Y$ |
+|:------|:------|:------|:------------------|:------------------|
+| 1 | 5% | -2% | 2% | -4% |
+| 2 | -3% | 6% | -6% | 4% |
+| 3 | 8% | 4% | 5% | 2% |
+| 4 | 2% | 0% | -1% | -2% |
+
+**Step 3: Calculate products of deviations**
+
+| Month | $(R^X - \bar{R}^X) \times (R^Y - \bar{R}^Y)$ |
+|:------|:--------------------------------------------|
+| 1 | 2% × (-4%) = -0.0008 |
+| 2 | (-6%) × 4% = -0.0024 |
+| 3 | 5% × 2% = 0.0010 |
+| 4 | (-1%) × (-2%) = 0.0002 |
+
+Sum of products: -0.0008 + (-0.0024) + 0.0010 + 0.0002 = -0.0020
+
+**Step 4: Calculate sample covariance**
+
+$$Cov_{X,Y} = \frac{-0.0020}{4-1} = \frac{-0.0020}{3} = -0.000667$$
+
+**Step 5: Calculate standard deviations**
+
+For Stock X:
+$$Var^X = \frac{(2\%)^2 + (-6\%)^2 + (5\%)^2 + (-1\%)^2}{3} = \frac{0.0004 + 0.0036 + 0.0025 + 0.0001}{3} = \frac{0.0066}{3} = 0.0022$$
+
+$$\sigma^X = \sqrt{0.0022} = 0.0469 = 4.69\%$$
+
+For Stock Y:
+$$Var^Y = \frac{(-4\%)^2 + (4\%)^2 + (2\%)^2 + (-2\%)^2}{3} = \frac{0.0016 + 0.0016 + 0.0004 + 0.0004}{3} = \frac{0.0040}{3} = 0.00133$$
+
+$$\sigma^Y = \sqrt{0.00133} = 0.0365 = 3.65\%$$
+
+**Step 6: Calculate correlation**
+
+$$Corr_{X,Y} = \frac{-0.000667}{0.0469 \times 0.0365} = \frac{-0.000667}{0.00171} = -0.39$$
+
+**Summary:**
+
+- Sample covariance = -0.000667 (or -0.067%)
+- Sample correlation = -0.39
+
+The negative correlation indicates that when Stock X performs well, Stock Y tends to perform poorly, and vice versa. This makes these two stocks excellent diversification partners!
+
+:::
+
+**Practice Problem 4: Portfolio Total Risk**
+
+*Using the data from Practice Problems 2 and 3 (Stock X and Stock Y with weights of 40% and 60% respectively), calculate the total risk (standard deviation) of the portfolio.*
+
+::: {.callout-note collapse="true" title="Solution"}
+
+**Step 1: Identify inputs**
+
+From previous problems:
+
+- $w_X = 0.40$, $w_Y = 0.60$
+- $Var^X = 0.0022$
+- $Var^Y = 0.00133$
+- $Cov_{X,Y} = -0.000667$
+
+**Step 2: Apply the two-asset portfolio variance formula**
+
+$$Var[R_P] = w_X^2 \times Var^X + w_Y^2 \times Var^Y + 2 \times w_X \times w_Y \times Cov_{X,Y}$$
+
+$$Var[R_P] = (0.40)^2 \times 0.0022 + (0.60)^2 \times 0.00133 + 2 \times 0.40 \times 0.60 \times (-0.000667)$$
+
+$$Var[R_P] = 0.16 \times 0.0022 + 0.36 \times 0.00133 + 0.48 \times (-0.000667)$$
+
+$$Var[R_P] = 0.000352 + 0.000479 - 0.000320$$
+
+$$Var[R_P] = 0.000511$$
+
+**Step 3: Calculate portfolio standard deviation**
+
+$$\sigma_P = \sqrt{0.000511} = 0.0226 = 2.26\%$$
+
+**Step 4: Demonstrate diversification benefit**
+
+Weighted average of standard deviations: $0.40 \times 4.69\% + 0.60 \times 3.65\% = 1.88\% + 2.19\% = 4.07\%$
+
+Actual portfolio standard deviation: 2.26%
+
+**The portfolio standard deviation (2.26%) is dramatically lower than the weighted average of individual standard deviations (4.07%).** This exceptional diversification benefit occurs because the correlation between X and Y is negative (-0.39), meaning the stocks tend to move in opposite directions, partially offsetting each other's volatility.
+
+:::
+
+## Ask an LLM
+
+Here are three questions you might ask an AI assistant to deepen your understanding of these concepts:
+
+- What happens to portfolio risk as I add more and more assets with the same expected return and variance but zero correlation with each other? Is there a limit to how much I can reduce risk through diversification?
+- Can you explain intuitively why portfolio variance uses squared weights for individual variances but only single weights (multiplied together) for covariance terms?
+- If I have three assets and I know all the pairwise correlations are exactly 0.5, how would I calculate the portfolio variance, and what does this moderate positive correlation imply about my diversification benefits?
+- How do professional portfolio managers estimate expected returns and covariances for hundreds of assets, and what are the challenges with using historical data for these estimates?

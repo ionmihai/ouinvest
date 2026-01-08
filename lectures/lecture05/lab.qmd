@@ -1,0 +1,11 @@
+---
+title: "Lab for Lecture 5: Portfolio Risk and Returns"
+---
+
+***
+
+Use the data on stock returns for TSLA and AAPL from 2019 to 2023 that we downloaded last class.
+
+- Estimate the expected return and total risk of a portfolio that invests 90% in AAPL and 10% in TSLA.
+- Calculate the Sharpe Ratio of this portfolio.
+- How does it compare to the Sharpe ratios of the individual stocks?

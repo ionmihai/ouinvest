@@ -1,0 +1,328 @@
+---
+title: "Risk and Return: Measuring Expected Returns and Volatility"
+---
+
+## Introduction
+
+Every investment decision involves a fundamental tradeoff: the potential for reward comes with exposure to risk. When you buy a stock, deposit money in a savings account, or invest in real estate, you are placing a bet on an uncertain future. The central challenge of investments is to understand and quantify this tradeoff so that we can make informed decisions about where to put our money.
+
+This lecture develops the conceptual and mathematical tools you need to measure expected returns and risk. We begin with the normal distribution, which provides the foundation for thinking about how returns are distributed and why standard deviation is our preferred measure of risk. From there, we build the machinery for estimating expected returns and volatility from historical data, introduce the concept of excess returns and risk premia, and culminate with the Sharpe ratio—the key metric for evaluating how well an investment compensates you for the risk you bear.
+
+By the end of this lecture, you will understand not just *how* to calculate these quantities, but *why* they matter and how they connect to form the foundation of modern portfolio theory.
+
+
+## The Normal Distribution
+
+Before we can measure risk and return, we need a framework for thinking about uncertain outcomes. In finance, we model future returns as random variables—quantities whose values are determined by chance according to some probability distribution. The most important distribution in finance is the **normal distribution** (also called the Gaussian distribution), and understanding its properties is essential for everything that follows.
+
+The normal distribution is a bell-shaped curve that is completely characterized by just two parameters: its **mean** ($\mu$) and its **standard deviation** ($\sigma$). The mean tells us where the center of the distribution lies—the expected value of the random variable. The standard deviation tells us how spread out the distribution is around that center—how much uncertainty there is about the outcome.
+
+Mathematically, if a random variable $X$ follows a normal distribution with mean $\mu$ and standard deviation $\sigma$, we write $X \sim N(\mu, \sigma^2)$. The probability density function is:
+
+$$f(x) = \frac{1}{\sigma\sqrt{2\pi}} e^{-\frac{(x-\mu)^2}{2\sigma^2}}$$
+
+While you don't need to memorize this formula, it's important to understand what it implies. The normal distribution is symmetric around the mean, meaning returns above the mean are just as likely as returns below it. About 68% of outcomes fall within one standard deviation of the mean, 95% fall within two standard deviations, and 99.7% fall within three standard deviations. These percentages are crucial for interpreting risk.
+
+| Interval | Probability |
+|----------|-------------|
+| $\mu \pm 1\sigma$ | 68.3% |
+| $\mu \pm 2\sigma$ | 95.4% |
+| $\mu \pm 3\sigma$ | 99.7% |
+
+Why does the normal distribution matter so much in finance? First, it arises naturally when many small, independent factors combine to produce an outcome—which is arguably what happens when thousands of traders and information sources influence a stock's price. Second, it provides a tractable mathematical framework: if we know the mean and standard deviation, we know everything about the distribution. Third, many statistical procedures assume normality, and even when returns aren't perfectly normal, the approximation is often good enough for practical purposes.
+
+The key insight is this: **if returns are normally distributed, then standard deviation completely captures the risk of an investment**. A higher standard deviation means more uncertainty—both on the upside and the downside. This is why standard deviation (also called **volatility** in finance) becomes our primary measure of risk.
+
+**Example: Interpreting Normal Returns**
+
+*Suppose returns on a stock are normally distributed with a mean of 8% per year and a standard deviation of 15%. What is the probability that returns will be negative in a given year?*
+
+::: {.callout-note collapse="true"}
+## Solution
+
+We need to find $P(R < 0)$ where $R \sim N(0.08, 0.15^2)$.
+
+First, standardize by converting to a z-score:
+$$z = \frac{0 - 0.08}{0.15} = \frac{-0.08}{0.15} = -0.533$$
+
+Using a standard normal table or calculator, $P(Z < -0.533) \approx 0.297$.
+
+Therefore, there is approximately a **29.7% probability** that returns will be negative in any given year. This illustrates an important point: even with a positive expected return of 8%, there is still a substantial chance of losing money due to volatility.
+:::
+
+
+## Sample Mean and Standard Deviation
+
+Investments are fundamentally about **future** rewards. We hope to find investments that will deliver high returns, but because we cannot perfectly predict the future, uncertainty accompanies every investment. To pursue some **expected return**, we must expose ourselves to **risk**—the possibility that we will lose money. The goal is to find investments that we *believe* will provide a good risk-return tradeoff: a high expected return per unit of risk.
+
+To make good investment decisions, we need to estimate the risk-return tradeoff that different investments offer. This requires estimating both the expected return and the risk. We approach this by thinking of future returns as random variables: the future return is an unknown quantity that takes values according to some probability distribution. The **mean** of that distribution represents the expected return, and the **standard deviation** measures the risk because it quantifies uncertainty in our predictions.
+
+But the mean and standard deviation of future returns are unknown—they are parameters of a distribution we cannot directly observe. To estimate them, we make a critical assumption: *past returns came from the same probability distribution as future returns*. If this assumption holds reasonably well, we can use historical data to estimate what we might expect going forward.
+
+Given $N$ observations of past returns on an investment (call them $R_1, R_2, \ldots, R_N$), we compute:
+
+The **sample mean**:
+$$\bar{R} = \frac{1}{N}\sum_{t=1}^{N} R_t = \frac{R_1 + R_2 + \cdots + R_N}{N}$$
+
+The **sample variance**:
+$$s^2 = \frac{1}{N-1}\sum_{t=1}^{N}(R_t - \bar{R})^2 = \frac{(R_1 - \bar{R})^2 + (R_2 - \bar{R})^2 + \cdots + (R_N - \bar{R})^2}{N-1}$$
+
+The **sample standard deviation**:
+$$s = \sqrt{s^2}$$
+
+A few important notes on these formulas. First, we divide by $N-1$ rather than $N$ when calculating variance. This adjustment, called Bessel's correction, produces an unbiased estimate of the population variance. Second, the standard deviation has the same units as returns (percent), making it more interpretable than variance (percent squared). Third, these are *estimates*—they are calculated from a finite sample and therefore subject to sampling error. More data generally produces more reliable estimates.
+
+The sample mean serves as our estimate of expected return, while the sample standard deviation serves as our estimate of volatility or total risk. Together, they form the foundation for evaluating investments.
+
+**Example: Estimating Expected Return and Risk**
+
+*Suppose over the past four months, TSLA had returns of 10%, 5%, -5%, and 14% respectively. Using this data alone, estimate the expected return and risk for TSLA's next month's return.*
+
+::: {.callout-note collapse="true"}
+## Solution
+
+**Step 1: Calculate the sample mean**
+
+$$\bar{R} = \frac{10\% + 5\% + (-5\%) + 14\%}{4} = \frac{24\%}{4} = 6\%$$
+
+**Step 2: Calculate the deviations from the mean**
+
+| Month | Return ($R_t$) | Deviation ($R_t - \bar{R}$) | Squared Deviation |
+|-------|---------|-----------------|-------------------|
+| 1 | 10% | 10% - 6% = 4% | 16%² |
+| 2 | 5% | 5% - 6% = -1% | 1%² |
+| 3 | -5% | -5% - 6% = -11% | 121%² |
+| 4 | 14% | 14% - 6% = 8% | 64%² |
+
+**Step 3: Calculate the sample variance**
+
+$$s^2 = \frac{16 + 1 + 121 + 64}{4-1} = \frac{202}{3} = 67.33\%^2$$
+
+**Step 4: Calculate the sample standard deviation**
+
+$$s = \sqrt{67.33\%^2} = 8.21\%$$
+
+Based on this historical data, our estimate for TSLA's expected monthly return is **6%** and our estimate for its monthly volatility (risk) is **8.21%**.
+:::
+
+
+## The Risk-Free Rate, Excess Returns, and Risk Premia
+
+To properly evaluate the reward from a risky investment, we need a benchmark—something to compare against. That benchmark is the return we could earn with absolute certainty: the **risk-free rate**.
+
+The only investment that is truly risk-free is a short-term U.S. Treasury bill (T-bill). The U.S. government is considered certain to repay its short-term obligations, so a 1-month or 3-month T-bill carries essentially zero default risk. For this course, we use the 1-month T-bill rate as our risk-free rate, denoted $R_f$.
+
+Because the T-bill is riskless, its return is known with certainty at the time of purchase. This means its expected return equals its yield, and its standard deviation is zero:
+
+| Property | Value |
+|----------|-------|
+| Expected return | $E[R_f] = R_f$ |
+| Standard deviation | $\sigma(R_f) = 0$ |
+
+The risk-free rate matters because it represents the opportunity cost of taking on risk. If you can earn 4% with certainty by buying T-bills, then a risky investment must offer more than 4% in expectation to be worth considering. The additional expected return above the risk-free rate is the compensation for bearing risk.
+
+The **excess return** on investment $i$ in a given period is the difference between its return and the risk-free rate:
+
+$$\text{Excess Return}_i = R_i - R_f$$
+
+Excess returns measure how much better (or worse) a risky investment performed compared to the safe alternative. They can be positive or negative in any given period.
+
+The **risk premium** on investment $i$ is the *expected* excess return:
+
+$$\text{Risk Premium}_i = E[R_i] - R_f$$
+
+The risk premium represents the expected compensation for bearing the investment's risk. Unlike excess returns (which vary period to period), the risk premium is a forward-looking concept about what we expect to earn, on average, above the risk-free rate.
+
+Investors demand positive risk premia to hold risky assets. No rational investor would accept risk without expecting higher returns. The size of the risk premium reflects both the amount of risk and how that risk is priced by the market.
+
+**Example: Calculating Excess Returns and Risk Premium**
+
+*Suppose returns on TSLA over the past 3 months were 10% (most recent), 5%, and -3%, while the 1-month T-bill yields were 0.1% (most recent), 0.2%, and 0.3% respectively. Calculate the excess returns over the past 3 months and estimate TSLA's risk premium.*
+
+::: {.callout-note collapse="true"}
+## Solution
+
+**Step 1: Calculate excess returns for each month**
+
+| Month | TSLA Return | T-bill Rate | Excess Return |
+|-------|-------------|-------------|---------------|
+| 1 (oldest) | -3% | 0.3% | -3% - 0.3% = -3.3% |
+| 2 | 5% | 0.2% | 5% - 0.2% = 4.8% |
+| 3 (recent) | 10% | 0.1% | 10% - 0.1% = 9.9% |
+
+The excess returns were **-3.3%, 4.8%, and 9.9%** respectively.
+
+**Step 2: Estimate the risk premium**
+
+The risk premium is the expected excess return. We estimate it using the average of historical excess returns:
+
+$$\text{Risk Premium} = \frac{-3.3\% + 4.8\% + 9.9\%}{3} = \frac{11.4\%}{3} = 3.8\%$$
+
+Our estimate of TSLA's monthly risk premium is **3.8%**—the expected monthly return above the risk-free rate that compensates investors for holding this risky stock.
+:::
+
+
+## Mean-Variance Analysis and the Sharpe Ratio
+
+**Mean-variance analysis** is the process of evaluating investments based on their expected returns and risk (as measured by standard deviation or variance). An investor who cares only about these two characteristics—seeking higher expected returns and lower risk—is called a **mean-variance optimizer**.
+
+This framework, developed by Harry Markowitz in the 1950s, makes a simplifying assumption: investors don't care about other characteristics of returns, such as skewness or the specific source of risk. While real investors might also consider factors like liquidity, tax implications, or environmental impact, mean-variance analysis provides a powerful and tractable starting point. For this course, we assume the marginal investor—loosely, the "typical" investor whose preferences are reflected in market prices—is a mean-variance optimizer.
+
+If investors are mean-variance optimizers, how do they compare investments with different combinations of risk and return? An investment with 12% expected return and 20% volatility might be better or worse than one with 8% expected return and 10% volatility—it depends on how we weigh return against risk.
+
+The **Sharpe ratio** provides the answer. Named after William Sharpe, it measures the risk-adjusted return of an investment by calculating how much excess return you receive per unit of volatility:
+
+$$\text{Sharpe Ratio}_i = \frac{E[R_i] - R_f}{\sigma(R_i)}$$
+
+where $E[R_i]$ is the expected return on investment $i$, $R_f$ is the risk-free rate, and $\sigma(R_i)$ is the standard deviation of returns.
+
+The Sharpe ratio has an elegant interpretation: it tells you how much expected return above the risk-free rate you earn for each percentage point of volatility you accept. An investment with a Sharpe ratio of 0.5 delivers 0.5% of expected excess return for every 1% of volatility. Higher is better.
+
+Why focus on excess return rather than total return in the numerator? Because the risk-free rate is the baseline—it's what you could earn without taking any risk. Only the excess return represents compensation for bearing risk, so only the excess return should be compared to the amount of risk taken.
+
+The Sharpe ratio allows us to compare investments on a common scale. An investment with high expected return but very high volatility might have a lower Sharpe ratio than a more modest investment with low volatility. For mean-variance optimizers, the investment with the higher Sharpe ratio is preferred.
+
+**Example: Choosing Between Investments**
+
+*You can only invest in either TSLA or AAPL. TSLA has an expected return of 10% and standard deviation of 12%. AAPL has an expected return of 7% and standard deviation of 6%. The 1-month T-bill yields 1%. If you are a mean-variance optimizer, which stock should you choose?*
+
+::: {.callout-note collapse="true"}
+## Solution
+
+**Calculate the Sharpe ratio for each stock:**
+
+For TSLA:
+$$\text{Sharpe Ratio}_{TSLA} = \frac{10\% - 1\%}{12\%} = \frac{9\%}{12\%} = 0.75$$
+
+For AAPL:
+$$\text{Sharpe Ratio}_{AAPL} = \frac{7\% - 1\%}{6\%} = \frac{6\%}{6\%} = 1.00$$
+
+**Decision:**
+
+Although TSLA has a higher expected return (10% vs. 7%), AAPL has the higher Sharpe ratio (1.00 vs. 0.75). This means AAPL provides more expected excess return per unit of risk.
+
+As a mean-variance optimizer, you should choose **AAPL**. You earn 1% of risk premium for every 1% of volatility with AAPL, compared to only 0.75% with TSLA. AAPL offers a better risk-return tradeoff.
+:::
+
+
+## Key Takeaways
+
+The concepts in this lecture form an interconnected framework for thinking about investment decisions. We began with the normal distribution because it provides the theoretical justification for using standard deviation as our measure of risk—when returns are normally distributed, the mean and standard deviation completely characterize the distribution of outcomes, and we can make precise probability statements about how likely different returns are to occur.
+
+The practical challenge is that we cannot directly observe the parameters of the return distribution. We must estimate them from historical data, computing sample means and standard deviations under the assumption that the past is informative about the future. These estimates are imperfect, but they give us a starting point for evaluating investments.
+
+The risk-free rate provides our benchmark for evaluation. Since we can always earn the T-bill rate with certainty, only returns above this threshold represent compensation for bearing risk. This leads us to focus on excess returns and risk premia—the additional returns we expect for accepting uncertainty.
+
+The Sharpe ratio brings everything together by expressing the risk-return tradeoff as a single number: expected excess return per unit of volatility. For mean-variance optimizers, investments with higher Sharpe ratios are unambiguously better. This metric will remain central as we extend our analysis to portfolios and consider how combining investments affects risk and return.
+
+
+## Key Formulas Summary
+
+| Concept | Formula | When to Use |
+|---------|---------|-------------|
+| Sample Mean | $\bar{R} = \frac{1}{N}\sum_{t=1}^{N} R_t$ | Estimating expected return from historical data |
+| Sample Variance | $s^2 = \frac{1}{N-1}\sum_{t=1}^{N}(R_t - \bar{R})^2$ | Intermediate step to calculating standard deviation |
+| Sample Standard Deviation | $s = \sqrt{s^2}$ | Estimating risk (volatility) from historical data |
+| Excess Return | $R_i - R_f$ | Measuring how much a risky investment outperformed the risk-free rate |
+| Risk Premium | $E[R_i] - R_f$ | Estimating expected compensation for bearing risk |
+| Sharpe Ratio | $\frac{E[R_i] - R_f}{\sigma(R_i)}$ | Comparing investments on a risk-adjusted basis |
+
+
+## Practice Problems
+
+**Example: Normal Distribution Probabilities**
+
+*A mutual fund has historically produced returns that are approximately normally distributed with a mean of 11% and a standard deviation of 18%. What is the probability that the fund will lose more than 7% in a given year?*
+
+::: {.callout-note collapse="true"}
+## Solution
+
+We need to find $P(R < -7\%)$ where $R \sim N(0.11, 0.18^2)$.
+
+Standardize by computing the z-score:
+$$z = \frac{-0.07 - 0.11}{0.18} = \frac{-0.18}{0.18} = -1.00$$
+
+Using a standard normal table, $P(Z < -1.00) \approx 0.159$.
+
+There is approximately a **15.9% probability** of losing more than 7% in any given year.
+:::
+
+**Example: Computing Sample Statistics**
+
+*Over the past five months, a stock had returns of 8%, -2%, 12%, 3%, and -6%. Calculate the sample mean and sample standard deviation.*
+
+::: {.callout-note collapse="true"}
+## Solution
+
+**Step 1: Calculate the sample mean**
+$$\bar{R} = \frac{8\% + (-2\%) + 12\% + 3\% + (-6\%)}{5} = \frac{15\%}{5} = 3\%$$
+
+**Step 2: Calculate deviations and squared deviations**
+
+| Return | Deviation | Squared Deviation |
+|--------|-----------|-------------------|
+| 8% | 5% | 25%² |
+| -2% | -5% | 25%² |
+| 12% | 9% | 81%² |
+| 3% | 0% | 0%² |
+| -6% | -9% | 81%² |
+| **Sum** | | **212%²** |
+
+**Step 3: Calculate sample variance and standard deviation**
+$$s^2 = \frac{212\%^2}{5-1} = \frac{212\%^2}{4} = 53\%^2$$
+
+$$s = \sqrt{53\%^2} = 7.28\%$$
+
+The sample mean is **3%** and the sample standard deviation is **7.28%**.
+:::
+
+**Example: Excess Returns and Risk Premium**
+
+*A portfolio returned 15%, 8%, and -4% over three months. The corresponding monthly T-bill rates were 0.4%, 0.4%, and 0.5%. Calculate the excess returns and estimate the portfolio's risk premium.*
+
+::: {.callout-note collapse="true"}
+## Solution
+
+**Step 1: Calculate excess returns**
+
+| Month | Portfolio Return | T-bill Rate | Excess Return |
+|-------|-----------------|-------------|---------------|
+| 1 | 15% | 0.4% | 14.6% |
+| 2 | 8% | 0.4% | 7.6% |
+| 3 | -4% | 0.5% | -4.5% |
+
+**Step 2: Estimate risk premium**
+$$\text{Risk Premium} = \frac{14.6\% + 7.6\% + (-4.5\%)}{3} = \frac{17.7\%}{3} = 5.9\%$$
+
+The excess returns were **14.6%, 7.6%, and -4.5%**. The estimated risk premium is **5.9%** per month.
+:::
+
+**Example: Sharpe Ratio Comparison**
+
+*Fund A has an expected return of 14% with volatility of 22%. Fund B has an expected return of 9% with volatility of 11%. The risk-free rate is 2%. Which fund offers the better risk-return tradeoff?*
+
+::: {.callout-note collapse="true"}
+## Solution
+
+**Calculate Sharpe ratios:**
+
+Fund A:
+$$\text{Sharpe}_A = \frac{14\% - 2\%}{22\%} = \frac{12\%}{22\%} = 0.545$$
+
+Fund B:
+$$\text{Sharpe}_B = \frac{9\% - 2\%}{11\%} = \frac{7\%}{11\%} = 0.636$$
+
+**Decision:**
+
+Fund B has the higher Sharpe ratio (0.636 vs. 0.545), meaning it provides more excess return per unit of risk. Despite Fund A's higher expected return, **Fund B offers the better risk-return tradeoff** for a mean-variance optimizer.
+:::
+
+
+## Ask an LLM
+
+Here are three questions you might ask an AI assistant to deepen your understanding of these concepts:
+
+- Stock returns in reality often exhibit "fat tails"—extreme returns occur more frequently than a normal distribution would predict. How do measures like Value at Risk (VaR) and Expected Shortfall account for these deviations from normality, and why might standard deviation understate the true risk of an investment?
+- The Sharpe ratio assumes that volatility fully captures risk, but are there situations where two investments have the same Sharpe ratio yet one is clearly riskier than the other? What are the limitations of using only mean and variance to evaluate investments?
+- How do professional investors typically handle the problem that past returns may not be representative of future returns? What techniques exist for adjusting historical estimates or incorporating forward-looking information?
+- Why do we divide by $N-1$ instead of $N$ when calculating sample variance? Can you explain the intuition behind Bessel's correction and when it matters most?

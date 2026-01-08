@@ -1,0 +1,42 @@
+---
+title: "Lab for Lecture 3: Measuring Returns"
+---
+
+
+
+
+## Real-World Application
+
+In practice, you will often be given (or will download) a time series of returns and then be asked to summarize performance over a horizon. The steps below walk you through doing this with monthly TSLA returns and CPI inflation.
+
+### Data sources
+
+**Stock returns (monthly):** The Wharton Research Data Services (WRDS) platform provides access to CRSP data, including monthly stock returns.
+
+**Inflation:** The Federal Reserve Economic Data (FRED) database provides the Consumer Price Index (CPI), which is commonly used to measure inflation.
+
+### Workflow (high-level)
+
+1. **Get access to WRDS.** Create a WRDS account using your school credentials (follow your course syllabus instructions).  
+2. **Download TSLA monthly returns from CRSP.** In WRDS, locate the CRSP monthly stock file and download monthly returns for TSLA over your target window (for example, 2019-01 through 2023-12).  
+3. **Download CPI data from FRED** over the matching date range (for example, 2019-01-01 to 2024-01-01).  
+4. **Align and merge the two datasets by month.** You want each month to have the TSLA return and CPI level (or monthly inflation).  
+5. **Compute the performance measures.** Use the formulas from earlier sections to compute:
+   - Total return over the full horizon (compound monthly returns),
+   - Geometric average monthly return over the horizon,
+   - Total real return over the horizon (adjust the total nominal return for the horizon’s inflation).
+
+Two practical tips that save headaches:
+
+- **Check missing returns.** If a return is missing, you need a consistent rule (drop the month, fill carefully, or verify the identifier). Missing values can silently break compounding.  
+- **Keep frequencies consistent.** If your returns are monthly, compute inflation monthly (or compute horizon inflation from the CPI endpoints for the horizon). Don’t mix monthly returns with annual inflation without converting one of them.
+
+### What to submit / practice
+
+Using your downloaded data:
+
+1. Calculate the total return on TSLA for the entire five-year period.  
+2. Calculate the geometric average return on TSLA over the entire period.  
+3. Calculate the total real return on TSLA for the entire five-year period.
+
+(These are direct applications of the formulas above; the main work is careful data handling.)

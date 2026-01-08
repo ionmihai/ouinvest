@@ -1,0 +1,419 @@
+---
+title: "Measuring Stock Returns"
+subtitle: "Holding Period Returns, Compounding, Geometric Averages, and Real Returns"
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    number-sections: true
+---
+
+## Introduction
+
+When you hear that Tesla stock "went up 50% last year" or that the S&P 500 has "returned about 10% annually over the long run," what exactly do these numbers mean? More importantly, how are they calculated, and why should you care about the precise method used?
+
+These questions matter because returns are the fundamental language of investing. Every decision you make as an investor—whether to buy, sell, or hold an asset—ultimately depends on your expectations about future returns and your assessment of past performance. But returns can be measured in different ways, and using the wrong measure can lead to poor decisions or misleading comparisons.
+
+Consider a simple scenario: you're comparing two mutual funds. Fund A reports "average annual returns of 15%" while Fund B reports "total returns of 45% over three years." Which fund performed better? Without understanding exactly how each return was calculated, you simply cannot answer this question. And in a world where financial advisors, fund managers, and the media constantly throw return statistics at you, this knowledge becomes essential.
+
+In this lecture, we'll build up the toolkit you need to properly measure and interpret stock returns. We'll start with the most basic building block—the holding period return—and then see how these returns compound over time. We'll learn why the geometric average is the correct way to express average performance, and finally, we'll see how to strip out inflation to understand what you've actually earned in real purchasing power.
+
+These concepts connect in a logical sequence: holding period returns tell you what happened in a single period, compounding shows you how these single-period returns accumulate, the geometric average gives you a meaningful "per period" summary of compounded returns, and real returns tell you what those gains actually buy you after inflation. By the end of this reading, you'll be equipped to calculate, interpret, and critically evaluate the return statistics you encounter as an investor.
+
+## Holding Period Return
+
+### The Basic Concept
+
+The holding period return (HPR) answers the most fundamental question in investing: if I buy an asset and hold it for some period of time, what is my total return? The "holding period" is simply the time between when you purchase the asset and when you sell it (or when you're measuring performance).
+
+The intuition is straightforward. When you invest in a stock, you can make money in two ways. First, the stock price might increase—this is called a capital gain. Second, the company might pay you dividends while you own the stock—this is your dividend income. Your total return combines both of these sources of wealth.
+
+To calculate the HPR, we need to compare what we end up with to what we started with. Specifically, we take the total value of everything we receive (the ending stock price plus any dividends) and divide by what we paid (the beginning stock price). This gives us the gross return—the ratio of ending wealth to beginning wealth. We then subtract 1 to convert this to a net return, which tells us the percentage gain or loss.
+
+### The Formula
+
+For a stock held from time $T_1$ to time $T_2$, the holding period return is:
+
+$$HPR_{T_1 \rightarrow T_2} = \frac{P_{T_2} + D_{T_1 \rightarrow T_2}}{P_{T_1}} - 1$$
+
+where:
+
+- $P_{T_1}$ = stock price at the beginning of the holding period
+- $P_{T_2}$ = stock price at the end of the holding period  
+- $D_{T_1 \rightarrow T_2}$ = total dividends received during the holding period
+
+This formula can be rewritten to show the two components of return separately:
+
+$$HPR_{T_1 \rightarrow T_2} = \underbrace{\frac{P_{T_2} - P_{T_1}}{P_{T_1}}}_{\text{Capital Gains Yield}} + \underbrace{\frac{D_{T_1 \rightarrow T_2}}{P_{T_1}}}_{\text{Dividend Yield}}$$
+
+This decomposition is useful because different types of stocks generate returns in different ways. Growth stocks like Tesla or Amazon historically paid little or no dividends, so their returns came almost entirely from capital gains. In contrast, mature companies like AT&T or utility stocks often have modest price appreciation but pay substantial dividends. Understanding where returns come from helps you evaluate whether a stock fits your investment strategy.
+
+### Example 1: Calculating Holding Period Return
+
+*Suppose you purchased shares of Tesla (TSLA) at the beginning of 2022 for \$350 per share. At the end of 2023, the stock was trading at \$490 per share. During this two-year period, Tesla paid total dividends of \$0 per share (Tesla does not currently pay dividends). Calculate the holding period return, capital gains yield, and dividend yield for this investment.*
+
+::: {.callout-note collapse="true" title="Solution to Example 1"}
+
+**Step 1: Identify the values**
+
+- Beginning price ($P_{T_1}$): \$350
+- Ending price ($P_{T_2}$): \$490
+- Dividends ($D$): \$0
+
+**Step 2: Calculate the holding period return**
+
+$$HPR = \frac{P_{T_2} + D}{P_{T_1}} - 1 = \frac{\$490 + \$0}{\$350} - 1 = \frac{\$490}{\$350} - 1 = 1.40 - 1 = 0.40 = 40\%$$
+
+**Step 3: Calculate the components**
+
+Capital Gains Yield:
+$$\frac{P_{T_2} - P_{T_1}}{P_{T_1}} = \frac{\$490 - \$350}{\$350} = \frac{\$140}{\$350} = 0.40 = 40\%$$
+
+Dividend Yield:
+$$\frac{D}{P_{T_1}} = \frac{\$0}{\$350} = 0\%$$
+
+**Interpretation:** Over this two-year period, an investment in Tesla would have returned 40%, all of which came from capital appreciation. Since Tesla doesn't pay dividends, the dividend yield is zero. Note that this is the total return over two years—not an annualized figure.
+
+:::
+
+## Total Return (Compounding)
+
+### Why Compounding Matters
+
+The holding period return works well when we know the beginning and ending values of an investment. But what if we know the returns for individual sub-periods and want to find the overall return? For instance, you might know that a stock returned 10% in Year 1, 5% in Year 2, and -3% in Year 3. What was the total return over all three years?
+
+Your first instinct might be to simply add the returns: 10% + 5% + (-3%) = 12%. But this would be incorrect, and understanding why reveals something fundamental about how wealth grows over time.
+
+The reason addition doesn't work is that returns compound—each period's return is earned on a base that includes the previous periods' gains (or losses). If you start with \$100 and earn 10% in Year 1, you end Year 1 with \$110. In Year 2, you earn 5%—but you earn it on \$110, not on your original \$100. So your Year 2 gain is \$5.50, not \$5.00. This compounding effect means returns must be multiplied, not added.
+
+### The Formula
+
+To find the total return over multiple periods, we multiply the gross returns (1 + net return) for each period:
+
+$$TR_{T_1 \rightarrow T_N} = (1 + R_{T_1})(1 + R_{T_2}) \cdots (1 + R_{T_N})$$
+
+where:
+
+- $TR_{T_1 \rightarrow T_N}$ = total gross return from period $T_1$ through period $T_N$
+- $R_{T_i}$ = net return in period $i$
+- $(1 + R_{T_i})$ = gross return in period $i$
+
+The result is a gross return. To convert to a net return (percentage gain), subtract 1:
+
+$$\text{Net Total Return} = TR_{T_1 \rightarrow T_N} - 1$$
+
+The intuition behind multiplying gross returns is that each gross return represents a "growth factor." If your investment grows by 10%, your wealth is multiplied by 1.10. If it then grows by 5%, your new wealth is multiplied by 1.05. The overall growth factor is therefore $1.10 \times 1.05 = 1.155$, meaning your wealth has grown by 15.5%, not 15%.
+
+### Example 2: Calculating Total Return with Compounding
+
+*Suppose that over the past three months, Tesla had net returns of 10%, 5%, and -3% in months 1, 2, and 3 respectively. What was the total return on Tesla over this three-month period?*
+
+::: {.callout-note collapse="true" title="Solution to Example 2"}
+
+**Step 1: Convert net returns to gross returns**
+
+- Month 1: $1 + 0.10 = 1.10$
+- Month 2: $1 + 0.05 = 1.05$  
+- Month 3: $1 + (-0.03) = 0.97$
+
+**Step 2: Multiply the gross returns**
+
+$$TR = 1.10 \times 1.05 \times 0.97 = 1.12035$$
+
+**Step 3: Convert to net return**
+
+$$\text{Net Total Return} = 1.12035 - 1 = 0.12035 = 12.035\%$$
+
+**Interpretation:** Over the three-month period, Tesla returned approximately 12.04% in total. Notice this is slightly higher than the simple sum of returns (10% + 5% - 3% = 12%) because of the compounding effect—the 5% gain in Month 2 was earned on a larger base that included the 10% gain from Month 1.
+
+**Verification with dollars:** If you invested \$1,000:
+
+- After Month 1: $\$1,000 \times 1.10 = \$1,100$
+- After Month 2: $\$1,100 \times 1.05 = \$1,155$
+- After Month 3: $\$1,155 \times 0.97 = \$1,120.35$
+
+Total gain: $\$1,120.35 - \$1,000 = \$120.35$, which is $12.035\%$ of \$1,000.
+
+:::
+
+## Geometric Average Return
+
+### The Problem with Arithmetic Averages
+
+Now suppose you want to describe the "average" return over multiple periods. Using our example above, you might be tempted to calculate the arithmetic average: $(10\% + 5\% + (-3\%))/3 = 4\%$. But this arithmetic average can be misleading, especially when returns are volatile.
+
+Consider an extreme example: a stock returns +100% in Year 1 and -50% in Year 2. The arithmetic average is $(100\% + (-50\%))/2 = 25\%$. Sounds great! But let's trace what happens to \$100 invested in this stock. After Year 1, you have \$200. After Year 2, you have \$100. You ended up exactly where you started—your true average annual return was 0%, not 25%.
+
+The geometric average solves this problem by finding the constant return that, if earned each period, would produce the same total return as the actual sequence of varying returns. It directly incorporates the compounding effect and gives you a meaningful measure of average periodic performance.
+
+### The Formula
+
+The geometric average return over $N$ periods is:
+
+$$GA_{T_1 \rightarrow T_N} = \left[(1 + R_{T_1})(1 + R_{T_2}) \cdots (1 + R_{T_N})\right]^{1/N} - 1$$
+
+This can be written more compactly using the total return:
+
+$$GA_{T_1 \rightarrow T_N} = \left[TR_{T_1 \rightarrow T_N}\right]^{1/N} - 1$$
+
+where:
+
+- $GA$ = geometric average (net) return per period
+- $TR$ = total gross return over all periods
+- $N$ = number of periods
+
+The geometric average has an elegant interpretation: if you earned exactly this return every single period, you would end up with the same final wealth as you did with the actual varying returns. This makes it the correct measure for comparing average performance across investments or time periods.
+
+### Example 3: Calculating the Geometric Average Return
+
+*Using the same data as in Example 2 (monthly returns of 10%, 5%, and -3%), what was the geometric average monthly return of Tesla over the three-month period?*
+
+::: {.callout-note collapse="true" title="Solution to Example 3"}
+
+**Step 1: Calculate the total gross return** (from Example 2)
+
+$$TR = 1.10 \times 1.05 \times 0.97 = 1.12035$$
+
+**Step 2: Take the Nth root (where N = 3 months)**
+
+$$GA = (1.12035)^{1/3} - 1$$
+
+$$(1.12035)^{1/3} = 1.03867$$
+
+$$GA = 1.03867 - 1 = 0.03867 = 3.867\%$$
+
+**Interpretation:** The geometric average monthly return was approximately 3.87%. This means that if Tesla had returned exactly 3.87% every single month for three months, the total return would be the same 12.035% we calculated earlier.
+
+**Verification:**
+
+$$1.03867 \times 1.03867 \times 1.03867 = 1.03867^3 = 1.12035$$
+
+This confirms our answer: earning 3.867% each month for 3 months gives the same result as earning 10%, 5%, and -3% in successive months.
+
+**Comparison with arithmetic average:** The arithmetic average is $(10\% + 5\% + (-3\%))/3 = 4\%$. The geometric average (3.867%) is slightly lower. This is always the case when returns vary—the geometric average is always less than or equal to the arithmetic average, with equality only when all returns are identical.
+
+:::
+
+## Real Returns
+
+### Why Inflation Matters
+
+All the returns we've discussed so far are nominal returns—they measure changes in dollar values without accounting for changes in what those dollars can buy. But as investors, we ultimately care about purchasing power. If your investment returns 5% but prices rise by 5%, you haven't actually gotten any richer in terms of what you can buy.
+
+This distinction becomes critical when comparing returns across different time periods or countries with different inflation rates. A 10% return in 1980 (when U.S. inflation was around 13%) was actually a loss in purchasing power, while a 10% return in 2020 (when inflation was about 1.5%) represented a substantial real gain.
+
+Real returns strip out the inflation component to show what you actually earned in terms of purchasing power. This is the return that matters for your actual standard of living.
+
+### The Formula
+
+The relationship between nominal returns, real returns, and inflation is:
+
+$$(1 + R_{nominal}) = (1 + R_{real})(1 + \pi)$$
+
+where $\pi$ represents the inflation rate. Solving for the real return:
+
+$$R_{real} = \frac{1 + R_{nominal}}{1 + \pi} - 1 = \frac{R_{nominal} - \pi}{1 + \pi}$$
+
+where:
+
+- $R_{real}$ = real (inflation-adjusted) net return
+- $R_{nominal}$ = nominal (observed) net return
+- $\pi$ = inflation rate over the same period
+
+You might sometimes see a simpler approximation: $R_{real} \approx R_{nominal} - \pi$. This approximation works reasonably well when both the nominal return and inflation rate are small (say, under 10%), but the exact formula should be used for precision or when dealing with higher rates.
+
+### Compounding Real Returns
+
+Just like nominal returns, real returns compound over multiple periods. To find the total real return over several periods, you can either convert each period's nominal return to a real return and then compound, or compound the nominal returns and the inflation rates separately and then adjust.
+
+### Example 4: Calculating Real Total Return
+
+*Using the same data as in Example 2 (monthly nominal returns of 10%, 5%, and -3%), and assuming the inflation rate was 0.5% in each of the three months, calculate the real total return on Tesla over the three-month period.*
+
+::: {.callout-note collapse="true" title="Solution to Example 4"}
+
+**Method 1: Convert each period to real returns, then compound**
+
+**Step 1: Calculate real return for each month**
+
+Month 1:
+$$R_{real,1} = \frac{0.10 - 0.005}{1 + 0.005} = \frac{0.095}{1.005} = 0.09453 = 9.453\%$$
+
+Month 2:
+$$R_{real,2} = \frac{0.05 - 0.005}{1 + 0.005} = \frac{0.045}{1.005} = 0.04478 = 4.478\%$$
+
+Month 3:
+$$R_{real,3} = \frac{-0.03 - 0.005}{1 + 0.005} = \frac{-0.035}{1.005} = -0.03483 = -3.483\%$$
+
+**Step 2: Compound the real returns**
+
+$$TR_{real} = (1.09453)(1.04478)(0.96517) = 1.10396$$
+
+$$\text{Net Real Total Return} = 1.10396 - 1 = 0.10396 = 10.40\%$$
+
+**Method 2: Adjust total nominal return by total inflation**
+
+**Step 1: Calculate total nominal return** (from Example 2)
+
+$$TR_{nominal} = 1.12035$$
+
+**Step 2: Calculate total inflation factor**
+
+$$\text{Total Inflation} = (1.005)(1.005)(1.005) = 1.005^3 = 1.01508$$
+
+**Step 3: Calculate real total return**
+
+$$TR_{real} = \frac{TR_{nominal}}{\text{Total Inflation}} = \frac{1.12035}{1.01508} = 1.10369$$
+
+$$\text{Net Real Total Return} = 1.10369 - 1 = 0.10369 = 10.37\%$$
+
+(The small difference between methods is due to rounding in intermediate calculations.)
+
+**Interpretation:** While the nominal total return was 12.04%, the real total return was only about 10.4%. The difference of roughly 1.6 percentage points represents the purchasing power lost to inflation over the three months. In other words, although your dollar wealth increased by 12.04%, prices also rose by about 1.5%, so your actual increase in purchasing power was 10.4%.
+
+:::
+
+## Key Takeaways
+
+Understanding how to measure returns is foundational to becoming a thoughtful investor. The holding period return gives us the basic building block—it tells us the total percentage gain or loss over any single period, combining both capital gains and dividend income into one comprehensive measure. Whenever you're evaluating what happened to an investment between two points in time, the HPR is your starting point.
+
+When we have returns over multiple periods, we cannot simply add them together. Returns compound, meaning each period's return applies to a growing (or shrinking) base that includes all previous gains and losses. The total return formula captures this compounding effect by multiplying gross returns rather than adding net returns. This is why a 50% loss is so devastating—it takes a 100% gain just to get back to even, not a 50% gain.
+
+The geometric average return extends this compounding logic to give us a meaningful "average" return per period. Unlike the arithmetic average, which can paint a misleadingly rosy picture when returns are volatile, the geometric average tells us the constant rate of return that would replicate our actual wealth growth. This is the number you should use when someone asks "what was the average annual return?" and you want to give an accurate answer.
+
+Finally, real returns remind us that what ultimately matters is purchasing power, not just dollar amounts. By stripping out inflation, we can see what our investments actually earned in terms of goods and services we can buy. This adjustment is essential for comparing returns across different time periods with different inflation environments, and for understanding whether your investments are actually making you wealthier in any meaningful sense.
+
+These four concepts form a coherent system: HPR measures single-period performance, compounding links periods together, the geometric average summarizes multi-period performance on a per-period basis, and the real return adjustment ensures we're measuring what actually matters. With these tools, you can critically evaluate any return statistic you encounter and avoid being misled by numbers that seem impressive but may not tell the full story.
+
+## Key Formulas Summary
+
+| Concept | Formula | When to Use |
+|---------|---------|-------------|
+| Holding Period Return | $HPR = \frac{P_{T_2} + D}{P_{T_1}} - 1$ | When you know beginning and ending prices plus dividends for a single holding period |
+| Capital Gains Yield | $CGY = \frac{P_{T_2} - P_{T_1}}{P_{T_1}}$ | When you want to isolate the price appreciation component of return |
+| Dividend Yield | $DY = \frac{D}{P_{T_1}}$ | When you want to isolate the income component of return |
+| Total Return (Compounding) | $TR = (1+R_1)(1+R_2)\cdots(1+R_N)$ | When you know sub-period returns and need the overall return across all periods |
+| Geometric Average | $GA = [TR]^{1/N} - 1$ | When you want to express total multi-period performance as an equivalent per-period return |
+| Real Return | $R_{real} = \frac{R_{nominal} - \pi}{1 + \pi}$ | When you need to adjust returns for inflation to measure purchasing power gains |
+
+## Practice Problems
+
+### Practice Problem 1: Holding Period Return
+
+*You purchased 100 shares of Apple (AAPL) on January 1, 2023 at \$130 per share. On December 31, 2024, the shares were trading at \$185 per share. During this two-year period, Apple paid total dividends of \$1.90 per share. Calculate the holding period return, decomposing it into capital gains yield and dividend yield.*
+
+::: {.callout-note collapse="true" title="Solution to Practice Problem 1"}
+
+**Given information:**
+
+- Beginning price ($P_{T_1}$): \$130
+- Ending price ($P_{T_2}$): \$185
+- Total dividends ($D$): \$1.90
+
+**Calculate the holding period return:**
+
+$$HPR = \frac{P_{T_2} + D}{P_{T_1}} - 1 = \frac{\$185 + \$1.90}{\$130} - 1 = \frac{\$186.90}{\$130} - 1 = 1.4377 - 1 = 43.77\%$$
+
+**Calculate capital gains yield:**
+
+$$CGY = \frac{P_{T_2} - P_{T_1}}{P_{T_1}} = \frac{\$185 - \$130}{\$130} = \frac{\$55}{\$130} = 42.31\%$$
+
+**Calculate dividend yield:**
+
+$$DY = \frac{D}{P_{T_1}} = \frac{\$1.90}{\$130} = 1.46\%$$
+
+**Verify:** $42.31\% + 1.46\% = 43.77\%$ ✓
+
+**Interpretation:** Over the two-year period, Apple delivered a total return of 43.77%. The vast majority (42.31%) came from price appreciation, with a small contribution (1.46%) from dividends. This is typical of a growth-oriented company that prioritizes reinvesting profits over paying dividends.
+
+:::
+
+### Practice Problem 2: Total Return with Compounding
+
+*An S&P 500 index fund had the following annual returns over a four-year period: Year 1: +28%, Year 2: +18%, Year 3: -4%, Year 4: +12%. What was the total return over the entire four-year period?*
+
+::: {.callout-note collapse="true" title="Solution to Practice Problem 2"}
+
+**Step 1: Convert each annual return to a gross return**
+
+- Year 1: $1 + 0.28 = 1.28$
+- Year 2: $1 + 0.18 = 1.18$
+- Year 3: $1 + (-0.04) = 0.96$
+- Year 4: $1 + 0.12 = 1.12$
+
+**Step 2: Multiply all gross returns**
+
+$$TR = 1.28 \times 1.18 \times 0.96 \times 1.12 = 1.6239$$
+
+**Step 3: Convert to net total return**
+
+$$\text{Net Total Return} = 1.6239 - 1 = 0.6239 = 62.39\%$$
+
+**Interpretation:** Over the four-year period, the fund returned 62.39% in total. If you had invested \$10,000 at the start, you would have \$16,239 at the end. Note that the simple sum of returns would be $28\% + 18\% - 4\% + 12\% = 54\%$, which understates the actual total return because it ignores the compounding effect.
+
+:::
+
+### Practice Problem 3: Geometric Average
+
+*Using the data from Practice Problem 2, calculate the geometric average annual return for the S&P 500 index fund.*
+
+::: {.callout-note collapse="true" title="Solution to Practice Problem 3"}
+
+**Step 1: Use the total return calculated in Practice Problem 2**
+
+$$TR = 1.6239$$
+
+**Step 2: Calculate the geometric average**
+
+$$GA = (TR)^{1/N} - 1 = (1.6239)^{1/4} - 1$$
+
+$$(1.6239)^{0.25} = 1.1290$$
+
+$$GA = 1.1290 - 1 = 0.1290 = 12.90\%$$
+
+**Comparison with arithmetic average:**
+
+$$\text{Arithmetic Average} = \frac{28\% + 18\% + (-4\%) + 12\%}{4} = \frac{54\%}{4} = 13.50\%$$
+
+**Interpretation:** The geometric average annual return was 12.90%, meaning if the fund had returned exactly 12.90% every year for four years, the ending wealth would be identical to what actually occurred. The arithmetic average (13.50%) is higher, which is always the case when returns vary. The 0.60 percentage point difference reflects the "volatility drag" caused by the sequence of varying returns.
+
+:::
+
+### Practice Problem 4: Real Returns
+
+*An international stock fund returned 8% in nominal terms over the past year. During the same period, inflation in the investor's home country was 3.2%. What was the real return on this investment?*
+
+::: {.callout-note collapse="true" title="Solution to Practice Problem 4"}
+
+**Given information:**
+
+- Nominal return ($R_{nominal}$): 8% = 0.08
+- Inflation rate ($\pi$): 3.2% = 0.032
+
+**Calculate the real return:**
+
+$$R_{real} = \frac{R_{nominal} - \pi}{1 + \pi} = \frac{0.08 - 0.032}{1 + 0.032} = \frac{0.048}{1.032} = 0.04651 = 4.65\%$$
+
+**Using the approximation for comparison:**
+
+$$R_{real} \approx R_{nominal} - \pi = 8\% - 3.2\% = 4.8\%$$
+
+**Interpretation:** While the investment grew by 8% in dollar terms, inflation eroded 3.2% of purchasing power. The true increase in what you can actually buy is 4.65%. The simple approximation (4.8%) overstates the real return slightly because it ignores the compounding interaction between returns and inflation. For typical return and inflation levels, this difference is small, but it becomes more significant with higher inflation rates.
+
+:::
+
+## Ask an LLM
+
+Here are three questions you might ask an AI assistant to deepen your understanding of these concepts:
+
+1. **"Can you explain why the geometric average return is always less than or equal to the arithmetic average return? Walk me through a mathematical proof or intuitive explanation, and help me understand when the gap between them is largest."**
+
+   This question will help you understand the mathematical relationship between these two averages and why volatility creates a "drag" on compound returns—a concept that has important implications for portfolio construction and risk management.
+
+2. **"Imagine I'm comparing two investments: Investment A returned +50% in Year 1 and -30% in Year 2. Investment B returned +10% in both years. Both have the same arithmetic average return of 10% per year. Can you show me which investment actually left the investor wealthier and explain why this happens?"**
+
+   This question uses a concrete example to illustrate why the geometric average is the correct measure of investment performance, and why high volatility can hurt long-term wealth accumulation even when average returns look the same.
+
+3. **"In periods of very high inflation, like the 1970s in the United States or recent periods in countries like Argentina or Turkey, how do real and nominal returns differ dramatically? Can you give me some historical examples that illustrate why distinguishing between real and nominal returns is so important?"**
+
+   This question will provide real-world context for why real returns matter, and help you appreciate scenarios where investors earned positive nominal returns but actually lost purchasing power—or conversely, where modest nominal returns represented excellent real performance.

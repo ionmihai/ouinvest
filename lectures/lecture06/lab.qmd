@@ -1,0 +1,19 @@
+---
+title: "Lab for Lecture 6: Optimal Capital Allocation"
+---
+
+
+***
+
+Log in on the WRDS website. Under "Subscriptions" click on "Fama-French Portfolios and Factors", then click on "3 Factors Plus Momentum - Monthly Frequency". 
+
+- Under Step 1, choose date range 1926-07 to 2023-12
+- Under Step 2, select 'mktrf' (these are excess returns on the market portfolio) and 'rf' (this is the yield on a 1 month tbill)
+- Under Step 3, select 'Excel spreadsheet' and 'Uncompressed'
+- Click "Submit Form"
+- On the new page, wait until "Status" says "Success", and then click "Download .xlsx Output"
+
+Using this data:
+
+- Calculate monthly market returns by adding the risk free rate (rf) to the excess return on the market (mktrf)
+- Assume the risk-free rate is 0.4% and your risk aversion coefficient is 4. What is your optimal capital allocation between the risk free asset and the market portfolio? 

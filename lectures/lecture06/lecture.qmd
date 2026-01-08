@@ -1,0 +1,437 @@
+---
+title: "Optimal Capital Allocation"
+subtitle: "The capital allocation line (CAL), risk aversion, and the choice between risky and risk-free assets"
+---
+
+## Introduction
+
+One of the most fundamental decisions any investor faces is deceptively simple: how much of your wealth should you put at risk? This question sits at the heart of portfolio construction and connects deeply to who you are as an investor—your goals, your timeline, and perhaps most importantly, your tolerance for uncertainty.
+
+In this lecture, we develop the analytical framework for answering this question rigorously. We begin by understanding how combining a risky asset with a risk-free asset creates a spectrum of investment possibilities, all lying along what we call the Capital Allocation Line. We then turn to the deeper question of where along this line you should position yourself, which requires us to grapple with the concept of risk aversion and how to measure it.
+
+The tools we develop here have immediate practical application. Whether you're deciding how much of your retirement savings to put in stocks versus Treasury bills, or advising a client on their asset allocation, the framework in this lecture provides the quantitative foundation for making these decisions systematically rather than by gut feeling.
+
+## The Capital Allocation Line (CAL)
+
+### Constructing the Complete Portfolio
+
+Suppose you have identified a risky asset (or portfolio of risky assets) that you want to invest in—call it P. This could be a single stock like Tesla, an index fund tracking the S&P 500, or a carefully constructed portfolio of multiple securities. Alongside P, you have access to a risk-free asset, such as a U.S. Treasury bill, which offers a guaranteed return.
+
+The central question of capital allocation is: what fraction of your wealth should you invest in P versus the risk-free asset? We denote this fraction as $w_c$, where the subscript "c" stands for "complete portfolio"—the final portfolio containing both risky and risk-free components. If you invest proportion $w_c$ in the risky asset P, then the remaining proportion $(1 - w_c)$ goes into the risk-free asset.
+
+Your complete portfolio C has a return that is simply the weighted average of the returns on its two components:
+
+$$R_C = w_c R_P + (1 - w_c) R_f$$
+
+where $R_P$ is the return on the risky asset and $R_f$ is the risk-free rate.
+
+### Expected Return of the Complete Portfolio
+
+Taking expectations of both sides, we find the expected return of the complete portfolio:
+
+$$E[R_C] = w_c E[R_P] + (1 - w_c) R_f$$
+
+Notice something important here: we wrote $R_f$ rather than $E[R_f]$ for the risk-free component. This is because the risk-free asset, by definition, has no uncertainty about its return—it's guaranteed by the U.S. government. A constant has no randomness, so its expected value equals itself.
+
+This formula tells us that we can achieve any expected return between $R_f$ (when $w_c = 0$) and $E[R_P]$ (when $w_c = 1$) by choosing the appropriate weight. We can even achieve expected returns above $E[R_P]$ by setting $w_c > 1$, which means borrowing at the risk-free rate to invest more than 100% of our wealth in the risky asset—a strategy called leveraging.
+
+### Risk of the Complete Portfolio
+
+What about the risk of our complete portfolio? Using the formula for the variance of a weighted sum of random variables:
+
+$$\text{Var}[R_C] = w_c^2 \text{Var}[R_P] + (1-w_c)^2 \text{Var}[R_f] + 2w_c(1-w_c)\text{Cov}[R_P, R_f]$$
+
+Here's where the special nature of the risk-free asset simplifies things dramatically. Because $R_f$ is a constant (not a random variable), its variance is zero and its covariance with any other random variable is also zero. Substituting $\text{Var}[R_f] = 0$ and $\text{Cov}[R_P, R_f] = 0$, we get:
+
+$$\text{Var}[R_C] = w_c^2 \text{Var}[R_P]$$
+
+Taking the square root of both sides gives us the standard deviation of the complete portfolio:
+
+$$\sigma_C = w_c \sigma_P$$
+
+This result is elegant and intuitive: the risk of your complete portfolio is simply your allocation to the risky asset multiplied by that asset's risk. If you put half your money in the risky asset, you bear half its risk. If you leverage to 150% in the risky asset, you bear 1.5 times its risk.
+
+::: {.callout-note title="Example 1: Constructing Capital Allocations" collapse="false"}
+Assume you have estimated that the expected return on TSLA is 10% and the standard deviation of its future returns is 12%. The risk-free rate is 1%. Create capital allocations with weights in TSLA ranging from 0% to 200% in increments of 10%. Calculate the expected return and standard deviation for each complete portfolio.
+:::
+
+::: {.callout-note title="Solution to Example 1" collapse="true"}
+We apply the formulas $E[R_C] = w_c E[R_P] + (1 - w_c) R_f$ and $\sigma_C = w_c \sigma_P$ for each weight.
+
+**Given information:**
+
+- $E[R_P] = 10\%$ (expected return on TSLA)
+- $\sigma_P = 12\%$ (standard deviation of TSLA)
+- $R_f = 1\%$ (risk-free rate)
+
+**Calculations:**
+
+For $w_c = 0\%$: $E[R_C] = 0(0.10) + 1(0.01) = 1\%$, $\sigma_C = 0(0.12) = 0\%$
+
+For $w_c = 50\%$: $E[R_C] = 0.5(0.10) + 0.5(0.01) = 5.5\%$, $\sigma_C = 0.5(0.12) = 6\%$
+
+For $w_c = 100\%$: $E[R_C] = 1(0.10) + 0(0.01) = 10\%$, $\sigma_C = 1(0.12) = 12\%$
+
+For $w_c = 150\%$: $E[R_C] = 1.5(0.10) + (-0.5)(0.01) = 14.5\%$, $\sigma_C = 1.5(0.12) = 18\%$
+
+For $w_c = 200\%$: $E[R_C] = 2(0.10) + (-1)(0.01) = 19\%$, $\sigma_C = 2(0.12) = 24\%$
+
+| Weight in TSLA ($w_c$) | Weight in Risk-Free | Expected Return | Standard Deviation |
+|:----------------------:|:-------------------:|:---------------:|:------------------:|
+| 0% | 100% | 1.0% | 0.0% |
+| 10% | 90% | 1.9% | 1.2% |
+| 20% | 80% | 2.8% | 2.4% |
+| 30% | 70% | 3.7% | 3.6% |
+| 40% | 60% | 4.6% | 4.8% |
+| 50% | 50% | 5.5% | 6.0% |
+| 60% | 40% | 6.4% | 7.2% |
+| 70% | 30% | 7.3% | 8.4% |
+| 80% | 20% | 8.2% | 9.6% |
+| 90% | 10% | 9.1% | 10.8% |
+| 100% | 0% | 10.0% | 12.0% |
+| 110% | -10% | 10.9% | 13.2% |
+| 120% | -20% | 11.8% | 14.4% |
+| 130% | -30% | 12.7% | 15.6% |
+| 140% | -40% | 13.6% | 16.8% |
+| 150% | -50% | 14.5% | 18.0% |
+| 160% | -60% | 15.4% | 19.2% |
+| 170% | -70% | 16.3% | 20.4% |
+| 180% | -80% | 17.2% | 21.6% |
+| 190% | -90% | 18.1% | 22.8% |
+| 200% | -100% | 19.0% | 24.0% |
+
+When plotted in mean-volatility space (with standard deviation on the x-axis and expected return on the y-axis), these points form a straight line starting at $(0\%, 1\%)$ and passing through $(12\%, 10\%)$. This line is the Capital Allocation Line for TSLA.
+
+Note that weights above 100% involve borrowing at the risk-free rate (negative weight in the risk-free asset) to invest more than your initial wealth in TSLA. This is called leveraging and increases both expected return and risk proportionally.
+:::
+
+## Characteristics of the Capital Allocation Line
+
+### The Geometry of Risk-Return Trade-offs
+
+The calculations in Example 1 reveal something remarkable: all possible complete portfolios lie on a straight line in mean-volatility space. This line is called the Capital Allocation Line (CAL), and understanding its properties gives us deep insight into the risk-return trade-off available to investors.
+
+Every risky asset (or portfolio) has its own CAL. The line always starts at the point $(0, R_f)$—representing 100% investment in the risk-free asset—and extends upward and to the right through the point $(\sigma_P, E[R_P])$—representing 100% investment in the risky asset. Beyond this point, the line continues into the leveraged region where $w_c > 1$.
+
+### The Slope of the CAL: The Sharpe Ratio
+
+The slope of any straight line is "rise over run." For the CAL, the rise is the increase in expected return, and the run is the increase in standard deviation. Using two points on the line—the risk-free asset at $(0, R_f)$ and the risky asset at $(\sigma_P, E[R_P])$—we find:
+
+$$\text{Slope of CAL} = \frac{E[R_P] - R_f}{\sigma_P}$$
+
+This ratio has a name you'll encounter constantly in finance: the **Sharpe ratio**. It measures the excess return (return above the risk-free rate) per unit of risk. The Sharpe ratio tells you how much extra return you earn for each additional percentage point of volatility you accept.
+
+A higher Sharpe ratio means a steeper CAL, which means better risk-return trade-offs. If two risky assets have the same expected return but different volatilities, the less volatile one has a higher Sharpe ratio and a more attractive CAL. This is why the Sharpe ratio is one of the most widely used performance metrics in investment management.
+
+### The Analytical Equation for the CAL
+
+We can express the expected return of any complete portfolio as a function of its standard deviation by rearranging our formulas. Since $\sigma_C = w_c \sigma_P$, we have $w_c = \sigma_C / \sigma_P$. Substituting this into the expected return formula:
+
+$$E[R_C] = R_f + \sigma_C \times \frac{E[R_P] - R_f}{\sigma_P}$$
+
+Or more compactly:
+
+$$E[R_C] = R_f + \sigma_C \times \text{Sharpe Ratio}$$
+
+This equation is powerful because it tells us the exact relationship between risk and expected return for our complete portfolio. Given the Sharpe ratio of our risky asset, we can immediately calculate what expected return we'll earn for any level of risk we choose to take on.
+
+::: {.callout-note title="Example 2: Using the CAL Equation" collapse="false"}
+Assume you want to invest in TSLA and a risk-free asset (a 3-month T-bill). You have estimated that the Sharpe ratio of TSLA stock is 0.5. The yield on the 3-month T-bill is 0.4%. You would like the complete portfolio (made up of TSLA and the 3-month T-bill) to give you an expected return of 5.4%. What will be the total risk (standard deviation) of the complete portfolio?
+:::
+
+::: {.callout-note title="Solution to Example 2" collapse="true"}
+We use the CAL equation to find the standard deviation that corresponds to our target expected return.
+
+**Given information:**
+
+- Sharpe ratio of TSLA = 0.5
+- $R_f = 0.4\%$
+- Target $E[R_C] = 5.4\%$
+
+**Setting up the equation:**
+
+$$E[R_C] = R_f + \sigma_C \times \text{Sharpe Ratio}$$
+
+$$5.4\% = 0.4\% + \sigma_C \times 0.5$$
+
+**Solving for $\sigma_C$:**
+
+$$5.4\% - 0.4\% = \sigma_C \times 0.5$$
+
+$$5.0\% = \sigma_C \times 0.5$$
+
+$$\sigma_C = \frac{5.0\%}{0.5} = 10\%$$
+
+**Interpretation:**
+
+To achieve an expected return of 5.4%, you must accept a portfolio standard deviation of 10%. 
+
+We can verify this makes sense by finding the implied weight in TSLA. First, we need TSLA's volatility. Since Sharpe ratio = $(E[R_P] - R_f)/\sigma_P$ and we know the Sharpe ratio is 0.5, we can work backwards: if the Sharpe ratio is 0.5 and $\sigma_C = w_c \sigma_P = 10\%$, then $w_c = \sigma_C / \sigma_P = 10\% / \sigma_P$.
+
+Alternatively, using $E[R_C] = w_c E[R_P] + (1-w_c)R_f$ and the fact that the excess return of 5% must come entirely from TSLA's excess return: $w_c \times (E[R_P] - R_f) = 5\%$, and since Sharpe ratio $= 0.5 = (E[R_P] - R_f)/\sigma_P$, we have $(E[R_P] - R_f) = 0.5 \sigma_P$.
+
+The key result is that the CAL tells us precisely what risk level we must accept for any given target return.
+:::
+
+## Optimal Capital Allocation
+
+We now know how to calculate the risk and expected return of any complete portfolio given a capital allocation weight $w_c$. But this raises a crucial question: how should we choose $w_c$? The answer depends fundamentally on how the investor feels about risk.
+
+### Understanding Risk Aversion
+
+Different people have different attitudes toward risk. Consider a simple thought experiment: I offer you a choice between (A) receiving $50 for certain, or (B) flipping a fair coin where you win $100 if heads and $0 if tails. Both options have the same expected value of $50, but option B involves risk while option A does not.
+
+Most people prefer option A—the certain $50. This preference for certainty when expected values are equal is called **risk aversion**. A risk-averse person requires compensation (in the form of higher expected returns) to accept risk. The more risk-averse someone is, the more compensation they demand.
+
+Some people might be indifferent between A and B—these are **risk-neutral** individuals who care only about expected value, not about risk. And a few might actually prefer B—these are **risk-seeking** individuals who enjoy the thrill of uncertainty.
+
+In financial markets, most investors are risk-averse. This is why risky assets must offer higher expected returns than risk-free assets—the extra return is the compensation that risk-averse investors demand for bearing uncertainty.
+
+### Quantifying Risk Aversion: The Utility Function
+
+To make optimal decisions, we need a way to quantify how much an investor dislikes risk. Economists and financial theorists do this using a **utility function**—a mathematical function that converts portfolio characteristics into a single number representing the investor's satisfaction or "utility."
+
+The most common utility function in finance is the **mean-variance utility function** (sometimes called quadratic utility):
+
+$$U = E[R] - \frac{1}{2} A \sigma^2$$
+
+Here, $U$ represents the investor's utility (satisfaction) from a portfolio with expected return $E[R]$ and variance $\sigma^2$. The parameter $A$ is the **coefficient of risk aversion**—it measures how much the investor dislikes variance.
+
+Let's unpack this formula. The first term, $E[R]$, says that investors like higher expected returns—this increases utility. The second term, $-\frac{1}{2}A\sigma^2$, says that investors dislike variance—this decreases utility. The coefficient $A$ determines how severely variance is penalized relative to expected return.
+
+For a risk-averse investor, $A > 0$. Higher values of $A$ mean greater risk aversion—the investor penalizes variance more heavily and requires more expected return to compensate for a given level of risk. For a risk-neutral investor, $A = 0$, and the utility function reduces to just the expected return. For a risk-seeking investor, $A < 0$, but this case is rare and not our focus.
+
+### Interpreting the Risk Aversion Coefficient
+
+What does a risk aversion coefficient of, say, $A = 4$ actually mean? One intuitive interpretation comes from thinking about certainty equivalents.
+
+Imagine asking an investor: "If you were to invest all your wealth in a risky asset with variance $\sigma^2$, what is the minimum expected return you would require to make the investment worthwhile compared to earning the risk-free rate?"
+
+If the investor answers that they require an expected return of $E[R]$, and they're indifferent between this risky investment and the risk-free alternative, then their risk aversion coefficient is:
+
+$$A = \frac{E[R] - R_f}{\sigma^2}$$
+
+For example, if an investor requires an expected return of 10% to hold an asset with variance of 0.04 (standard deviation of 20%) when the risk-free rate is 2%, their risk aversion coefficient is:
+
+$$A = \frac{0.10 - 0.02}{0.04} = \frac{0.08}{0.04} = 2$$
+
+Common values of $A$ in practice range from about 2 to 6, with 4 being a frequently used "moderate" value. An investor with $A = 2$ is relatively tolerant of risk, while $A = 6$ indicates significant risk aversion.
+
+### Deriving the Optimal Capital Allocation
+
+Now we can solve for the optimal capital allocation. The investor wants to choose the weight $w_c$ that maximizes their utility. Substituting our formulas for the complete portfolio into the utility function:
+
+$$U = E[R_C] - \frac{1}{2}A\sigma_C^2$$
+
+$$U = w_c E[R_P] + (1-w_c)R_f - \frac{1}{2}A(w_c\sigma_P)^2$$
+
+$$U = R_f + w_c(E[R_P] - R_f) - \frac{1}{2}Aw_c^2\sigma_P^2$$
+
+To find the maximum, we take the derivative with respect to $w_c$ and set it equal to zero:
+
+$$\frac{dU}{dw_c} = (E[R_P] - R_f) - Aw_c\sigma_P^2 = 0$$
+
+Solving for $w_c$ gives us the **optimal capital allocation**:
+
+$$w^*_c = \frac{E[R_P] - R_f}{A\sigma_P^2}$$
+
+This elegant formula tells us exactly what proportion of our wealth to invest in the risky asset as a function of three things: the risky asset's risk premium $(E[R_P] - R_f)$, the investor's risk aversion $(A)$, and the risky asset's variance $(\sigma_P^2)$.
+
+### Understanding the Optimal Allocation Formula
+
+The formula makes intuitive sense on several levels. The optimal allocation to risky assets increases with the risk premium—if the expected excess return is higher, you should invest more. The allocation decreases with risk aversion—more risk-averse investors hold less in risky assets. And the allocation decreases with variance—riskier assets warrant smaller positions.
+
+Notice that the formula uses variance $(\sigma_P^2)$ in the denominator, not standard deviation $(\sigma_P)$. This is because the utility function penalizes variance, and the mathematics of optimization naturally produces this result. It means that the allocation is very sensitive to risk: doubling the standard deviation quadruples the variance and thus reduces the optimal allocation by a factor of four.
+
+::: {.callout-note title="Example 3: Finding the Optimal Capital Allocation" collapse="false"}
+Assume you have estimated that the expected return on TSLA is 5.6% and the standard deviation of its future returns is 18.6%. The risk-free rate is 0.1%. Your coefficient of risk aversion is 4. What is your optimal capital allocation?
+:::
+
+::: {.callout-note title="Solution to Example 3" collapse="true"}
+We apply the optimal capital allocation formula directly.
+
+**Given information:**
+
+- $E[R_P] = 5.6\%$ (expected return on TSLA)
+- $\sigma_P = 18.6\%$ (standard deviation of TSLA)
+- $R_f = 0.1\%$ (risk-free rate)
+- $A = 4$ (coefficient of risk aversion)
+
+**Calculate the variance:**
+
+$$\sigma_P^2 = (0.186)^2 = 0.0346$$
+
+**Apply the optimal capital allocation formula:**
+
+$$w^*_c = \frac{E[R_P] - R_f}{A\sigma_P^2}$$
+
+$$w^*_c = \frac{0.056 - 0.001}{4 \times 0.0346}$$
+
+$$w^*_c = \frac{0.055}{0.1384}$$
+
+$$w^*_c = 0.397 \approx 39.7\%$$
+
+**Interpretation:**
+
+Given your risk aversion of 4, you should invest approximately 39.7% of your wealth in TSLA and the remaining 60.3% in the risk-free asset.
+
+**What would change with different risk aversion?**
+
+- If $A = 2$ (less risk-averse): $w^*_c = 0.055/(2 \times 0.0346) = 79.5\%$
+- If $A = 6$ (more risk-averse): $w^*_c = 0.055/(6 \times 0.0346) = 26.5\%$
+
+This illustrates how dramatically risk aversion affects the optimal allocation.
+:::
+
+### Important Limitations
+
+The optimal capital allocation formula we've derived assumes that the standard deviation $\sigma_P$ correctly measures the risk you're exposed to from investing in P. This is true if P is your only investment—if your complete portfolio C represents your entire wealth.
+
+However, if you own other assets and P becomes just one component of a larger overall portfolio, the formula may not apply directly. That's because much of P's total risk ($\sigma_P$) will be diversified away when combined with other assets. In that case, what matters is not P's total risk, but its contribution to the risk of your overall portfolio—a concept we'll explore when we study portfolio diversification.
+
+For now, think of the optimal capital allocation formula as applicable when you're deciding how to split your investable wealth between a single risky portfolio P and the risk-free asset, where P represents your entire exposure to risky assets.
+
+## Key Takeaways
+
+The framework we've developed in this lecture provides the foundation for one of the most important decisions in investing: how much risk to take. By combining a risky asset with a risk-free asset, investors can create complete portfolios anywhere along the Capital Allocation Line, trading off between the safety of the risk-free rate and the higher expected returns (but also higher volatility) of risky assets.
+
+The CAL is characterized by its slope, which equals the Sharpe ratio of the risky asset. This ratio—excess return per unit of risk—serves as a universal measure of the quality of the risk-return trade-off. Higher Sharpe ratios mean steeper CALs and better investment opportunities. The CAL equation $E[R_C] = R_f + \sigma_C \times \text{Sharpe Ratio}$ allows us to translate any target expected return into the corresponding risk level, or vice versa.
+
+The question of where to position yourself along the CAL depends on your risk aversion, captured by the coefficient $A$ in the mean-variance utility function. This utility function formalizes the trade-off between wanting higher expected returns and disliking risk. By maximizing utility, we derived the optimal capital allocation formula, which tells us exactly what fraction of wealth to invest in risky assets given the risk premium, our risk aversion, and the asset's variance.
+
+These concepts connect to nearly everything else in investments. The Sharpe ratio will reappear when we evaluate portfolio performance and when we study how to construct the best possible risky portfolio. Risk aversion underlies asset pricing models that explain why different securities have different expected returns. And the principle of optimal capital allocation extends naturally to multi-asset portfolios, where the challenge becomes finding the best risky portfolio P before deciding how much to allocate to it.
+
+## Key Formulas Summary
+
+| Concept | Formula | When to Use |
+|:--------|:--------|:------------|
+| Complete portfolio return | $R_C = w_c R_P + (1-w_c)R_f$ | To calculate the actual return of a portfolio mixing risky and risk-free assets |
+| Expected return of complete portfolio | $E[R_C] = w_c E[R_P] + (1-w_c)R_f$ | To find the expected return given an allocation weight |
+| Standard deviation of complete portfolio | $\sigma_C = w_c \sigma_P$ | To find the risk of the complete portfolio |
+| Sharpe ratio (slope of CAL) | $\frac{E[R_P] - R_f}{\sigma_P}$ | To measure excess return per unit of risk; to compare investment quality |
+| Capital Allocation Line equation | $E[R_C] = R_f + \sigma_C \times \frac{E[R_P]-R_f}{\sigma_P}$ | To find expected return for any risk level, or risk for any target return |
+| Mean-variance utility | $U = E[R] - \frac{1}{2}A\sigma^2$ | To quantify investor satisfaction accounting for risk aversion |
+| Optimal capital allocation | $w^*_c = \frac{E[R_P] - R_f}{A\sigma_P^2}$ | To find the wealth fraction to invest in risky assets given risk aversion |
+
+## Practice Problems
+
+::: {.callout-note title="Practice Problem 1: Capital Allocation Calculations" collapse="false"}
+You are considering investing in an S&P 500 index fund. Based on historical data and your analysis, you estimate the expected return of the index fund to be 8% with a standard deviation of 16%. The current yield on 1-year Treasury bills is 3%. Calculate the expected return and standard deviation for complete portfolios with weights of 0%, 25%, 50%, 75%, 100%, and 125% in the index fund.
+:::
+
+::: {.callout-note title="Solution to Practice Problem 1" collapse="true"}
+**Given information:**
+
+- $E[R_P] = 8\%$
+- $\sigma_P = 16\%$
+- $R_f = 3\%$
+
+**Applying the formulas:**
+
+For each weight $w_c$:
+
+- $E[R_C] = w_c(8\%) + (1-w_c)(3\%)$
+- $\sigma_C = w_c(16\%)$
+
+| Weight ($w_c$) | Expected Return $E[R_C]$ | Standard Deviation $\sigma_C$ |
+|:--------------:|:------------------------:|:-----------------------------:|
+| 0% | $0(8\%) + 1(3\%) = 3.0\%$ | $0(16\%) = 0\%$ |
+| 25% | $0.25(8\%) + 0.75(3\%) = 4.25\%$ | $0.25(16\%) = 4\%$ |
+| 50% | $0.5(8\%) + 0.5(3\%) = 5.5\%$ | $0.5(16\%) = 8\%$ |
+| 75% | $0.75(8\%) + 0.25(3\%) = 6.75\%$ | $0.75(16\%) = 12\%$ |
+| 100% | $1(8\%) + 0(3\%) = 8.0\%$ | $1(16\%) = 16\%$ |
+| 125% | $1.25(8\%) - 0.25(3\%) = 9.25\%$ | $1.25(16\%) = 20\%$ |
+
+The 125% allocation involves borrowing 25% of your wealth at the risk-free rate to invest 125% in the index fund. Notice that both expected return and standard deviation increase linearly with the weight in the risky asset.
+:::
+
+::: {.callout-note title="Practice Problem 2: Using the CAL to Find Risk" collapse="false"}
+An investor is considering a diversified equity portfolio with a Sharpe ratio of 0.4. The current risk-free rate is 2%. If the investor wants to achieve an expected return of 6% on their complete portfolio, what standard deviation must they accept? What if they wanted a 10% expected return?
+:::
+
+::: {.callout-note title="Solution to Practice Problem 2" collapse="true"}
+**Given information:**
+
+- Sharpe ratio = 0.4
+- $R_f = 2\%$
+- Target expected returns: 6% and 10%
+
+**Using the CAL equation:**
+
+$$E[R_C] = R_f + \sigma_C \times \text{Sharpe Ratio}$$
+
+Rearranging to solve for $\sigma_C$:
+
+$$\sigma_C = \frac{E[R_C] - R_f}{\text{Sharpe Ratio}}$$
+
+**For 6% expected return:**
+
+$$\sigma_C = \frac{6\% - 2\%}{0.4} = \frac{4\%}{0.4} = 10\%$$
+
+**For 10% expected return:**
+
+$$\sigma_C = \frac{10\% - 2\%}{0.4} = \frac{8\%}{0.4} = 20\%$$
+
+**Interpretation:**
+
+To achieve 6% expected return, the investor must accept a 10% standard deviation. To achieve 10% expected return, they must accept 20% standard deviation—twice the risk for twice the excess return. This linear relationship is the essence of the Capital Allocation Line.
+
+Note that for the 10% expected return case, the investor would need to leverage (borrow at the risk-free rate) because they're taking on more risk than the underlying risky portfolio likely has.
+:::
+
+::: {.callout-note title="Practice Problem 3: Optimal Allocation with Different Risk Aversion" collapse="false"}
+Consider an emerging markets equity fund with an expected return of 12% and a standard deviation of 28%. The risk-free rate is 2%. Calculate the optimal capital allocation for three investors with risk aversion coefficients of A = 2, A = 4, and A = 8. Comment on how risk aversion affects the optimal allocation.
+:::
+
+::: {.callout-note title="Solution to Practice Problem 3" collapse="true"}
+**Given information:**
+
+- $E[R_P] = 12\%$
+- $\sigma_P = 28\%$
+- $R_f = 2\%$
+- Risk aversion coefficients: A = 2, 4, and 8
+
+**Calculate the variance:**
+
+$$\sigma_P^2 = (0.28)^2 = 0.0784$$
+
+**Calculate the risk premium:**
+
+$$E[R_P] - R_f = 12\% - 2\% = 10\% = 0.10$$
+
+**Apply the optimal capital allocation formula for each investor:**
+
+$$w^*_c = \frac{E[R_P] - R_f}{A\sigma_P^2} = \frac{0.10}{A \times 0.0784}$$
+
+**For A = 2 (low risk aversion):**
+
+$$w^*_c = \frac{0.10}{2 \times 0.0784} = \frac{0.10}{0.1568} = 0.638 = 63.8\%$$
+
+**For A = 4 (moderate risk aversion):**
+
+$$w^*_c = \frac{0.10}{4 \times 0.0784} = \frac{0.10}{0.3136} = 0.319 = 31.9\%$$
+
+**For A = 8 (high risk aversion):**
+
+$$w^*_c = \frac{0.10}{8 \times 0.0784} = \frac{0.10}{0.6272} = 0.159 = 15.9\%$$
+
+| Risk Aversion (A) | Optimal Weight in Risky Asset | Weight in Risk-Free Asset |
+|:-----------------:|:-----------------------------:|:-------------------------:|
+| 2 | 63.8% | 36.2% |
+| 4 | 31.9% | 68.1% |
+| 8 | 15.9% | 84.1% |
+
+**Commentary:**
+
+Doubling the risk aversion coefficient exactly halves the optimal allocation to the risky asset. This is because $A$ appears in the denominator of the formula. The least risk-averse investor (A = 2) allocates nearly two-thirds of their wealth to the volatile emerging markets fund, while the most risk-averse investor (A = 8) keeps more than 80% in the safety of risk-free assets. This dramatic difference illustrates why understanding your client's (or your own) risk tolerance is so crucial for portfolio construction.
+:::
+
+## Ask an LLM
+
+Here are three questions you might ask an AI assistant to deepen your understanding of these concepts:
+
+- Can you walk me through a real-world example of how a financial advisor might assess a client's risk aversion coefficient, and explain why the quadratic utility function is commonly used despite its known limitations?
+- If I have multiple risky assets instead of just one, how does the optimal capital allocation framework extend, and what role does the "tangency portfolio" play in this broader setting?
+- The optimal allocation formula assumes I can borrow at the risk-free rate. In reality, borrowing rates are higher than lending rates. How does this affect the shape of the CAL and the optimal allocation decision?
+- How would inflation expectations change my interpretation of the risk-free rate and risk premium, and should I be thinking in nominal or real terms when applying these formulas?
+- Can you explain the connection between the risk aversion coefficient A and the concept of "certainty equivalent"? How could I use certainty equivalents to check whether my assumed value of A is reasonable?

@@ -1,0 +1,7 @@
+---
+title: "Lab for Lecture 4: Measuring Risk and Expected Return"
+---
+
+***
+
+Download monthy price data on TSLA and AAPL from WRDS over the 2019-2023 period. Estimate which one of them is a better investment from a mean-variance standpoint (assuming you are only allowed to invest in one of these two stocks). Assume the current risk-free rate is 0.4% (per month).

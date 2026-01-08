@@ -1,0 +1,382 @@
+---
+title: "L02 Foundations 1: Past Returns"
+format:
+  html:
+    toc: true
+    number-sections: true
+---
+
+## Introduction
+
+When we talk about “performance” in investments, we are almost always talking about **returns**. Returns are the common language that lets you compare a $500 stock to a $50 stock, a stock to a bond, or your portfolio to a benchmark—across different time periods and different price levels. In this lecture we focus on *past* returns, not because the past perfectly predicts the future, but because past-return calculations are the starting point for most of what we do next: estimating expected returns, measuring risk, evaluating managers, and building intuition about how wealth grows (or shrinks) over time.
+
+A subtle theme will run through the entire lecture: **time matters**. A return measured over one period (say, a month) is not the same object as the return over many periods (say, five years), and the way we connect those pieces is through **compounding**. We also confront one more real-world complication: a nominal return can look “good” while purchasing power barely changes if inflation is high. That’s why we end by translating nominal returns into **real returns**.
+
+## Lecture overview
+
+We discuss several key quantities we frequently use to describe a stock's performance (usually in a past period):
+
+- Holding period return  
+- Total return (compounding)  
+- Geometric average of returns  
+- Real returns (adjusting for inflation)  
+
+We then work through a real world application where we use the above quantities to describe the performance of Tesla (TSLA) over the past 5 years.
+
+Before we dive into each one, it helps to see how they fit together:
+
+| Measure | Core question it answers | Built from |
+|---|---|---|
+| Holding period return (HPR) | “What did I earn over *one* holding period, including dividends?” | Start price, end price, dividends |
+| Total return | “How much did \$1 grow over *many* periods?” | Compounding (multiplying) period returns |
+| Geometric average | “What constant per-period return matches that total growth?” | Total return, then take an \(N\)th root |
+| Real return | “How much did purchasing power grow after inflation?” | Nominal return and inflation |
+
+## Holding period return (HPR)
+
+The **holding period return (HPR)** answers the most basic performance question an investor can ask:
+
+> “If I buy the asset at the beginning of the period and sell it at the end, how much did I make (or lose), including any cash paid out along the way?”
+
+That “including cash paid out” clause is crucial. For stocks, cash payouts come mainly from **dividends** (and occasionally other distributions). If you ignore dividends, you can understate a stock’s total payoff—especially for mature dividend-paying firms. HPR gives us a clean way to measure performance over *one* holding period, and it also provides the building block we will compound when we study multi-period performance.
+
+### Formula (stocks)
+
+Let:
+
+- \(P_{T_1}\) = stock price at the start of the holding period (time \(T_1\))  
+- \(P_{T_2}\) = stock price at the end of the holding period (time \(T_2\))  
+- \(D_{T_2}\) = total dividends paid *during* the holding period (often treated as paid by \(T_2\) for “end-of-period” accounting)
+
+Then the **net holding period return** from \(T_1\) to \(T_2\) is:
+
+\[
+HPR_{T_1 \rightarrow T_2} = \frac{P_{T_2} + D_{T_2}}{P_{T_1}} - 1
+\]
+
+It is often useful to rewrite HPR as a sum of two parts:
+
+\[
+HPR_{T_1 \rightarrow T_2} = \underbrace{\frac{P_{T_2}-P_{T_1}}{P_{T_1}}}_{\text{capital gains (price return)}} \;+\;
+\underbrace{\frac{D_{T_2}}{P_{T_1}}}_{\text{dividend yield}}
+\]
+
+This decomposition matters because it tells you *where* the return came from. Some stocks deliver most of their return through price appreciation (growth stocks), while others deliver more through dividend income (income stocks). Later, when we discuss portfolio objectives, taxes, and factor exposures, it will be helpful to distinguish “price return” from “cash yield.”
+
+### Example 1: HPR and its components
+
+::: {.panel-tabset}
+
+#### Example
+
+Suppose you buy a share of TSLA for \(P_{0}=\$420\). Two years later you sell it for \(P_{2}=\$520\). Over the two-year holding period you received dividends totaling \(D=\$10\) per share.
+
+1. What is the holding period return (HPR) over the two years?  
+2. What portion of the return came from capital gains vs. dividend yield?
+
+#### Solution
+
+**Step 1: Compute net HPR.**
+
+\[
+HPR = \frac{P_2 + D}{P_0} - 1
+     = \frac{520 + 10}{420} - 1
+     = \frac{530}{420} - 1
+\]
+
+Compute the ratio:
+
+\[
+\frac{530}{420} = 1.2619048\ldots
+\]
+
+So:
+
+\[
+HPR \approx 1.2619 - 1 = 0.2619 \;=\; 26.19\%
+\]
+
+**Step 2: Decompose into capital gains and dividend yield.**
+
+Capital gains (price return):
+
+\[
+\frac{P_2 - P_0}{P_0} = \frac{520 - 420}{420} = \frac{100}{420} \approx 0.2381 = 23.81\%
+\]
+
+Dividend yield over the holding period:
+
+\[
+\frac{D}{P_0} = \frac{10}{420} \approx 0.02381 = 2.381\%
+\]
+
+Check that they add up:
+
+\[
+23.81\% + 2.381\% \approx 26.19\%
+\]
+
+So, most of the two-year return came from **price appreciation**, with a smaller contribution from dividends.
+
+:::
+
+## Total return (compounding)
+
+HPR is a *single-period* return. But investors and researchers often need to summarize performance over **many** periods—months, quarters, or years—especially when we have return data as a time series.
+
+The key idea is that wealth grows through **compounding**. If you earn 10% and then -5%, the -5% applies to the *new* wealth level after the first period’s gain. That is why multi-period performance is built by multiplying **gross returns**.
+
+This also explains a common intuition trap: a +50% return followed by a -50% return does *not* bring you back to break-even. Starting from \$100, +50% takes you to \$150; then -50% takes you to \$75. Compounding makes losses “hurt” more than equal-sized gains help.
+
+### Formula
+
+Let \(R_{1}, R_{2}, \dots, R_{N}\) be the **net returns** earned in each of \(N\) consecutive subperiods. (For example, these could be monthly returns for \(N\) months.)
+
+Define each **gross return** as \(1+R_i\).
+
+Then the **gross total return** over the full horizon is:
+
+\[
+1 + TR = \prod_{i=1}^{N}(1+R_i)
+\]
+
+and the **net total return** is:
+
+\[
+TR = \prod_{i=1}^{N}(1+R_i) - 1
+\]
+
+Total return is the right measure when the question is “How much did \$1 invested at the start grow to by the end?” It is also what you need for wealth-index charts, for verifying portfolio accounting, and for linking performance across different horizons.
+
+### Example 2: Total return from a sequence of monthly returns
+
+::: {.panel-tabset}
+
+#### Example
+
+Suppose TSLA had the following monthly net returns over the last three months:
+
+- Month 1: \(R_1 = 10\%\)  
+- Month 2: \(R_2 = -5\%\)  
+- Month 3: \(R_3 = 12\%\)
+
+What was the **net total return** over the three-month period?
+
+#### Solution
+
+Convert each monthly net return to a gross return and multiply:
+
+\[
+1 + TR = (1+R_1)(1+R_2)(1+R_3)
+       = (1.10)(0.95)(1.12)
+\]
+
+Multiply step-by-step:
+
+- \(1.10 \times 0.95 = 1.045\)  
+- \(1.045 \times 1.12 = 1.1704\)
+
+So the gross total return is \(1.1704\), which means the net total return is:
+
+\[
+TR = 1.1704 - 1 = 0.1704 = 17.04\%
+\]
+
+Interpretation: \$1 invested at the start of Month 1 becomes \$1.1704 after Month 3.
+
+:::
+
+## Geometric average
+
+Now suppose you know the returns in each subperiod (like monthly returns), and you compute the total return over the entire horizon. A natural next question is:
+
+> “What constant per-period return would produce the *same* total growth over the whole horizon?”
+
+That constant per-period return is the **geometric average return**. It is sometimes called the *compound average growth rate (CAGR)* when the period is a year.
+
+The geometric average matters because it respects compounding. It is therefore the right “average return” when you want to describe a multi-period track record on a per-period basis, compare different investments over different horizons, or translate an overall growth experience into an equivalent steady rate. It is also the average you would use if you were telling a story like: “Over this span, the investment grew as if it earned about \(x\%\) per month.”
+
+### Formula
+
+Using the same notation as above, if there are \(N\) subperiods, the geometric average net return is:
+
+\[
+GA = \left[\prod_{i=1}^{N}(1+R_i)\right]^{1/N} - 1
+\]
+
+Since the term inside the brackets is the **gross total return**, you will often see:
+
+\[
+GA = (1+TR)^{1/N} - 1
+\]
+
+A quick conceptual note: the **arithmetic average** of returns (simple mean) is useful for some statistical tasks (like estimating a one-period expected return under certain assumptions). But when the goal is “average growth,” the geometric average is the one aligned with how wealth compounds.
+
+### Example 3: Geometric average corresponding to a three-month track record
+
+::: {.panel-tabset}
+
+#### Example
+
+Using the same three monthly returns from Example 2 (10%, -5%, 12%), what is the **geometric average monthly return** over the three-month period?
+
+#### Solution
+
+From Example 2 we already computed the gross total return:
+
+\[
+1+TR = 1.1704
+\]
+
+With \(N=3\) months, the geometric average monthly return is:
+
+\[
+GA = (1+TR)^{1/3} - 1 = (1.1704)^{1/3} - 1
+\]
+
+Compute the cube root (you can do this with a calculator):
+
+\[
+(1.1704)^{1/3} \approx 1.0539
+\]
+
+So:
+
+\[
+GA \approx 1.0539 - 1 = 0.0539 = 5.39\% \text{ per month}
+\]
+
+Interpretation: earning about **5.39% each month for three months** would generate the same overall three-month growth as the actual volatile sequence of 10%, -5%, and 12%.
+
+:::
+
+## Real returns (inflation)
+
+So far, every return we computed was a **nominal return**—it measures how many dollars you end up with relative to how many dollars you started with. But investors ultimately care about what money can *buy*. If prices in the economy are rising, then some of your nominal gain may simply be compensation for inflation.
+
+That is why we compute **real returns**, which adjust nominal returns for inflation and measure the growth of purchasing power. This is especially important when:
+
+- Comparing performance across decades (inflation regimes can differ a lot),
+- Evaluating long-horizon goals (retirement, endowments),
+- Interpreting “high” returns during high-inflation periods.
+
+### Relationship between nominal and real returns
+
+Let:
+
+- \(R_{\text{nominal}}\) = nominal net return over the period  
+- \(R_{\text{real}}\) = real net return over the period  
+- \(\pi\) = inflation rate over the same period  
+
+The compounding relationship is:
+
+\[
+1 + R_{\text{nominal}} = (1 + R_{\text{real}})(1 + \pi)
+\]
+
+Solving for the **real net return** gives:
+
+\[
+R_{\text{real}} = \frac{1 + R_{\text{nominal}}}{1 + \pi} - 1
+= \frac{R_{\text{nominal}} - \pi}{1+\pi}
+\]
+
+(Those two expressions are algebraically equivalent; the first is usually easiest to remember.)
+
+If you are working with CPI data, a common way to compute period inflation is:
+
+\[
+\pi_t = \frac{CPI_t}{CPI_{t-1}} - 1
+\]
+
+where \(CPI_t\) is the CPI level in period \(t\).
+
+### Example 4: Real total return over three months
+
+::: {.panel-tabset}
+
+#### Example
+
+Using the same three-month performance from Example 2 (net total return \(TR = 17.04\%\)), suppose inflation over the three months was \(\pi = 2.0\%\) in total. What is the **real total return** over the three months?
+
+#### Solution
+
+Use the real-return adjustment:
+
+\[
+R_{\text{real}} = \frac{1 + R_{\text{nominal}}}{1 + \pi} - 1
+\]
+
+Here, \(R_{\text{nominal}} = TR = 0.1704\) and \(\pi = 0.02\). Plug in:
+
+\[
+R_{\text{real}} = \frac{1.1704}{1.02} - 1
+\]
+
+Compute the ratio:
+
+\[
+\frac{1.1704}{1.02} \approx 1.147451\ldots
+\]
+
+So:
+
+\[
+R_{\text{real}} \approx 1.14745 - 1 = 0.14745 = 14.75\%
+\]
+
+Interpretation: nominal wealth rose by 17.04%, but **purchasing power** rose by about **14.75%** once we account for inflation.
+
+:::
+
+## Real-World Application
+
+In practice, you will often be given (or will download) a time series of returns and then be asked to summarize performance over a horizon. The steps below walk you through doing this with monthly TSLA returns and CPI inflation.
+
+### Data sources
+
+**Stock returns (monthly):** The Wharton Research Data Services (WRDS) platform provides access to CRSP data, including monthly stock returns.
+
+**Inflation:** The Federal Reserve Economic Data (FRED) database provides the Consumer Price Index (CPI), which is commonly used to measure inflation.
+
+### Workflow (high-level)
+
+1. **Get access to WRDS.** Create a WRDS account using your school credentials (follow your course syllabus instructions).  
+2. **Download TSLA monthly returns from CRSP.** In WRDS, locate the CRSP monthly stock file and download monthly returns for TSLA over your target window (for example, 2019-01 through 2023-12).  
+3. **Download CPI data from FRED** over the matching date range (for example, 2019-01-01 to 2024-01-01).  
+4. **Align and merge the two datasets by month.** You want each month to have the TSLA return and CPI level (or monthly inflation).  
+5. **Compute the performance measures.** Use the formulas from earlier sections to compute:
+   - Total return over the full horizon (compound monthly returns),
+   - Geometric average monthly return over the horizon,
+   - Total real return over the horizon (adjust the total nominal return for the horizon’s inflation).
+
+Two practical tips that save headaches:
+
+- **Check missing returns.** If a return is missing, you need a consistent rule (drop the month, fill carefully, or verify the identifier). Missing values can silently break compounding.  
+- **Keep frequencies consistent.** If your returns are monthly, compute inflation monthly (or compute horizon inflation from the CPI endpoints for the horizon). Don’t mix monthly returns with annual inflation without converting one of them.
+
+### What to submit / practice
+
+Using your downloaded data:
+
+1. Calculate the total return on TSLA for the entire five-year period.  
+2. Calculate the geometric average return on TSLA over the entire period.  
+3. Calculate the total real return on TSLA for the entire five-year period.
+
+(These are direct applications of the formulas above; the main work is careful data handling.)
+
+## Key Takeaways
+
+Past returns are not just “history”—they are the raw material for measurement and comparison in finance. We started with the holding period return because it captures the full payoff from owning a stock over a single interval, including both price changes and dividends. Once we move beyond one period, the logic of compounding takes over: total return across many periods is the product of gross returns, which tells us exactly how an initial investment would have grown. To communicate that multi-period growth as a per-period rate, we use the geometric average—the constant return that would have generated the same ending wealth. Finally, because investors care about purchasing power, we convert nominal returns into real returns by adjusting for inflation. Together, these concepts form a toolkit you will use repeatedly: to summarize a stock’s past performance, to compare investments on a consistent basis, and to prepare return data for deeper analysis of risk and expected return.
+
+## Key Formulas Summary
+
+| Concept | Formula | When to use |
+|---|---|---|
+| Holding period return (net, stock) | \(HPR_{T_1\rightarrow T_2}=\dfrac{P_{T_2}+D_{T_2}}{P_{T_1}}-1\) | One-period return including dividends/cash flows |
+| HPR decomposition | \(HPR=\dfrac{P_{T_2}-P_{T_1}}{P_{T_1}}+\dfrac{D_{T_2}}{P_{T_1}}\) | Split return into capital gains and dividend yield |
+| Total return (multi-period, net) | \(TR=\prod_{i=1}^{N}(1+R_i)-1\) | Compound a sequence of subperiod returns into a horizon return |
+| Geometric average (per-period) | \(GA=\left[\prod_{i=1}^{N}(1+R_i)\right]^{1/N}-1 = (1+TR)^{1/N}-1\) | Convert multi-period growth into an equivalent constant per-period return (CAGR idea) |
+| Inflation from CPI | \(\pi_t=\dfrac{CPI_t}{CPI_{t-1}}-1\) | Compute period inflation from CPI levels (for real-return calculations) |
+| Nominal–real relationship | \(1+R_{\text{nominal}}=(1+R_{\text{real}})(1+\pi)\) | Link nominal returns, real returns, and inflation consistently |
+| Real return (net) | \(R_{\text{real}}=\dfrac{1+R_{\text{nominal}}}{1+\pi}-1\) | Adjust a nominal return for inflation to measure purchasing-power growth |

@@ -1,0 +1,16 @@
+---
+title: "Review Session"
+---
+
+
+The "data" file for this lecture contains monthly returns on the SPDR S&P 500 ETF, the SPRD Gold Shares ETF, and BlackRock's long-term treasury ETF (tickers: SPY, GLD, TLT respectively). 
+
+- Download data on the CPI from FRED (from 2004-12-01 to 2024-12-01)
+- Calculate monthly inflation rates and merge them into the "data" file with ETF returns.
+- Plot cumulative nominal returns on these assets over time (the value of a $1 investment in 2005-01 over time)
+- Plot cumulative real returns on these assets over time 
+- Calculate the Sharpe ratio for each asset
+- Calculate the optimal tangency portfolio using these 3 assets
+- Calculate the Sharpe ratio of the tangency portfolio
+- Calculate the optimal capital allocation if risk aversion is A = 5
+- Calculate the optimal asset allocation if A = 5

@@ -1,0 +1,15 @@
+---
+title: "Lab for Lecture 8: Optimal Asset Allocation"
+---
+
+
+
+***
+
+You want to invest in the FANG stocks (Facebook, Apple, Netflix, and Google) but you are not sure how much to invest in each. 
+
+Download monthly stock returns from WRDS on the FANG stocks from 2019 to 2023 (tickers are FB, AAPL, NFLX, and GOOGL). 
+
+Assume that the risk-free rate is 0.4% and your risk aversion coefficient is 4.
+
+Use these data to estimate the optimal weights you should use for the four stocks and in the risk-free asset (i.e. the weight of each asset in the optimal complete portfolio).

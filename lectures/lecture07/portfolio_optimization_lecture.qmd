@@ -1,0 +1,577 @@
+---
+title: "Portfolio Optimization: Finding the Best Combination of Risky Assets"
+format: html
+---
+
+## Introduction
+
+When you have access to multiple risky assets, a natural question emerges: how should you combine them to create the best possible portfolio? For investors who care about expected returns and volatility—mean-variance optimizers—"best" has a precise meaning: the portfolio that delivers the highest expected return per unit of risk, which is the portfolio with the **maximum Sharpe ratio**. This portfolio goes by several names: the **optimal risky portfolio**, the **tangency portfolio**, or simply the **maximum Sharpe ratio portfolio**.
+
+The tangency portfolio concept is foundational to modern portfolio theory because it represents the single best combination of risky assets available to any investor, regardless of how risk-averse they are. A highly conservative investor and an aggressive risk-taker will both want to hold the same tangency portfolio—they will simply differ in how much of their total wealth they allocate to this risky portfolio versus a risk-free asset. This separation between finding the optimal risky portfolio and deciding how much risk to take is one of the most elegant results in finance theory, and we will explore it more deeply in subsequent lectures.
+
+This lecture develops the mechanics of portfolio optimization in two stages. We begin with the simplest possible case—combining just two risky assets—which allows us to build intuition through graphical analysis and relatively simple formulas. We then extend these ideas to the general case with an arbitrary number of assets, where matrix algebra becomes essential for managing the complexity. By the end of this lecture, you should be able to construct an optimal risky portfolio from any set of assets and understand why this optimal portfolio is independent of investor preferences.
+
+
+## Portfolio Optimization with Two Risky Assets
+
+We start with the simplest scenario: you have access to exactly two risky assets, which we'll call Asset A and Asset B. To construct portfolios from these assets, you need three types of inputs that describe their risk-return characteristics. First, you need the expected returns of each asset, denoted $E[R_A]$ and $E[R_B]$. Second, you need a measure of each asset's standalone risk, captured by their standard deviations $\sigma_A$ and $\sigma_B$. Third—and this is what makes portfolio theory interesting—you need to know how the two assets move together, captured by their covariance $\text{Cov}(R_A, R_B)$.
+
+The portfolio construction problem reduces to choosing a single number: $w_A$, the fraction of your portfolio invested in Asset A. Once you've chosen $w_A$, the fraction in Asset B is automatically determined as $w_B = 1 - w_A$. If $w_A = 0.6$, for example, you're putting 60% of your money in Asset A and 40% in Asset B. Your goal is to find the value of $w_A$ that maximizes the Sharpe ratio of the resulting portfolio. Before we solve this optimization problem directly, it's instructive to visualize what different portfolio combinations look like in risk-return space.
+
+
+### The Investment Opportunity Set
+
+The **investment opportunity set** consists of all possible portfolios you can create by varying the weights $w_A$ and $w_B$. Since there are infinitely many possible weight combinations, the investment opportunity set is infinite—but we can visualize its shape by computing a representative sample of portfolios.
+
+For any choice of weights, the expected return and variance of the resulting portfolio are given by:
+
+$$E[R_P] = w_A E[R_A] + w_B E[R_B]$$
+
+$$\text{Var}(R_P) = w_A^2 \text{Var}(R_A) + w_B^2 \text{Var}(R_B) + 2 w_A w_B \text{Cov}(R_A, R_B)$$
+
+where $w_B = 1 - w_A$. The portfolio's standard deviation is simply $\sigma_P = \sqrt{\text{Var}(R_P)}$.
+
+Notice that the expected return formula is straightforward: portfolio expected return is just a weighted average of the individual expected returns. The variance formula, however, contains that crucial third term involving covariance. This is where diversification benefits come from—when assets don't move in perfect lockstep, combining them produces a portfolio with less variance than a simple weighted average of individual variances would suggest.
+
+When we plot these portfolios with standard deviation on the horizontal axis and expected return on the vertical axis, we get a curve that typically bows to the left. This curvature represents the power of diversification: by combining assets that aren't perfectly correlated, we can achieve risk-return combinations that would be impossible with either asset alone.
+
+**Example 1: Constructing the Investment Opportunity Set**
+
+*You are considering investing in Facebook (FB) and Netflix (NFLX). Based on your analysis, you estimate that Facebook has an expected return of 10% with a standard deviation of 20%, while Netflix has an expected return of 15% with a standard deviation of 25%. The covariance between their returns is 0.02, and the risk-free rate is 5%. Construct 21 different portfolios by varying the weight in Facebook from 0% to 100% in increments of 5%. For each portfolio, calculate the expected return, standard deviation, and Sharpe ratio.*
+
+::: {.callout-note collapse="true" title="Solution"}
+
+We'll systematically work through several representative portfolios to illustrate the calculations.
+
+**Given information:**
+
+| Parameter | Facebook (FB) | Netflix (NFLX) |
+|-----------|---------------|----------------|
+| Expected Return | $E[R_{FB}] = 10\%$ | $E[R_{NFLX}] = 15\%$ |
+| Standard Deviation | $\sigma_{FB} = 20\%$ | $\sigma_{NFLX} = 25\%$ |
+| Covariance | $\text{Cov}(R_{FB}, R_{NFLX}) = 0.02$ | |
+| Risk-free rate | $R_f = 5\%$ | |
+
+**Portfolio calculations for selected weights:**
+
+*Portfolio 1: $w_{FB} = 0\%$, $w_{NFLX} = 100\%$ (all Netflix)*
+
+$$E[R_P] = 0 \times 0.10 + 1 \times 0.15 = 0.15 = 15\%$$
+
+$$\text{Var}(R_P) = 0^2 \times 0.20^2 + 1^2 \times 0.25^2 + 2 \times 0 \times 1 \times 0.02 = 0.0625$$
+
+$$\sigma_P = \sqrt{0.0625} = 0.25 = 25\%$$
+
+$$\text{Sharpe Ratio} = \frac{0.15 - 0.05}{0.25} = 0.40$$
+
+*Portfolio 2: $w_{FB} = 40\%$, $w_{NFLX} = 60\%$*
+
+$$E[R_P] = 0.40 \times 0.10 + 0.60 \times 0.15 = 0.04 + 0.09 = 0.13 = 13\%$$
+
+$$\text{Var}(R_P) = 0.40^2 \times 0.04 + 0.60^2 \times 0.0625 + 2 \times 0.40 \times 0.60 \times 0.02$$
+
+$$= 0.0064 + 0.0225 + 0.0096 = 0.0385$$
+
+$$\sigma_P = \sqrt{0.0385} = 0.1962 = 19.62\%$$
+
+$$\text{Sharpe Ratio} = \frac{0.13 - 0.05}{0.1962} = 0.408$$
+
+*Portfolio 3: $w_{FB} = 100\%$, $w_{NFLX} = 0\%$ (all Facebook)*
+
+$$E[R_P] = 1 \times 0.10 + 0 \times 0.15 = 0.10 = 10\%$$
+
+$$\sigma_P = 0.20 = 20\%$$
+
+$$\text{Sharpe Ratio} = \frac{0.10 - 0.05}{0.20} = 0.25$$
+
+**Complete results for all 21 portfolios:**
+
+| $w_{FB}$ | $w_{NFLX}$ | $E[R_P]$ | $\sigma_P$ | Sharpe Ratio |
+|----------|------------|----------|------------|--------------|
+| 0% | 100% | 15.00% | 25.00% | 0.400 |
+| 5% | 95% | 14.75% | 24.02% | 0.406 |
+| 10% | 90% | 14.50% | 23.08% | 0.411 |
+| 15% | 85% | 14.25% | 22.18% | 0.417 |
+| 20% | 80% | 14.00% | 21.33% | 0.422 |
+| 25% | 75% | 13.75% | 20.54% | 0.426 |
+| 30% | 70% | 13.50% | 19.80% | 0.429 |
+| 35% | 65% | 13.25% | 19.14% | 0.431 |
+| 40% | 60% | 13.00% | 18.54% | 0.432 |
+| 45% | 55% | 12.75% | 18.02% | 0.430 |
+| 50% | 50% | 12.50% | 17.58% | 0.426 |
+| 55% | 45% | 12.25% | 17.23% | 0.421 |
+| 60% | 40% | 12.00% | 16.97% | 0.412 |
+| 65% | 35% | 11.75% | 16.81% | 0.402 |
+| 70% | 30% | 11.50% | 16.76% | 0.388 |
+| 75% | 25% | 11.25% | 16.80% | 0.372 |
+| 80% | 20% | 11.00% | 16.95% | 0.354 |
+| 85% | 15% | 10.75% | 17.20% | 0.334 |
+| 90% | 10% | 10.50% | 17.55% | 0.313 |
+| 95% | 5% | 10.25% | 18.00% | 0.292 |
+| 100% | 0% | 10.00% | 18.54% | 0.270 |
+
+Notice several key patterns in these results. First, the portfolio with the highest Sharpe ratio (approximately 0.432) occurs around $w_{FB} = 40\%$—neither asset alone achieves this level of risk-adjusted performance. Second, the minimum variance portfolio occurs around $w_{FB} = 70\%$, where $\sigma_P \approx 16.76\%$—this is lower than either individual asset's volatility, demonstrating the power of diversification. Third, when plotted in mean-volatility space, these portfolios trace out a curve that bows to the left, with the tangency portfolio located on the upper portion of this curve.
+:::
+
+
+### The Optimal Risky Portfolio (Tangency Portfolio)
+
+The optimal risky portfolio—the combination of Assets A and B that maximizes the Sharpe ratio—can be found analytically. The weight in Asset A that achieves this maximum is:
+
+$$w_A = \frac{(E[R_A] - R_f) \sigma_B^2 - (E[R_B] - R_f)\text{Cov}(R_A, R_B)}{(E[R_A] - R_f) \sigma_B^2 + (E[R_B] - R_f) \sigma_A^2 - (E[R_A] - R_f + E[R_B] - R_f)\text{Cov}(R_A, R_B)}$$
+
+with $w_B = 1 - w_A$.
+
+This formula, while complex, has an intuitive structure. The numerator and denominator both involve risk premia ($E[R] - R_f$), variances, and the covariance between assets. The formula essentially balances the attractiveness of each asset (its excess return) against its contribution to portfolio risk and how it interacts with the other asset.
+
+We call this the "tangency portfolio" because of its geometric interpretation. If you draw a line from the risk-free rate on the vertical axis to any point on the investment opportunity set curve, the slope of that line equals the Sharpe ratio of that portfolio. The tangency portfolio is the point where this line achieves its steepest slope—that is, where the line is tangent to the curve. This tangent line is the Capital Allocation Line (CAL) for this optimal risky portfolio.
+
+**Example 2: Finding the Tangency Portfolio**
+
+*Using the Facebook and Netflix data from Example 1 (expected returns of 10% and 15%, standard deviations of 20% and 25%, covariance of 0.02, and risk-free rate of 5%), find the optimal combination of these two stocks. Calculate the expected return, standard deviation, and Sharpe ratio of the resulting tangency portfolio.*
+
+::: {.callout-note collapse="true" title="Solution"}
+
+**Step 1: Calculate the components of the optimal weight formula**
+
+First, let's compute the risk premia:
+
+- $E[R_{FB}] - R_f = 0.10 - 0.05 = 0.05$
+- $E[R_{NFLX}] - R_f = 0.15 - 0.05 = 0.10$
+
+And the variance terms:
+
+- $\sigma_{FB}^2 = 0.20^2 = 0.04$
+- $\sigma_{NFLX}^2 = 0.25^2 = 0.0625$
+
+**Step 2: Calculate the numerator**
+
+$$\text{Numerator} = (E[R_{FB}] - R_f) \sigma_{NFLX}^2 - (E[R_{NFLX}] - R_f)\text{Cov}(R_{FB}, R_{NFLX})$$
+
+$$= (0.05)(0.0625) - (0.10)(0.02)$$
+
+$$= 0.003125 - 0.002 = 0.001125$$
+
+**Step 3: Calculate the denominator**
+
+$$\text{Denominator} = (E[R_{FB}] - R_f) \sigma_{NFLX}^2 + (E[R_{NFLX}] - R_f) \sigma_{FB}^2 - (E[R_{FB}] - R_f + E[R_{NFLX}] - R_f)\text{Cov}(R_{FB}, R_{NFLX})$$
+
+$$= (0.05)(0.0625) + (0.10)(0.04) - (0.05 + 0.10)(0.02)$$
+
+$$= 0.003125 + 0.004 - 0.003 = 0.004125$$
+
+**Step 4: Calculate optimal weights**
+
+$$w_{FB} = \frac{0.001125}{0.004125} = 0.2727 = 27.27\%$$
+
+$$w_{NFLX} = 1 - 0.2727 = 0.7273 = 72.73\%$$
+
+**Step 5: Calculate tangency portfolio characteristics**
+
+Expected return:
+$$E[R_{tan}] = 0.2727 \times 0.10 + 0.7273 \times 0.15 = 0.02727 + 0.10909 = 0.1364 = 13.64\%$$
+
+Variance:
+$$\text{Var}(R_{tan}) = (0.2727)^2(0.04) + (0.7273)^2(0.0625) + 2(0.2727)(0.7273)(0.02)$$
+
+$$= 0.00297 + 0.03305 + 0.00793 = 0.04395$$
+
+Standard deviation:
+$$\sigma_{tan} = \sqrt{0.04395} = 0.2096 = 20.96\%$$
+
+Sharpe ratio:
+$$\text{Sharpe}_{tan} = \frac{0.1364 - 0.05}{0.2096} = \frac{0.0864}{0.2096} = 0.412$$
+
+**Summary:** The tangency portfolio consists of 27.27% in Facebook and 72.73% in Netflix, with an expected return of 13.64%, standard deviation of 20.96%, and a Sharpe ratio of 0.412. This is the highest Sharpe ratio achievable from any combination of these two stocks.
+
+Note that the Sharpe ratio of 0.412 matches the peak we observed in the table from Example 1, confirming our analytical solution.
+:::
+
+
+## Portfolio Optimization with an Arbitrary Number of Risky Assets
+
+Real-world portfolio construction rarely involves just two assets. Investors typically have access to many stocks, bonds, and other securities. The principles we developed for two assets extend naturally to any number of assets, but the notation becomes cumbersome without matrix algebra. This section introduces the matrix representation that makes the general problem tractable.
+
+### Matrix Notation for Portfolio Inputs
+
+Suppose we have $N$ risky assets, labeled 1 through $N$. We need to organize three types of information: expected returns, variances, and all pairwise covariances.
+
+The **expected return vector** $\boldsymbol{\mu}$ is an $N \times 1$ column vector containing each asset's expected return:
+
+$$\boldsymbol{\mu} = \begin{pmatrix} E[R_1] \\ E[R_2] \\ \vdots \\ E[R_N] \end{pmatrix}$$
+
+The **variance-covariance matrix** $\boldsymbol{\Sigma}$ is an $N \times N$ matrix that captures all the variance and covariance information. The entry in row $i$ and column $j$ is the covariance between assets $i$ and $j$. When $i = j$ (on the diagonal), this equals the variance of asset $i$:
+
+$$\boldsymbol{\Sigma} = \begin{pmatrix} \text{Var}(R_1) & \text{Cov}(R_1, R_2) & \cdots & \text{Cov}(R_1, R_N) \\ \text{Cov}(R_2, R_1) & \text{Var}(R_2) & \cdots & \text{Cov}(R_2, R_N) \\ \vdots & \vdots & \ddots & \vdots \\ \text{Cov}(R_N, R_1) & \text{Cov}(R_N, R_2) & \cdots & \text{Var}(R_N) \end{pmatrix}$$
+
+This matrix is symmetric because $\text{Cov}(R_i, R_j) = \text{Cov}(R_j, R_i)$. The diagonal elements are variances (always positive), while the off-diagonal elements are covariances (which can be positive, negative, or zero).
+
+For optimization, we also need the **excess return vector** (or risk premium vector) $\boldsymbol{\mu}^e$, which subtracts the risk-free rate from each expected return:
+
+$$\boldsymbol{\mu}^e = \begin{pmatrix} E[R_1] - R_f \\ E[R_2] - R_f \\ \vdots \\ E[R_N] - R_f \end{pmatrix}$$
+
+Finally, we define $\mathbf{1}$ as a column vector of $N$ ones, and $\mathbf{1}^T$ as its transpose (a row vector): $\mathbf{1}^T = (1, 1, \ldots, 1)$.
+
+
+### The Tangency Portfolio with N Assets
+
+The vector of portfolio weights $\mathbf{w}_{tan}$ that maximizes the Sharpe ratio is given by:
+
+$$\mathbf{w}_{tan} = \frac{\boldsymbol{\Sigma}^{-1} \boldsymbol{\mu}^e}{\mathbf{1}^T \boldsymbol{\Sigma}^{-1} \boldsymbol{\mu}^e}$$
+
+Let's unpack this formula. The numerator $\boldsymbol{\Sigma}^{-1} \boldsymbol{\mu}^e$ multiplies the inverse of the covariance matrix by the vector of excess returns. The inverse covariance matrix $\boldsymbol{\Sigma}^{-1}$ effectively "adjusts" the excess returns for the risk and correlation structure among assets. Assets that contribute less to portfolio variance (either because they're low-volatility or because they provide diversification benefits) get higher weights relative to their excess returns.
+
+The denominator $\mathbf{1}^T \boldsymbol{\Sigma}^{-1} \boldsymbol{\mu}^e$ is a scalar—it's just the sum of all elements in the numerator vector. Dividing by this sum ensures that the weights add up to one, as required for a properly defined portfolio.
+
+This formula is elegant but requires matrix inversion, which becomes computationally intensive as $N$ grows large. In practice, portfolio optimization software handles these calculations, but understanding the structure of the formula helps you interpret results and troubleshoot problems.
+
+The table below summarizes the key matrix objects used in portfolio optimization:
+
+| Symbol | Dimensions | Description | Elements |
+|--------|------------|-------------|----------|
+| $\boldsymbol{\mu}$ | $N \times 1$ | Expected return vector | $E[R_i]$ for each asset |
+| $\boldsymbol{\Sigma}$ | $N \times N$ | Variance-covariance matrix | $\text{Var}(R_i)$ on diagonal, $\text{Cov}(R_i, R_j)$ off-diagonal |
+| $\boldsymbol{\Sigma}^{-1}$ | $N \times N$ | Inverse covariance matrix | Used to adjust for risk structure |
+| $\boldsymbol{\mu}^e$ | $N \times 1$ | Excess return vector | $E[R_i] - R_f$ for each asset |
+| $\mathbf{w}_{tan}$ | $N \times 1$ | Tangency portfolio weights | Weight in each asset |
+| $\mathbf{1}$ | $N \times 1$ | Vector of ones | Used to sum weights |
+
+
+**Example 3: Tangency Portfolio with Three Assets**
+
+*Consider a portfolio of three stocks with the following characteristics:*
+
+| Stock | Expected Return | Standard Deviation |
+|-------|-----------------|-------------------|
+| A | 8% | 15% |
+| B | 12% | 20% |
+| C | 16% | 30% |
+
+*The correlation matrix is:*
+
+|   | A | B | C |
+|---|---|---|---|
+| A | 1.0 | 0.3 | 0.2 |
+| B | 0.3 | 1.0 | 0.5 |
+| C | 0.2 | 0.5 | 1.0 |
+
+*The risk-free rate is 4%. Find the tangency portfolio weights and calculate its expected return, standard deviation, and Sharpe ratio.*
+
+::: {.callout-note collapse="true" title="Solution"}
+
+**Step 1: Set up the matrix inputs**
+
+Expected return vector:
+$$\boldsymbol{\mu} = \begin{pmatrix} 0.08 \\ 0.12 \\ 0.16 \end{pmatrix}$$
+
+Excess return vector:
+$$\boldsymbol{\mu}^e = \begin{pmatrix} 0.08 - 0.04 \\ 0.12 - 0.04 \\ 0.16 - 0.04 \end{pmatrix} = \begin{pmatrix} 0.04 \\ 0.08 \\ 0.12 \end{pmatrix}$$
+
+**Step 2: Convert correlations to covariances**
+
+Recall that $\text{Cov}(R_i, R_j) = \rho_{ij} \sigma_i \sigma_j$
+
+- $\text{Cov}(A,B) = 0.3 \times 0.15 \times 0.20 = 0.009$
+- $\text{Cov}(A,C) = 0.2 \times 0.15 \times 0.30 = 0.009$
+- $\text{Cov}(B,C) = 0.5 \times 0.20 \times 0.30 = 0.030$
+
+Variance-covariance matrix:
+$$\boldsymbol{\Sigma} = \begin{pmatrix} 0.0225 & 0.009 & 0.009 \\ 0.009 & 0.04 & 0.03 \\ 0.009 & 0.03 & 0.09 \end{pmatrix}$$
+
+**Step 3: Compute the inverse covariance matrix**
+
+Using matrix inversion (typically done with software):
+$$\boldsymbol{\Sigma}^{-1} = \begin{pmatrix} 50.420 & -6.723 & -1.681 \\ -6.723 & 37.815 & -10.504 \\ -1.681 & -10.504 & 15.126 \end{pmatrix}$$
+
+**Step 4: Calculate $\boldsymbol{\Sigma}^{-1} \boldsymbol{\mu}^e$**
+
+$$\boldsymbol{\Sigma}^{-1} \boldsymbol{\mu}^e = \begin{pmatrix} 50.420 & -6.723 & -1.681 \\ -6.723 & 37.815 & -10.504 \\ -1.681 & -10.504 & 15.126 \end{pmatrix} \begin{pmatrix} 0.04 \\ 0.08 \\ 0.12 \end{pmatrix}$$
+
+$$= \begin{pmatrix} 50.420(0.04) + (-6.723)(0.08) + (-1.681)(0.12) \\ (-6.723)(0.04) + 37.815(0.08) + (-10.504)(0.12) \\ (-1.681)(0.04) + (-10.504)(0.08) + 15.126(0.12) \end{pmatrix}$$
+
+$$= \begin{pmatrix} 2.017 - 0.538 - 0.202 \\ -0.269 + 3.025 - 1.260 \\ -0.067 - 0.840 + 1.815 \end{pmatrix} = \begin{pmatrix} 1.277 \\ 1.496 \\ 0.908 \end{pmatrix}$$
+
+**Step 5: Calculate the denominator**
+
+$$\mathbf{1}^T \boldsymbol{\Sigma}^{-1} \boldsymbol{\mu}^e = 1.277 + 1.496 + 0.908 = 3.681$$
+
+**Step 6: Calculate tangency portfolio weights**
+
+$$\mathbf{w}_{tan} = \frac{1}{3.681} \begin{pmatrix} 1.277 \\ 1.496 \\ 0.908 \end{pmatrix} = \begin{pmatrix} 0.347 \\ 0.406 \\ 0.247 \end{pmatrix}$$
+
+So the tangency portfolio consists of 34.7% in Stock A, 40.6% in Stock B, and 24.7% in Stock C.
+
+**Step 7: Calculate portfolio characteristics**
+
+Expected return:
+$$E[R_{tan}] = 0.347(0.08) + 0.406(0.12) + 0.247(0.16) = 0.0278 + 0.0487 + 0.0395 = 0.116 = 11.6\%$$
+
+Portfolio variance (using matrix multiplication $\mathbf{w}^T \boldsymbol{\Sigma} \mathbf{w}$):
+$$\text{Var}(R_{tan}) = 0.0209$$
+
+Standard deviation:
+$$\sigma_{tan} = \sqrt{0.0209} = 0.1446 = 14.46\%$$
+
+Sharpe ratio:
+$$\text{Sharpe}_{tan} = \frac{0.116 - 0.04}{0.1446} = \frac{0.076}{0.1446} = 0.526$$
+
+**Summary:** The tangency portfolio has weights of 34.7% in A, 40.6% in B, and 24.7% in C, with an expected return of 11.6%, standard deviation of 14.46%, and Sharpe ratio of 0.526.
+:::
+
+
+## Key Takeaways
+
+Portfolio optimization addresses one of the most fundamental questions in investing: given a set of risky assets with known expected returns, volatilities, and correlations, how should you combine them to achieve the best risk-adjusted performance? The answer is the tangency portfolio—the unique combination of assets that maximizes the Sharpe ratio.
+
+The journey from two assets to many assets reveals both the power and complexity of diversification. With just two assets, we can visualize the investment opportunity set as a curve in mean-volatility space, and the tangency portfolio appears where the Capital Allocation Line touches this curve at its steepest point. The optimal weight formula, while algebraically complex, yields a closed-form solution that depends on excess returns, variances, and the covariance between assets.
+
+When we extend to multiple assets, matrix algebra becomes essential. The expected returns form a vector, the variances and covariances form a symmetric matrix, and the tangency portfolio weights emerge from multiplying the inverse covariance matrix by the excess return vector. This mathematical structure reveals something profound: the optimal weights depend not just on each asset's individual attractiveness (its excess return) but on how each asset interacts with all other assets through the covariance structure.
+
+Perhaps the most important insight from portfolio optimization is the separation principle: the tangency portfolio is the same for all investors, regardless of their risk tolerance. A conservative investor and an aggressive investor will both want to hold this same mix of risky assets—they differ only in how much they allocate to this risky portfolio versus the risk-free asset. This means that once you've identified the tangency portfolio, the only remaining decision is personal: how much risk are you willing to bear? We explore this capital allocation decision in depth in the next lecture.
+
+
+## Key Formulas Summary
+
+| Concept | Formula | When to Use |
+|---------|---------|-------------|
+| Portfolio Expected Return (2 assets) | $E[R_P] = w_A E[R_A] + w_B E[R_B]$ | Calculate expected return of any two-asset portfolio |
+| Portfolio Variance (2 assets) | $\text{Var}(R_P) = w_A^2 \text{Var}(R_A) + w_B^2 \text{Var}(R_B) + 2 w_A w_B \text{Cov}(R_A, R_B)$ | Calculate risk of any two-asset portfolio |
+| Optimal Weight in Asset A | $w_A = \frac{(E[R_A] - R_f) \sigma_B^2 - (E[R_B] - R_f)\text{Cov}(R_A, R_B)}{(E[R_A] - R_f) \sigma_B^2 + (E[R_B] - R_f) \sigma_A^2 - (E[R_A] - R_f + E[R_B] - R_f)\text{Cov}(R_A, R_B)}$ | Find tangency portfolio weights with two assets |
+| Tangency Portfolio Weights (N assets) | $\mathbf{w}_{tan} = \frac{\boldsymbol{\Sigma}^{-1} \boldsymbol{\mu}^e}{\mathbf{1}^T \boldsymbol{\Sigma}^{-1} \boldsymbol{\mu}^e}$ | Find tangency portfolio weights with any number of assets |
+| Sharpe Ratio | $\text{Sharpe} = \frac{E[R_P] - R_f}{\sigma_P}$ | Evaluate risk-adjusted performance of any portfolio |
+| Covariance from Correlation | $\text{Cov}(R_i, R_j) = \rho_{ij} \sigma_i \sigma_j$ | Convert between correlation and covariance |
+
+
+## Practice Problems
+
+**Practice Problem 1: Investment Opportunity Set**
+
+*You are analyzing two ETFs: a bond fund (BND) and a stock fund (VTI). The bond fund has an expected return of 4% with a standard deviation of 8%, while the stock fund has an expected return of 10% with a standard deviation of 18%. The covariance between their returns is 0.005, and the risk-free rate is 2%. Calculate the expected return, standard deviation, and Sharpe ratio for portfolios with the following weights in BND: 0%, 25%, 50%, 75%, and 100%.*
+
+::: {.callout-note collapse="true" title="Solution"}
+
+**Given information:**
+
+| Parameter | BND | VTI |
+|-----------|-----|-----|
+| Expected Return | 4% | 10% |
+| Standard Deviation | 8% | 18% |
+| Covariance | 0.005 | |
+| Risk-free rate | 2% | |
+
+**Portfolio calculations:**
+
+*Portfolio 1: $w_{BND} = 0\%$, $w_{VTI} = 100\%$*
+
+$$E[R_P] = 0(0.04) + 1(0.10) = 10\%$$
+
+$$\text{Var}(R_P) = 0^2(0.0064) + 1^2(0.0324) + 2(0)(1)(0.005) = 0.0324$$
+
+$$\sigma_P = \sqrt{0.0324} = 18\%$$
+
+$$\text{Sharpe} = \frac{0.10 - 0.02}{0.18} = 0.444$$
+
+*Portfolio 2: $w_{BND} = 25\%$, $w_{VTI} = 75\%$*
+
+$$E[R_P] = 0.25(0.04) + 0.75(0.10) = 0.01 + 0.075 = 8.5\%$$
+
+$$\text{Var}(R_P) = 0.25^2(0.0064) + 0.75^2(0.0324) + 2(0.25)(0.75)(0.005)$$
+
+$$= 0.0004 + 0.0182 + 0.00188 = 0.0205$$
+
+$$\sigma_P = \sqrt{0.0205} = 14.32\%$$
+
+$$\text{Sharpe} = \frac{0.085 - 0.02}{0.1432} = 0.454$$
+
+*Portfolio 3: $w_{BND} = 50\%$, $w_{VTI} = 50\%$*
+
+$$E[R_P] = 0.50(0.04) + 0.50(0.10) = 7\%$$
+
+$$\text{Var}(R_P) = 0.50^2(0.0064) + 0.50^2(0.0324) + 2(0.50)(0.50)(0.005)$$
+
+$$= 0.0016 + 0.0081 + 0.0025 = 0.0122$$
+
+$$\sigma_P = \sqrt{0.0122} = 11.05\%$$
+
+$$\text{Sharpe} = \frac{0.07 - 0.02}{0.1105} = 0.452$$
+
+*Portfolio 4: $w_{BND} = 75\%$, $w_{VTI} = 25\%$*
+
+$$E[R_P] = 0.75(0.04) + 0.25(0.10) = 5.5\%$$
+
+$$\text{Var}(R_P) = 0.75^2(0.0064) + 0.25^2(0.0324) + 2(0.75)(0.25)(0.005)$$
+
+$$= 0.0036 + 0.0020 + 0.00188 = 0.00748$$
+
+$$\sigma_P = \sqrt{0.00748} = 8.65\%$$
+
+$$\text{Sharpe} = \frac{0.055 - 0.02}{0.0865} = 0.405$$
+
+*Portfolio 5: $w_{BND} = 100\%$, $w_{VTI} = 0\%$*
+
+$$E[R_P] = 1(0.04) + 0(0.10) = 4\%$$
+
+$$\sigma_P = 8\%$$
+
+$$\text{Sharpe} = \frac{0.04 - 0.02}{0.08} = 0.250$$
+
+**Summary table:**
+
+| $w_{BND}$ | $w_{VTI}$ | $E[R_P]$ | $\sigma_P$ | Sharpe |
+|-----------|-----------|----------|------------|--------|
+| 0% | 100% | 10.00% | 18.00% | 0.444 |
+| 25% | 75% | 8.50% | 14.32% | 0.454 |
+| 50% | 50% | 7.00% | 11.05% | 0.452 |
+| 75% | 25% | 5.50% | 8.65% | 0.405 |
+| 100% | 0% | 4.00% | 8.00% | 0.250 |
+
+The highest Sharpe ratio (0.454) occurs around 25% bonds and 75% stocks, suggesting the tangency portfolio is close to this allocation.
+:::
+
+
+**Practice Problem 2: Two-Asset Tangency Portfolio**
+
+*Using the BND and VTI data from Practice Problem 1, calculate the exact tangency portfolio weights. Then compute the expected return, standard deviation, and Sharpe ratio of this optimal portfolio.*
+
+::: {.callout-note collapse="true" title="Solution"}
+
+**Given:** $E[R_{BND}] = 4\%$, $E[R_{VTI}] = 10\%$, $\sigma_{BND} = 8\%$, $\sigma_{VTI} = 18\%$, $\text{Cov} = 0.005$, $R_f = 2\%$
+
+**Step 1: Calculate components**
+
+Risk premia:
+
+- $E[R_{BND}] - R_f = 0.04 - 0.02 = 0.02$
+- $E[R_{VTI}] - R_f = 0.10 - 0.02 = 0.08$
+
+Variances:
+
+- $\sigma_{BND}^2 = 0.0064$
+- $\sigma_{VTI}^2 = 0.0324$
+
+**Step 2: Calculate numerator**
+
+$$\text{Num} = (E[R_{BND}] - R_f)\sigma_{VTI}^2 - (E[R_{VTI}] - R_f)\text{Cov}$$
+
+$$= (0.02)(0.0324) - (0.08)(0.005)$$
+
+$$= 0.000648 - 0.0004 = 0.000248$$
+
+**Step 3: Calculate denominator**
+
+$$\text{Denom} = (E[R_{BND}] - R_f)\sigma_{VTI}^2 + (E[R_{VTI}] - R_f)\sigma_{BND}^2 - (E[R_{BND}] - R_f + E[R_{VTI}] - R_f)\text{Cov}$$
+
+$$= (0.02)(0.0324) + (0.08)(0.0064) - (0.02 + 0.08)(0.005)$$
+
+$$= 0.000648 + 0.000512 - 0.0005 = 0.00066$$
+
+**Step 4: Calculate optimal weights**
+
+$$w_{BND} = \frac{0.000248}{0.00066} = 0.376 = 37.6\%$$
+
+$$w_{VTI} = 1 - 0.376 = 0.624 = 62.4\%$$
+
+**Step 5: Calculate portfolio characteristics**
+
+Expected return:
+$$E[R_{tan}] = 0.376(0.04) + 0.624(0.10) = 0.01504 + 0.0624 = 7.74\%$$
+
+Variance:
+$$\text{Var}(R_{tan}) = 0.376^2(0.0064) + 0.624^2(0.0324) + 2(0.376)(0.624)(0.005)$$
+
+$$= 0.000905 + 0.01262 + 0.00235 = 0.01588$$
+
+Standard deviation:
+$$\sigma_{tan} = \sqrt{0.01588} = 12.60\%$$
+
+Sharpe ratio:
+$$\text{Sharpe}_{tan} = \frac{0.0774 - 0.02}{0.1260} = \frac{0.0574}{0.1260} = 0.456$$
+
+**Summary:** The tangency portfolio consists of 37.6% in BND and 62.4% in VTI, with an expected return of 7.74%, standard deviation of 12.60%, and a maximum Sharpe ratio of 0.456.
+:::
+
+
+**Practice Problem 3: Three-Asset Tangency Portfolio**
+
+*Consider three assets with the following characteristics:*
+
+| Asset | Expected Return | Standard Deviation |
+|-------|-----------------|-------------------|
+| X | 6% | 12% |
+| Y | 10% | 18% |
+| Z | 14% | 25% |
+
+*The correlation matrix is:*
+
+|   | X | Y | Z |
+|---|---|---|---|
+| X | 1.0 | 0.4 | 0.2 |
+| Y | 0.4 | 1.0 | 0.6 |
+| Z | 0.2 | 0.6 | 1.0 |
+
+*The risk-free rate is 3%. Calculate the tangency portfolio weights and the portfolio's expected return, standard deviation, and Sharpe ratio.*
+
+::: {.callout-note collapse="true" title="Solution"}
+
+**Step 1: Set up vectors and matrices**
+
+Expected return vector:
+$$\boldsymbol{\mu} = \begin{pmatrix} 0.06 \\ 0.10 \\ 0.14 \end{pmatrix}$$
+
+Excess return vector:
+$$\boldsymbol{\mu}^e = \begin{pmatrix} 0.06 - 0.03 \\ 0.10 - 0.03 \\ 0.14 - 0.03 \end{pmatrix} = \begin{pmatrix} 0.03 \\ 0.07 \\ 0.11 \end{pmatrix}$$
+
+**Step 2: Convert correlations to covariances**
+
+- $\text{Cov}(X,Y) = 0.4 \times 0.12 \times 0.18 = 0.00864$
+- $\text{Cov}(X,Z) = 0.2 \times 0.12 \times 0.25 = 0.006$
+- $\text{Cov}(Y,Z) = 0.6 \times 0.18 \times 0.25 = 0.027$
+
+Variance-covariance matrix:
+$$\boldsymbol{\Sigma} = \begin{pmatrix} 0.0144 & 0.00864 & 0.006 \\ 0.00864 & 0.0324 & 0.027 \\ 0.006 & 0.027 & 0.0625 \end{pmatrix}$$
+
+**Step 3: Compute inverse covariance matrix**
+
+$$\boldsymbol{\Sigma}^{-1} = \begin{pmatrix} 82.18 & -14.52 & -2.42 \\ -14.52 & 50.81 & -18.15 \\ -2.42 & -18.15 & 25.60 \end{pmatrix}$$
+
+**Step 4: Calculate $\boldsymbol{\Sigma}^{-1} \boldsymbol{\mu}^e$**
+
+$$\boldsymbol{\Sigma}^{-1} \boldsymbol{\mu}^e = \begin{pmatrix} 82.18(0.03) + (-14.52)(0.07) + (-2.42)(0.11) \\ (-14.52)(0.03) + 50.81(0.07) + (-18.15)(0.11) \\ (-2.42)(0.03) + (-18.15)(0.07) + 25.60(0.11) \end{pmatrix}$$
+
+$$= \begin{pmatrix} 2.465 - 1.016 - 0.266 \\ -0.436 + 3.557 - 1.997 \\ -0.073 - 1.271 + 2.816 \end{pmatrix} = \begin{pmatrix} 1.183 \\ 1.124 \\ 1.472 \end{pmatrix}$$
+
+**Step 5: Calculate denominator and weights**
+
+$$\mathbf{1}^T \boldsymbol{\Sigma}^{-1} \boldsymbol{\mu}^e = 1.183 + 1.124 + 1.472 = 3.779$$
+
+$$\mathbf{w}_{tan} = \frac{1}{3.779} \begin{pmatrix} 1.183 \\ 1.124 \\ 1.472 \end{pmatrix} = \begin{pmatrix} 0.313 \\ 0.297 \\ 0.390 \end{pmatrix}$$
+
+The tangency portfolio: 31.3% in X, 29.7% in Y, and 39.0% in Z.
+
+**Step 6: Calculate portfolio characteristics**
+
+Expected return:
+$$E[R_{tan}] = 0.313(0.06) + 0.297(0.10) + 0.390(0.14) = 0.01878 + 0.0297 + 0.0546 = 10.31\%$$
+
+Portfolio variance (computing $\mathbf{w}^T \boldsymbol{\Sigma} \mathbf{w}$):
+$$\text{Var}(R_{tan}) = 0.0192$$
+
+Standard deviation:
+$$\sigma_{tan} = \sqrt{0.0192} = 13.86\%$$
+
+Sharpe ratio:
+$$\text{Sharpe}_{tan} = \frac{0.1031 - 0.03}{0.1386} = \frac{0.0731}{0.1386} = 0.527$$
+
+**Summary:** The tangency portfolio consists of 31.3% in X, 29.7% in Y, and 39.0% in Z, with an expected return of 10.31%, standard deviation of 13.86%, and Sharpe ratio of 0.527.
+:::
+
+
+## Ask an LLM
+
+Here are three questions you might ask an AI assistant to deepen your understanding of these concepts:
+
+- Can you walk me through an intuitive explanation of why the tangency portfolio is the same for all investors regardless of their risk aversion? What assumptions are required for this result to hold?
+- How would the tangency portfolio weights change if one asset's correlation with the others suddenly increased? Can you give me a numerical example showing this effect?
+- In practice, we estimate expected returns and covariances from historical data, which introduces estimation error. How sensitive is the tangency portfolio to errors in these inputs, and what techniques do practitioners use to make portfolio optimization more robust?
+- What happens to the tangency portfolio formula if one of the assets is the risk-free asset? Can you show mathematically why this creates a problem and how it relates to the Capital Market Line?
+- How does the number of assets in a portfolio affect the benefits of diversification? Is there a point of diminishing returns, and if so, why?

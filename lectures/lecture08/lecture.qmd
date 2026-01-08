@@ -1,0 +1,271 @@
+---
+title: "Optimal Asset Allocation"
+subtitle: "Building the complete portfolio combining the tangency portfolio and the risk-free asset"
+---
+
+## Introduction
+
+How should you divide your investment dollars among stocks, bonds, and cash? This deceptively simple question sits at the heart of practical investing, and getting it right can mean the difference between a comfortable retirement and one filled with financial anxiety. In this lecture, we bring together everything you've learned in the previous two lectures—optimal risky portfolios and capital allocation—into a unified framework for making complete investment decisions.
+
+The beauty of optimal asset allocation is that it breaks a seemingly overwhelming problem into manageable pieces. Rather than trying to simultaneously decide how much to invest in dozens of individual securities *and* how much risk to take, we solve two separate problems and then combine the solutions. First, we find the best possible combination of risky assets—the one offering the highest reward per unit of risk. Second, we determine how much of our wealth to expose to that optimal risky combination versus keeping safely in risk-free assets. Finally, we translate these decisions into specific dollar amounts for each security in our portfolio.
+
+This approach has profound practical implications. When you set up your 401(k) and choose how to split your contributions between stock funds, bond funds, and money market accounts, you are making exactly this type of decision. The framework we develop here provides a principled, mathematically grounded way to make these choices rather than relying on rules of thumb or gut feelings.
+
+## The Three-Step Framework
+
+Optimal asset allocation proceeds in three distinct steps, each building on the previous one. Understanding why we separate the problem this way—rather than solving everything at once—reveals deep insights about how risk and return interact in portfolio construction.
+
+**Step 1** involves finding the tangency portfolio, which combines your risky assets in a way that maximizes the Sharpe ratio. This step is sometimes called finding the "optimal risky portfolio." The remarkable insight here is that this step depends only on the statistical properties of the risky assets—their expected returns, standard deviations, and correlations—and not at all on how risk-averse you are. Whether you are a conservative investor who loses sleep over small losses or an aggressive investor comfortable with large swings, the same tangency portfolio is optimal for you.
+
+**Step 2** involves finding the optimal capital allocation—that is, deciding what fraction of your total wealth to invest in the tangency portfolio from Step 1, with the remainder going into a risk-free asset. This step is where your personal risk tolerance enters the picture. A more risk-averse investor will allocate less to the tangency portfolio and hold more in the risk-free asset, while a less risk-averse investor will do the opposite.
+
+**Step 3** simply combines the results from the first two steps. If Step 2 tells you to put 60% of your wealth in the tangency portfolio, and Step 1 tells you that Stock A should be 40% of the tangency portfolio, then your final allocation to Stock A is $0.60 \times 0.40 = 0.24$, or 24% of your total wealth.
+
+This separation is elegant because it means you can solve the technical optimization problem (finding the best Sharpe ratio) without knowing anything about the investor, and then customize the solution for any particular investor's risk preferences.
+
+## Step 1: Finding the Tangency Portfolio
+
+Given a set of $N$ risky assets, the tangency portfolio is the combination of those assets that achieves the highest possible Sharpe ratio. We covered the derivation in the previous lecture, but let's review the key result and make sure we understand each component.
+
+The weights in the tangency portfolio are given by:
+
+$$\mathbf{W}_{\text{tan}} = \frac{\boldsymbol{\Sigma}^{-1} \boldsymbol{\mu}^e}{\mathbf{1}^T \boldsymbol{\Sigma}^{-1} \boldsymbol{\mu}^e}$$
+
+Let's unpack this formula carefully. The vector $\boldsymbol{\mu}^e$ contains the *excess returns* (also called risk premiums) for each of the $N$ assets—that is, each asset's expected return minus the risk-free rate. The matrix $\boldsymbol{\Sigma}$ is the variance-covariance matrix of the $N$ assets, and $\boldsymbol{\Sigma}^{-1}$ is its inverse. The vector $\mathbf{1}$ is simply a column of ones, so $\mathbf{1}^T \boldsymbol{\Sigma}^{-1} \boldsymbol{\mu}^e$ is a scalar that serves to normalize the weights so they sum to one.
+
+The result $\mathbf{W}_{\text{tan}}$ is a vector containing $N$ weights:
+
+$$\mathbf{W}_{\text{tan}} = \begin{pmatrix} w_{1,\text{tan}} \\ w_{2,\text{tan}} \\ \vdots \\ w_{N,\text{tan}} \end{pmatrix}$$
+
+Each element $w_{i,\text{tan}}$ tells us what fraction of the tangency portfolio should be invested in asset $i$. These weights sum to 1, and some of them may be negative if short-selling is optimal.
+
+## Step 2: Finding the Optimal Capital Allocation
+
+Once we have identified the tangency portfolio, we need to decide how to split our wealth between this risky portfolio and the risk-free asset. From our earlier lecture on capital allocation, we know that an investor with risk aversion coefficient $A$ should invest the following fraction of their wealth in the risky portfolio:
+
+$$w_{\text{oca}} = \frac{E[R_P] - R_f}{A \sigma_P^2}$$
+
+In this formula, $E[R_P]$ is the expected return of the risky portfolio (in our case, the tangency portfolio), $R_f$ is the risk-free rate, $\sigma_P^2$ is the variance of the risky portfolio's returns, and $A$ is the investor's risk aversion coefficient.
+
+To apply this formula, we need to compute the expected return and variance of the tangency portfolio. Since we already know the weights from Step 1, this is straightforward.
+
+The expected excess return (risk premium) of the tangency portfolio is:
+
+$$E[R_P] - R_f = \mathbf{W}_{\text{tan}}^T \cdot \boldsymbol{\mu}^e$$
+
+Written out element by element, this is:
+
+$$E[R_P] - R_f = w_{1,\text{tan}}(E[R_1] - R_f) + w_{2,\text{tan}}(E[R_2] - R_f) + \ldots + w_{N,\text{tan}}(E[R_N] - R_f)$$
+
+This is simply the weighted average of the individual asset excess returns, where the weights are the tangency portfolio weights.
+
+The variance of the tangency portfolio is:
+
+$$\sigma_P^2 = \mathbf{W}_{\text{tan}}^T \cdot \boldsymbol{\Sigma} \cdot \mathbf{W}_{\text{tan}}$$
+
+Written in the more familiar summation form, this becomes:
+
+$$\sigma_P^2 = \sum_{i=1}^{N} w_{i,\text{tan}}^2 \sigma_i^2 + \sum_{i \neq j} 2 w_{i,\text{tan}} w_{j,\text{tan}} \text{Cov}[R_i, R_j]$$
+
+The superscript $T$ in $\mathbf{W}_{\text{tan}}^T$ denotes the transpose operation, which reshapes the column vector into a row vector:
+
+$$\mathbf{W}_{\text{tan}}^T = \begin{pmatrix} w_{1,\text{tan}} & w_{2,\text{tan}} & \ldots & w_{N,\text{tan}} \end{pmatrix}$$
+
+## Step 3: The Complete Asset Allocation
+
+Now we combine our results. Step 2 told us to invest fraction $w_{\text{oca}}$ in the tangency portfolio and fraction $1 - w_{\text{oca}}$ in the risk-free asset. Step 1 told us the composition of the tangency portfolio. Putting these together:
+
+| Asset | Final Portfolio Weight |
+|-------|----------------------|
+| Risk-free asset | $1 - w_{\text{oca}}$ |
+| Risky asset 1 | $w_{\text{oca}} \times w_{1,\text{tan}}$ |
+| Risky asset 2 | $w_{\text{oca}} \times w_{2,\text{tan}}$ |
+| $\vdots$ | $\vdots$ |
+| Risky asset $N$ | $w_{\text{oca}} \times w_{N,\text{tan}}$ |
+
+The logic is intuitive: if 60% of your wealth goes to the tangency portfolio, and within that portfolio 40% goes to Stock A, then 24% of your total wealth ends up in Stock A.
+
+## The Two-Asset Special Case
+
+While the general formulas above work for any number of risky assets, examining the special case of just two risky assets builds important intuition. This case is also practically significant because your "assets" don't have to be individual stocks—they can be diversified portfolios. For example, you might think of Asset A as a total stock market ETF (like SPY) and Asset B as a total bond market ETF (like BND). In this framing, the optimal asset allocation problem becomes the classic stocks-bonds-cash allocation decision that every investor faces.
+
+### Step 1 with Two Assets
+
+When there are only two risky assets, A and B, the tangency portfolio weights have a closed-form solution. The weight on asset A is:
+
+$$w_{A,\text{tan}} = \frac{(E[R_A] - R_f)\sigma_B^2 - (E[R_B] - R_f)\text{Cov}[R_A, R_B]}{(E[R_A] - R_f)\sigma_B^2 + (E[R_B] - R_f)\sigma_A^2 - (E[R_A] - R_f + E[R_B] - R_f)\text{Cov}[R_A, R_B]}$$
+
+The weight on asset B is simply $w_{B,\text{tan}} = 1 - w_{A,\text{tan}}$.
+
+While this formula looks intimidating at first, notice what it captures: the optimal weight in asset A depends on both assets' risk premiums, both assets' variances, and their covariance. Assets with higher risk premiums get more weight, assets with higher variance get less weight (all else equal), and the covariance term captures how the assets interact.
+
+### Step 2 with Two Assets
+
+The capital allocation formula remains the same:
+
+$$w_{\text{oca}} = \frac{E[R_P] - R_f}{A \sigma_P^2}$$
+
+However, we now compute the tangency portfolio's expected return and variance using the two-asset formulas:
+
+$$E[R_P] = w_{A,\text{tan}} E[R_A] + w_{B,\text{tan}} E[R_B]$$
+
+$$\sigma_P^2 = w_{A,\text{tan}}^2 \sigma_A^2 + w_{B,\text{tan}}^2 \sigma_B^2 + 2 w_{A,\text{tan}} w_{B,\text{tan}} \text{Cov}[R_A, R_B]$$
+
+### Step 3 with Two Assets
+
+The final allocation places:
+
+| Asset | Final Portfolio Weight |
+|-------|----------------------|
+| Risk-free asset | $1 - w_{\text{oca}}$ |
+| Risky asset A | $w_{\text{oca}} \times w_{A,\text{tan}}$ |
+| Risky asset B | $w_{\text{oca}} \times w_{B,\text{tan}}$ |
+
+**Example: Allocating Between Two Stocks and the Risk-Free Asset**
+
+*You want to invest in Facebook (FB) and Netflix (NFLX) and the risk-free asset but are not sure how much to invest in each. You have estimated that the expected returns of FB and NFLX are 10% and 15% respectively, their standard deviations are 20% and 25% respectively, and their covariance is 0.02. The risk-free rate is 5%. Find the optimal asset allocation between the three assets assuming that your risk-aversion coefficient is 5.*
+
+::: {.callout-note collapse="true"}
+## Solution
+
+**Given information:**
+
+| Parameter | FB (Asset A) | NFLX (Asset B) |
+|-----------|-------------|----------------|
+| Expected return | $E[R_A] = 10\%$ | $E[R_B] = 15\%$ |
+| Standard deviation | $\sigma_A = 20\%$ | $\sigma_B = 25\%$ |
+| Variance | $\sigma_A^2 = 0.04$ | $\sigma_B^2 = 0.0625$ |
+
+Additional parameters: $\text{Cov}[R_A, R_B] = 0.02$, $R_f = 5\%$, and $A = 5$.
+
+**Step 1: Find the tangency portfolio weights**
+
+First, we compute the risk premiums (excess returns):
+
+- FB risk premium: $E[R_A] - R_f = 10\% - 5\% = 5\% = 0.05$
+- NFLX risk premium: $E[R_B] - R_f = 15\% - 5\% = 10\% = 0.10$
+
+Now we apply the two-asset tangency weight formula. Let's compute the numerator and denominator separately:
+
+Numerator for $w_{A,\text{tan}}$:
+$$(E[R_A] - R_f)\sigma_B^2 - (E[R_B] - R_f)\text{Cov}[R_A, R_B]$$
+$$= (0.05)(0.0625) - (0.10)(0.02)$$
+$$= 0.003125 - 0.002 = 0.001125$$
+
+Denominator:
+$$(E[R_A] - R_f)\sigma_B^2 + (E[R_B] - R_f)\sigma_A^2 - (E[R_A] - R_f + E[R_B] - R_f)\text{Cov}[R_A, R_B]$$
+$$= (0.05)(0.0625) + (0.10)(0.04) - (0.05 + 0.10)(0.02)$$
+$$= 0.003125 + 0.004 - 0.003 = 0.004125$$
+
+Therefore:
+$$w_{A,\text{tan}} = \frac{0.001125}{0.004125} = 0.2727 \approx 27.27\%$$
+
+$$w_{B,\text{tan}} = 1 - 0.2727 = 0.7273 \approx 72.73\%$$
+
+The tangency portfolio consists of 27.27% in FB and 72.73% in NFLX.
+
+**Step 2: Find the optimal capital allocation**
+
+First, we need the expected return and variance of the tangency portfolio:
+
+$$E[R_P] = w_{A,\text{tan}} E[R_A] + w_{B,\text{tan}} E[R_B]$$
+$$= (0.2727)(0.10) + (0.7273)(0.15) = 0.02727 + 0.10909 = 0.1364 = 13.64\%$$
+
+$$\sigma_P^2 = w_{A,\text{tan}}^2 \sigma_A^2 + w_{B,\text{tan}}^2 \sigma_B^2 + 2 w_{A,\text{tan}} w_{B,\text{tan}} \text{Cov}[R_A, R_B]$$
+$$= (0.2727)^2(0.04) + (0.7273)^2(0.0625) + 2(0.2727)(0.7273)(0.02)$$
+$$= 0.00297 + 0.03306 + 0.00793 = 0.04396$$
+
+The tangency portfolio has an expected return of 13.64% and variance of 0.04396 (standard deviation of 20.97%).
+
+Now we apply the capital allocation formula:
+$$w_{\text{oca}} = \frac{E[R_P] - R_f}{A \sigma_P^2} = \frac{0.1364 - 0.05}{5 \times 0.04396} = \frac{0.0864}{0.2198} = 0.393 \approx 39.3\%$$
+
+An investor with risk aversion of 5 should put 39.3% of their wealth in the tangency portfolio and 60.7% in the risk-free asset.
+
+**Step 3: The complete asset allocation**
+
+| Asset | Calculation | Final Weight |
+|-------|-------------|--------------|
+| Risk-free asset | $1 - 0.393$ | **60.7%** |
+| FB | $0.393 \times 0.2727$ | **10.7%** |
+| NFLX | $0.393 \times 0.7273$ | **28.6%** |
+| **Total** | | **100.0%** |
+
+The optimal allocation for this investor is to put 60.7% in the risk-free asset, 10.7% in Facebook, and 28.6% in Netflix.
+
+**Interpretation:** Even though the tangency portfolio is heavily weighted toward the higher-returning NFLX (72.73%), this moderately risk-averse investor only commits about 39% of their wealth to the risky portfolio, resulting in a final allocation that is dominated by the safe asset.
+:::
+
+## Key Takeaways
+
+The optimal asset allocation framework provides a systematic approach to one of investing's most fundamental decisions: how to divide wealth among available investment opportunities. The key insight is that this complex problem can be decomposed into two simpler problems that are solved sequentially and then combined.
+
+The first problem—finding the tangency portfolio—is purely technical. It asks: given the expected returns, risks, and correlations of our risky assets, what combination delivers the highest Sharpe ratio? This problem has the same solution regardless of who is investing; a conservative retiree and an aggressive young professional would hold their risky assets in exactly the same proportions. The tangency portfolio represents the most efficient way to harvest the risk premium available in the market.
+
+The second problem—capital allocation—is where personal circumstances enter. Here we ask: how much risk should this particular investor take? The answer depends on the investor's risk aversion coefficient, which captures their willingness to accept volatility in exchange for higher expected returns. More risk-averse investors tilt toward the safety of the risk-free asset, while less risk-averse investors lean into the tangency portfolio.
+
+The final step simply multiplies these decisions together. If the tangency portfolio says "hold 40% in stocks," and capital allocation says "hold 60% in the risky portfolio," then stocks get 24% of total wealth. This multiplicative structure explains why even an investor with a stock-heavy tangency portfolio might end up with a conservative overall allocation if their risk aversion is high.
+
+The two-asset case, while simplified, captures the essential logic and has direct practical applications. When the two "assets" are broad market portfolios—such as a stock index and a bond index—this framework guides the classic stocks-bonds-cash allocation decision. The mathematics tells us not only that diversification across asset classes is beneficial, but precisely how much to hold in each category given our risk tolerance and market expectations.
+
+## Key Formulas Summary
+
+| Concept | Formula | When to Use |
+|---------|---------|-------------|
+| Tangency portfolio weights (general) | $\mathbf{W}_{\text{tan}} = \frac{\boldsymbol{\Sigma}^{-1} \boldsymbol{\mu}^e}{\mathbf{1}^T \boldsymbol{\Sigma}^{-1} \boldsymbol{\mu}^e}$ | Finding the optimal combination of $N$ risky assets that maximizes the Sharpe ratio |
+| Tangency weight on asset A (two-asset case) | $w_{A,\text{tan}} = \frac{(E[R_A] - R_f)\sigma_B^2 - (E[R_B] - R_f)\text{Cov}[R_A, R_B]}{(E[R_A] - R_f)\sigma_B^2 + (E[R_B] - R_f)\sigma_A^2 - (E[R_A] - R_f + E[R_B] - R_f)\text{Cov}[R_A, R_B]}$ | Finding the tangency portfolio when you have exactly two risky assets |
+| Optimal capital allocation weight | $w_{\text{oca}} = \frac{E[R_P] - R_f}{A \sigma_P^2}$ | Determining what fraction of wealth to invest in the tangency portfolio given risk aversion $A$ |
+| Portfolio expected return | $E[R_P] = \sum_{i=1}^{N} w_i E[R_i]$ | Computing the expected return of any portfolio from its weights |
+| Portfolio variance (general) | $\sigma_P^2 = \mathbf{W}^T \boldsymbol{\Sigma} \mathbf{W}$ | Computing portfolio risk using matrix notation |
+| Portfolio variance (two assets) | $\sigma_P^2 = w_A^2 \sigma_A^2 + w_B^2 \sigma_B^2 + 2 w_A w_B \text{Cov}[R_A, R_B]$ | Computing portfolio variance when combining two assets |
+
+## Practice Problems
+
+**Example: A Conservative Investor's Allocation**
+
+*Consider the same two assets from the previous example (FB with expected return 10% and standard deviation 20%, and NFLX with expected return 15% and standard deviation 25%, covariance 0.02, risk-free rate 5%). Now suppose the investor has a risk-aversion coefficient of 10 instead of 5. Find the optimal asset allocation for this more risk-averse investor.*
+
+::: {.callout-note collapse="true"}
+## Solution
+
+**Step 1: Find the tangency portfolio weights**
+
+The tangency portfolio weights do not depend on risk aversion, so they are the same as before:
+
+- $w_{A,\text{tan}} = 27.27\%$ (FB)
+- $w_{B,\text{tan}} = 72.73\%$ (NFLX)
+
+**Step 2: Find the optimal capital allocation**
+
+The tangency portfolio statistics are also unchanged:
+
+- $E[R_P] = 13.64\%$
+- $\sigma_P^2 = 0.04396$
+
+But now we use $A = 10$:
+
+$$w_{\text{oca}} = \frac{E[R_P] - R_f}{A \sigma_P^2} = \frac{0.1364 - 0.05}{10 \times 0.04396} = \frac{0.0864}{0.4396} = 0.197 \approx 19.7\%$$
+
+This more risk-averse investor should put only 19.7% in the tangency portfolio, compared to 39.3% for the investor with $A = 5$.
+
+**Step 3: The complete asset allocation**
+
+| Asset | Calculation | Final Weight |
+|-------|-------------|--------------|
+| Risk-free asset | $1 - 0.197$ | **80.3%** |
+| FB | $0.197 \times 0.2727$ | **5.4%** |
+| NFLX | $0.197 \times 0.7273$ | **14.3%** |
+| **Total** | | **100.0%** |
+
+**Interpretation:** Doubling the risk aversion (from 5 to 10) approximately halves the allocation to risky assets. The investor with $A = 10$ holds 80.3% in the risk-free asset compared to 60.7% for the investor with $A = 5$. Note that the *composition* of the risky portion (the split between FB and NFLX) remains unchanged—only the *size* of the risky position changes with risk aversion.
+:::
+
+## Ask an LLM
+
+Here are three questions you might ask an AI assistant to deepen your understanding of these concepts:
+
+- In the real world, individuals cannot borrow at the risk-free rate. How does this constraint affect optimal asset allocation, and what happens to the efficient frontier when borrowing and lending rates differ?
+- How does imposing a no-short-selling constraint (requiring all portfolio weights to be non-negative) change the tangency portfolio, and why might this matter for individual investors?
+- Why is it that the tangency portfolio is the same for all investors regardless of their risk aversion? Intuitively, shouldn't more aggressive investors want different stocks than conservative investors?
+- If an investor's estimates of expected returns are uncertain or contain errors, which inputs to the optimization (expected returns, variances, or covariances) tend to have the biggest impact on the resulting portfolio weights, and what are the practical implications?
+- How would the optimal asset allocation framework change if we included transaction costs or taxes, and why might the "optimal" portfolio differ from what the basic theory suggests?

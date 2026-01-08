@@ -3,29 +3,72 @@ project:
 
 website:
   title: "Investments"
+  #reader-mode: true
   sidebar:
     style: "docked"
+    pinned: true
     contents:
       - schedule.qmd
       - syllabus.qmd
       - data.qmd
       - section: "Lectures"
         contents:
-          - section: "Lecture 1"
+          - section: "Lecture 1: The Investment Environment"
             contents:
               - text: "Pre-class Reading"
-                href: lectures/lecture1/reading.qmd
-              - text: "Lab"
-                href: lectures/lecture1/lab.qmd
-          - section: "Lecture 2"
+                href: lectures/lecture01/lecture.qmd
+          - section: "Lecture 2: Foundations of Financial Markets"
             contents:
               - text: "Pre-class Reading"
-                href: lectures/lecture2/reading.qmd
+                href: lectures/lecture02/lecture.qmd
               - text: "Lab"
-                href: lectures/lecture2/lab.qmd
+                href: lectures/lecture02/lab.qmd
+          - section: "Lecture 3: Measuring and Comparing Returns"
+            contents:
+              - text: "Pre-class Reading"
+                href: lectures/lecture03/lecture.qmd
+              - text: "Lab"
+                href: lectures/lecture03/lab.qmd
+          - section: "Lecture 4: Measuring Risk and Expected Return"
+            contents:
+              - text: "Pre-class Reading"
+                href: lectures/lecture04/lecture.qmd
+              - text: "Lab"
+                href: lectures/lecture04/lab.qmd
+          - section: "Lecture 5: Portfolio Risk and Returns"
+            contents:
+              - text: "Pre-class Reading"
+                href: lectures/lecture05/lecture.qmd
+              - text: "Lab"
+                href: lectures/lecture05/lab.qmd
+          - section: "Lecture 6: Optimal Capital Allocation"
+            contents:
+              - text: "Pre-class Reading"
+                href: lectures/lecture06/lecture.qmd
+              - text: "Lab"
+                href: lectures/lecture06/lab.qmd
+          - section: "Lecture 7: Mean-Variance Portfolio Optimization"
+            contents:
+              - text: "Pre-class Reading"
+                href: lectures/lecture07/lecture.qmd
+              - text: "Lab"
+                href: lectures/lecture07/lab.qmd
+          - section: "Lecture 8: Optimal Asset Allocation"
+            contents:
+              - text: "Pre-class Reading"
+                href: lectures/lecture08/lecture.qmd
+              - text: "Lab"
+                href: lectures/lecture08/lab.qmd
+          - section: "Lecture 9: Review Session"
+            contents:
+              - text: "Lab"
+                href: lectures/lecture09/lab.qmd
 
 format:
   html:
     theme: cosmo
     toc: true
+    number-sections: true
+    grid:
+      sidebar-width: 450px
 

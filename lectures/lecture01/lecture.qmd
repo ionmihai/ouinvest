@@ -1,0 +1,45 @@
+---
+title: "The Investment Environment"
+subtitle: "Financial markets and the investment process" 
+---
+
+## The Purpose of Financial Markets
+
+At its core, the investment world exists to answer a fundamental economic question: how do we channel savings from those who have excess capital to those who can put it to productive use? This is the essential function of financial markets, and understanding it provides the foundation for everything else in this course.
+
+To make sense of this, we need to distinguish between two types of assets:
+
+- **Real assets** are the things that actually generate economic output—land, buildings, machinery, and human capital. These are the productive resources of the economy. 
+- **Financial assets**, by contrast, are claims on real assets or the income they generate. When you buy a share of stock, you're not buying a factory; you're buying a claim on the profits that factory produces. 
+
+*In the aggregate, financial assets don't create wealth directly*, but they enable the efficient allocation of risk and capital across the economy, which makes the entire system more productive.
+
+## The Investment Process
+
+The construction of an investment portfolio generally consists of two types of decisions:
+
+1. **Asset Allocation**: This is the decision of how to divide the portfolio among broad asset classes (e.g., 60% equities, 30% bonds, 10% cash).  
+   - Extensive research demonstrates that asset allocation is the primary determinant of a portfolio's return variability. It accounts for over 90% of the difference in returns between diversified portfolios. The decision to be in the stock market matters far more than which specific stocks are held.  
+2. **Security Selection**: This is the decision of which specific securities to hold within an asset class (e.g., buying Microsoft instead of Apple).  
+   - While security selection receives the most media attention, it is a zero-sum game in an efficient market (for every buyer who thinks a stock is undervalued, there is a seller who thinks it is overvalued).
+
+### Top-Down vs. Bottom-Up Investment Strategy
+
+- A **Top-Down** investor starts with the macroeconomic environment to determine the asset allocation, then drills down to sector allocation, and finally selects individual securities.  
+- A **Bottom-Up** investor focuses solely on finding attractively priced securities without regard for the broader asset allocation. This can lead to unintended concentration risks (e.g., a portfolio heavily weighted in tech stocks because that’s where the "growth" was found).1
+
+## The Key Players
+
+Several types of participants make financial markets function:
+
+- **Firms** are typically net borrowers—they issue securities to raise capital for investment in real assets. 
+- **Households** are typically net savers—they purchase securities to store wealth and earn returns. 
+- **Financial intermediaries**, including banks, mutual funds, and pension funds, connect borrowers and savers, transforming the characteristics of financial claims in the process.
+- **Investment bankers** help firms issue new securities by underwriting offerings and providing advisory services. 
+- **Governments** play multiple roles: they regulate markets to ensure fairness and transparency, and they issue their own debt to finance public spending.
+
+## Market Efficiency
+
+One of the central questions in investments is whether markets are efficient—that is, whether security prices accurately reflect all available information. If markets are perfectly efficient, then prices are always "correct," and there's no point in trying to find undervalued securities. **Active management**, which attempts to beat the market through superior analysis, would be a waste of time and money. **Passive management**, which simply accepts market returns by holding a broad index, would be the rational choice.
+
+In reality, efficiency is a matter of degree. Markets are remarkably good at processing information, but opportunities for skilled investors may exist at the margins. Whether those opportunities are large enough to justify the costs of pursuing them is one of the great debates in finance, and we'll return to it throughout the course.

@@ -1,0 +1,356 @@
+---
+title: "Measuring and Comparing Returns"
+subtitle: "Holding Period Returns, Compounding, Interest Rate Conventions, and Real Returns"
+---
+
+
+## Introduction
+
+When we evaluate an investment, the fundamental question we ask is simple: how much money did we make (or lose)? While this sounds straightforward, accurately measuring investment performance requires careful attention to several important concepts. The way we calculate and express returns matters enormously—not just for evaluating past performance, but for making informed decisions about future investments.
+
+In this lecture, we develop a toolkit for measuring investment returns. We begin with the holding period return, which captures the total gain or loss from an investment over a specific time horizon. We then explore how returns compound over multiple periods, leading naturally to the concept of the geometric average—the proper way to express multi-period performance on a per-period basis. Because inflation erodes purchasing power, we also learn to distinguish between nominal returns (what we observe) and real returns (what we can actually buy). Finally, we examine how interest rates are quoted and converted between different compounding conventions using APR, EAR, and continuous compounding.
+
+These concepts are not merely academic exercises. Every time you read that a mutual fund returned "8% per year over the last decade," or compare savings account rates across banks, or evaluate whether an investment kept pace with inflation, you are implicitly using the tools we develop here. By the end of this lecture, you will understand exactly what these numbers mean and how to calculate them yourself.
+
+## Holding Period Return (HPR)
+
+The holding period return measures the total return on an investment over a specific period of time—the "holding period" during which you own the asset. This is the most fundamental return concept, and all other return measures build upon it.
+
+The intuition behind HPR is straightforward: we compare what we end up with to what we started with. For any investment, we calculate the value of all cash flows received by the end of the holding period, then divide by the initial investment. Subtracting one converts this ratio from a gross return to a net return, expressing our gain (or loss) as a percentage of the initial investment.
+
+For stocks specifically, the ending value includes both the stock price at the end of the holding period and any dividends received. The HPR from time $t_1$ to time $t_2$ is:
+
+$$HPR_{t_1 \rightarrow t_2} = \frac{P_{t_2} + D_{t_1 \rightarrow t_2}}{P_{t_1}} - 1$$
+
+where $P_{t_1}$ is the stock price at the beginning of the holding period, $P_{t_2}$ is the price at the end, and $D_{t_1 \rightarrow t_2}$ represents dividends received during the holding period.
+
+This formula reveals that stock returns come from two distinct sources. By rearranging the equation, we can decompose the HPR into its components:
+
+$$HPR_{t_1 \rightarrow t_2} = \underbrace{\frac{P_{t_2} - P_{t_1}}{P_{t_1}}}_{\text{Capital Gain}} + \underbrace{\frac{D_{t_1 \rightarrow t_2}}{P_{t_1}}}_{\text{Dividend Yield}}$$
+
+The capital gain reflects the change in the stock's price—appreciation (or depreciation) in the value of the shares themselves. The dividend yield represents income received from the company's profit distributions. Understanding this decomposition matters because these two components have different risk characteristics and tax treatments. Growth stocks typically generate returns primarily through capital gains, while value stocks and mature companies often provide substantial dividend yields.
+
+**Example 1: Calculating HPR**
+
+*Suppose TSLA was trading at \$420 per share at the beginning of 2023 and at \$500 per share at the end of 2024. During this two-year period, TSLA paid total dividends of \$10 per share. Calculate the holding period return, capital gain, and dividend yield.*
+
+::: {.callout-note collapse="true" title="Solution"}
+Using the HPR formula:
+
+$$HPR = \frac{P_{t_2} + D}{P_{t_1}} - 1 = \frac{\$500 + \$10}{\$420} - 1 = \frac{\$510}{\$420} - 1 = 1.2143 - 1 = 0.2143 = 21.43\%$$
+
+Breaking this down into components:
+
+**Capital Gain:** $\frac{\$500 - \$420}{\$420} = \frac{\$80}{\$420} = 0.1905 = 19.05\%$
+
+**Dividend Yield:** $\frac{\$10}{\$420} = 0.0238 = 2.38\%$
+
+We can verify: $19.05\% + 2.38\% = 21.43\%$ ✓
+
+Over this two-year period, TSLA generated a total return of 21.43%, with most of it (19.05%) coming from price appreciation and a smaller portion (2.38%) from dividends.
+:::
+
+## Total Return Through Compounding
+
+While HPR tells us the return over a single period, investments typically span multiple periods. The total return through compounding answers the question: if we know the returns for each sub-period, what is the overall return for the entire investment horizon?
+
+The key insight is that returns compound multiplicatively, not additively. If your investment gains 10% in one period and loses 10% in the next, you do not break even—you actually lose money. This is because the 10% loss applies to a larger base (your original investment plus the 10% gain), while the 10% gain applied only to your original investment.
+
+When we know the returns for periods 1 through $N$ (denoted $R_1, R_2, \ldots, R_N$), the total (gross) return over all periods is:
+
+$$TR_{1 \rightarrow N} = (1 + R_1)(1 + R_2) \cdots (1 + R_N) = \prod_{i=1}^{N}(1 + R_i)$$
+
+Each term $(1 + R_i)$ represents the gross return for period $i$—the factor by which wealth multiplies during that period. The product of these factors gives the total wealth multiple over the entire horizon. To express this as a net return (percentage gain or loss), we subtract 1.
+
+This multiplicative relationship has important implications. Order does not matter for the final wealth level—gaining 20% then losing 10% produces the same ending wealth as losing 10% then gaining 20%. However, the path matters for other purposes, such as calculating time-weighted returns or understanding intermediate portfolio values.
+
+**Example 2: Computing Total Return**
+
+*Suppose over the last three months, TSLA had net returns of 10%, 5%, and -3%. What was the total return on TSLA over this three-month period?*
+
+::: {.callout-note collapse="true" title="Solution"}
+We multiply the gross returns for each period:
+
+$$TR = (1 + 0.10)(1 + 0.05)(1 + (-0.03))$$
+$$TR = (1.10)(1.05)(0.97)$$
+$$TR = 1.12035$$
+
+This is the gross total return. To find the net total return:
+
+$$\text{Net Total Return} = 1.12035 - 1 = 0.12035 = 12.035\%$$
+
+Notice that simply adding the returns ($10\% + 5\% - 3\% = 12\%$) gives an approximation that is close but not exact. The difference arises from the compounding effect—returns in later periods apply to a larger (or smaller) base than the original investment.
+:::
+
+## Geometric Average Return
+
+When comparing investments over multiple periods, we often want to express performance as a single per-period return. The geometric average return (also called the geometric mean return) answers the question: what constant return, earned each period, would produce the same total return as the actual sequence of returns?
+
+The geometric average is calculated by taking the $N$th root of the total gross return and subtracting 1:
+
+$$GA = \left[(1 + R_1)(1 + R_2) \cdots (1 + R_N)\right]^{1/N} - 1 = (TR)^{1/N} - 1$$
+
+This can be understood intuitively: if an investment compounds at rate $GA$ for $N$ periods, the total gross return is $(1 + GA)^N$. Setting this equal to the actual total return and solving for $GA$ gives our formula.
+
+The geometric average differs from the arithmetic average (simple mean) of returns, and this distinction is crucial. The arithmetic average always exceeds the geometric average when returns vary, and the gap widens with greater volatility. Consider an extreme example: an investment that doubles (100% return) then loses half (-50% return) has an arithmetic average of 25% but a geometric average of 0%—accurately reflecting that the investor ended up exactly where they started.
+
+For evaluating past performance, the geometric average is the correct measure because it accounts for compounding. The arithmetic average, while useful for estimating expected future returns, overstates historical performance when returns vary.
+
+**Example 3: Calculating Geometric Average**
+
+*Using the same data from Example 2 (monthly returns of 10%, 5%, and -3%), what was the geometric average monthly return?*
+
+::: {.callout-note collapse="true" title="Solution"}
+We already calculated the total gross return as 1.12035. To find the geometric average:
+
+$$GA = (TR)^{1/N} - 1 = (1.12035)^{1/3} - 1$$
+$$GA = 1.0387 - 1 = 0.0387 = 3.87\%$$
+
+We can verify this: if we compound 3.87% monthly for three months:
+
+$(1.0387)^3 = 1.1204 \approx 1.12035$ ✓
+
+For comparison, the arithmetic average is $(10\% + 5\% - 3\%)/3 = 4.0\%$, which is slightly higher than the geometric average of 3.87%. This difference reflects the volatility drag—the mathematical reality that variable returns produce lower compound growth than constant returns of the same arithmetic average.
+:::
+
+## Real Returns and Inflation
+
+The returns we observe in the market are nominal returns—they measure the change in dollar value of our investment. But what we ultimately care about is purchasing power: how many goods and services can our wealth buy? Inflation erodes purchasing power over time, so a nominal return of 10% during a period of 8% inflation leaves us only modestly better off in real terms.
+
+Real returns adjust for inflation to measure the true increase in purchasing power. The relationship between nominal returns, real returns, and inflation follows from the logic of compounding:
+
+$$1 + R_{\text{nominal}} = (1 + R_{\text{real}})(1 + \text{Inflation Rate})$$
+
+This equation states that gross nominal returns equal the product of gross real returns and the gross inflation rate. Solving for the real return:
+
+$$R_{\text{real}} = \frac{R_{\text{nominal}} - \text{Inflation Rate}}{1 + \text{Inflation Rate}} = \frac{1 + R_{\text{nominal}}}{1 + \text{Inflation Rate}} - 1$$
+
+A common approximation subtracts the inflation rate directly from the nominal return ($R_{\text{real}} \approx R_{\text{nominal}} - \text{Inflation Rate}$), which works reasonably well when inflation is low. However, the exact formula becomes important during periods of high inflation or when precision matters.
+
+Understanding real returns is essential for long-term financial planning. An investment that earns 6% nominally might seem attractive, but if inflation runs at 5%, the real return is only about 1%—barely keeping pace with rising prices. Conversely, during deflationary periods (negative inflation), even a modest nominal return can represent substantial real gains.
+
+**Example 4: Computing Real Returns**
+
+*Using the same data from Examples 2 and 3, suppose the inflation rate was 0.3% per month over the three-month period. Calculate the real total return on TSLA.*
+
+::: {.callout-note collapse="true" title="Solution"}
+First, we need the total inflation over the three-month period. Using the compounding formula:
+
+$$\text{Total Gross Inflation} = (1.003)(1.003)(1.003) = (1.003)^3 = 1.00902$$
+
+This means overall inflation was $1.00902 - 1 = 0.902\%$ over three months.
+
+Now we can calculate the real total return. We know the nominal gross total return is 1.12035:
+
+$$R_{\text{real}} = \frac{1 + R_{\text{nominal}}}{1 + \text{Inflation}} - 1 = \frac{1.12035}{1.00902} - 1 = 1.1103 - 1 = 0.1103 = 11.03\%$$
+
+Alternatively, using the formula with net returns:
+$$R_{\text{real}} = \frac{0.12035 - 0.00902}{1.00902} = \frac{0.11133}{1.00902} = 0.1103 = 11.03\%$$
+
+The real return of 11.03% is about 1 percentage point lower than the nominal return of 12.04%, reflecting the erosion of purchasing power due to inflation.
+:::
+
+## APR, EAR, and Continuous Compounding
+
+So far, we have discussed how returns compound over multiple discrete periods. But financial institutions quote interest rates in various ways, and understanding how to convert between these conventions is essential for comparing investments or loan terms fairly. Three key concepts govern these conversions: the Annual Percentage Rate (APR), the Effective Annual Rate (EAR), and continuous compounding.
+
+The Annual Percentage Rate (APR) is a standardized way of quoting interest rates that states the simple annual rate without accounting for compounding within the year. If a bank offers a savings account with a 6% APR compounded monthly, this means the account earns $6\%/12 = 0.5\%$ each month. The APR is the sum of these periodic rates over a year—essentially the arithmetic rather than geometric annualization of periodic rates. Regulations often require APR disclosure to help consumers compare financial products, but APR alone does not tell you how much you will actually earn or owe.
+
+The Effective Annual Rate (EAR), also called the Annual Percentage Yield (APY), measures the actual return over one year after accounting for compounding. Continuing our example, earning 0.5% monthly for 12 months produces a total return of $(1.005)^{12} - 1 = 6.17\%$. This 6.17% EAR represents what you actually earn—it reflects the power of compound interest.
+
+The relationship between APR and EAR depends on the compounding frequency $m$ (the number of compounding periods per year):
+
+$$EAR = \left(1 + \frac{APR}{m}\right)^m - 1$$
+
+Conversely, if you know the EAR and want to find the corresponding APR for a given compounding frequency:
+
+$$APR = m \times \left[(1 + EAR)^{1/m} - 1\right]$$
+
+The following table illustrates how different compounding frequencies affect the EAR for the same 6% APR:
+
+| Compounding Frequency | Periods per Year ($m$) | Periodic Rate | EAR |
+|:---------------------|:----------------------:|:-------------:|:---:|
+| Annual | 1 | 6.000% | 6.000% |
+| Semi-annual | 2 | 3.000% | 6.090% |
+| Quarterly | 4 | 1.500% | 6.136% |
+| Monthly | 12 | 0.500% | 6.168% |
+| Daily | 365 | 0.0164% | 6.183% |
+| Continuous | $\infty$ | — | 6.184% |
+
+As compounding becomes more frequent, the EAR increases—but with diminishing increments. The mathematical limit as compounding frequency approaches infinity is continuous compounding.
+
+Continuous compounding assumes that interest compounds at every instant. While no real-world investment compounds truly continuously, this concept is mathematically elegant and serves as the foundation for many financial models, including option pricing. Under continuous compounding, the EAR for a continuously compounded rate $r_c$ is:
+
+$$EAR = e^{r_c} - 1$$
+
+And the continuously compounded rate corresponding to a given EAR is:
+
+$$r_c = \ln(1 + EAR)$$
+
+Continuous compounding has a useful property: continuously compounded returns are additive over time. If the continuously compounded return is 5% in period 1 and 3% in period 2, the total continuously compounded return is simply 8%. This mathematical convenience explains why continuous compounding is prevalent in academic finance and quantitative applications.
+
+**Example 5: Converting Between APR and EAR**
+
+*Your bank offers a savings account with a 4.8% APR compounded monthly. A competitor offers 4.85% APR compounded quarterly. Which account offers the better return?*
+
+::: {.callout-note collapse="true" title="Solution"}
+To compare fairly, we convert both to EAR.
+
+**Bank 1 (4.8% APR, monthly compounding):**
+$$EAR_1 = \left(1 + \frac{0.048}{12}\right)^{12} - 1 = (1.004)^{12} - 1 = 1.04907 - 1 = 4.907\%$$
+
+**Bank 2 (4.85% APR, quarterly compounding):**
+$$EAR_2 = \left(1 + \frac{0.0485}{4}\right)^{4} - 1 = (1.012125)^{4} - 1 = 1.04939 - 1 = 4.939\%$$
+
+Bank 2 offers a slightly better return (4.939% vs. 4.907%), despite Bank 1 having more frequent compounding. The higher APR at Bank 2 more than compensates for the less frequent compounding.
+:::
+
+**Example 6: Continuous Compounding**
+
+*An investment fund reports its continuously compounded annual return as 8%. What is the effective annual rate? If you invest \$10,000, how much will you have after 3 years?*
+
+::: {.callout-note collapse="true" title="Solution"}
+**Converting to EAR:**
+$$EAR = e^{0.08} - 1 = 1.0833 - 1 = 8.33\%$$
+
+**Future value after 3 years:**
+
+Under continuous compounding, the future value formula is $FV = PV \times e^{r_c \times t}$:
+
+$$FV = \$10{,}000 \times e^{0.08 \times 3} = \$10{,}000 \times e^{0.24} = \$10{,}000 \times 1.2712 = \$12{,}712$$
+
+Alternatively, using the EAR:
+$$FV = \$10{,}000 \times (1.0833)^3 = \$10{,}000 \times 1.2712 = \$12{,}712$$
+
+Both methods yield the same result, confirming that the continuously compounded rate and EAR are simply different ways of expressing the same growth rate.
+:::
+
+## Key Takeaways
+
+The concepts we have developed in this lecture form a coherent framework for measuring and comparing investment performance. At the foundation is the holding period return, which captures the total gain or loss over any specific time horizon by comparing ending wealth (including any cash flows received) to the initial investment. For stocks, this naturally decomposes into capital gains from price appreciation and dividend yield from income distributions.
+
+When returns span multiple periods, we must account for compounding—the fact that gains and losses in later periods apply to the accumulated wealth, not just the original investment. The total return multiplies the gross returns of each sub-period, reflecting this compounding behavior. To express multi-period performance as a single per-period figure, we use the geometric average, which finds the constant return that would replicate the actual compounded outcome. The geometric average always falls below the arithmetic average when returns vary, with the gap widening as volatility increases.
+
+Because inflation erodes purchasing power, distinguishing nominal from real returns is essential for meaningful performance evaluation. Real returns adjust for inflation using the exact relationship between gross nominal returns, gross real returns, and the gross inflation rate. This adjustment is particularly important for long-term planning, where even modest inflation differences compound dramatically over decades.
+
+Finally, when comparing financial products or working with interest rates, we must navigate different quoting conventions. The APR states a simple annual rate without reflecting within-year compounding, while the EAR captures the true annual growth rate. Converting between these using the appropriate compounding frequency allows fair comparisons. The limiting case of continuous compounding, while theoretical, provides mathematical elegance and underpins much of quantitative finance.
+
+Together, these tools enable us to answer the fundamental questions of investment analysis: How much did we make? How does that compare to alternatives? And how much of our gain represents true increases in purchasing power?
+
+## Key Formulas Summary
+
+| Concept | Formula | When to Use |
+|:--------|:--------|:------------|
+| Holding Period Return | $HPR = \frac{P_{t_2} + D}{P_{t_1}} - 1$ | Calculate total return over a specific time period when you know starting price, ending price, and dividends |
+| Capital Gain | $\frac{P_{t_2} - P_{t_1}}{P_{t_1}}$ | Isolate the portion of return from price appreciation |
+| Dividend Yield | $\frac{D}{P_{t_1}}$ | Isolate the portion of return from dividend income |
+| Total Return (Compounding) | $TR = (1+R_1)(1+R_2)\cdots(1+R_N)$ | Calculate cumulative gross return when you know returns for multiple sub-periods |
+| Geometric Average | $GA = (TR)^{1/N} - 1$ | Express multi-period performance as a single per-period return |
+| Real Return | $R_{\text{real}} = \frac{1 + R_{\text{nominal}}}{1 + \text{Inflation}} - 1$ | Adjust nominal returns for inflation to measure purchasing power gains |
+| EAR from APR | $EAR = \left(1 + \frac{APR}{m}\right)^m - 1$ | Convert a quoted APR to actual annual return given compounding frequency $m$ |
+| APR from EAR | $APR = m \times \left[(1+EAR)^{1/m} - 1\right]$ | Convert an effective annual rate back to APR for a given compounding frequency |
+| Continuous to EAR | $EAR = e^{r_c} - 1$ | Convert a continuously compounded rate to effective annual rate |
+| EAR to Continuous | $r_c = \ln(1 + EAR)$ | Convert an effective annual rate to continuously compounded rate |
+| Future Value (Continuous) | $FV = PV \times e^{r_c \times t}$ | Calculate future value under continuous compounding over $t$ years |
+
+## Practice Problems
+
+**Practice Problem 1: Holding Period Return**
+
+*Microsoft (MSFT) was trading at \$280 per share at the start of 2022 and at \$375 at the end of 2023. During this two-year period, Microsoft paid total dividends of \$5.00 per share. Calculate the holding period return, capital gain, and dividend yield.*
+
+::: {.callout-note collapse="true" title="Solution"}
+**HPR:**
+$$HPR = \frac{\$375 + \$5.00}{\$280} - 1 = \frac{\$380}{\$280} - 1 = 1.3571 - 1 = 35.71\%$$
+
+**Capital Gain:**
+$$\frac{\$375 - \$280}{\$280} = \frac{\$95}{\$280} = 33.93\%$$
+
+**Dividend Yield:**
+$$\frac{\$5.00}{\$280} = 1.79\%$$
+
+**Verification:** $33.93\% + 1.79\% = 35.72\%$ ✓ (small rounding difference)
+
+Microsoft delivered a 35.71% return over two years, with the vast majority (33.93%) from capital appreciation and a small contribution (1.79%) from dividends.
+:::
+
+**Practice Problem 2: Total Return Through Compounding**
+
+*An S&P 500 index fund had the following quarterly returns: Q1: +8%, Q2: -2%, Q3: +4%, Q4: +6%. What was the total return for the year?*
+
+::: {.callout-note collapse="true" title="Solution"}
+$$TR = (1.08)(0.98)(1.04)(1.06)$$
+$$TR = (1.0584)(1.04)(1.06)$$
+$$TR = (1.1007)(1.06)$$
+$$TR = 1.1668$$
+
+**Net Total Return:** $1.1668 - 1 = 16.68\%$
+
+The fund gained 16.68% for the year. Note that simply adding the returns ($8\% - 2\% + 4\% + 6\% = 16\%$) slightly underestimates the actual return because it ignores compounding.
+:::
+
+**Practice Problem 3: Geometric Average**
+
+*Using the quarterly returns from Practice Problem 2, calculate the geometric average quarterly return.*
+
+::: {.callout-note collapse="true" title="Solution"}
+We already found $TR = 1.1668$. The geometric average over 4 quarters is:
+
+$$GA = (1.1668)^{1/4} - 1 = 1.0393 - 1 = 3.93\%$$
+
+If the fund earned exactly 3.93% each quarter, it would produce the same annual return:
+$(1.0393)^4 = 1.1668$ ✓
+
+The arithmetic average is $(8\% - 2\% + 4\% + 6\%)/4 = 4.0\%$, which slightly overstates average performance compared to the geometric average of 3.93%.
+:::
+
+**Practice Problem 4: Real Returns**
+
+*A bond fund earned a nominal return of 5.5% last year. If inflation for the year was 3.2%, what was the real return?*
+
+::: {.callout-note collapse="true" title="Solution"}
+Using the exact formula:
+
+$$R_{\text{real}} = \frac{1 + R_{\text{nominal}}}{1 + \text{Inflation}} - 1 = \frac{1.055}{1.032} - 1 = 1.0223 - 1 = 2.23\%$$
+
+The approximation ($5.5\% - 3.2\% = 2.3\%$) is close but slightly overstates the real return.
+
+In real terms, purchasing power increased by only 2.23%, meaning inflation consumed more than half of the nominal return.
+:::
+
+**Practice Problem 5: APR and EAR Conversions**
+
+*A credit card charges 18% APR compounded daily (assume 365 days). What is the effective annual rate? How much interest would accrue on a \$5,000 balance if unpaid for one year?*
+
+::: {.callout-note collapse="true" title="Solution"}
+**EAR:**
+$$EAR = \left(1 + \frac{0.18}{365}\right)^{365} - 1 = (1.000493)^{365} - 1 = 1.1972 - 1 = 19.72\%$$
+
+**Interest on \$5,000:**
+$$\text{Interest} = \$5{,}000 \times 0.1972 = \$986$$
+
+The 18% APR translates to a 19.72% effective rate due to daily compounding. On a \$5,000 balance, this means \$986 in interest over one year—nearly \$100 more than the \$900 you might expect from the stated 18% APR.
+:::
+
+**Practice Problem 6: Continuous Compounding**
+
+*A Treasury bond has a yield of 4.5% expressed as a continuously compounded rate. What is the EAR? If you invest \$25,000 in this bond, what will it be worth in 5 years?*
+
+::: {.callout-note collapse="true" title="Solution"}
+**EAR:**
+$$EAR = e^{0.045} - 1 = 1.04603 - 1 = 4.603\%$$
+
+**Future Value:**
+$$FV = \$25{,}000 \times e^{0.045 \times 5} = \$25{,}000 \times e^{0.225} = \$25{,}000 \times 1.2523 = \$31{,}308$$
+
+The \$25,000 investment grows to \$31,308 over five years, a gain of \$6,308 or 25.23%.
+:::
+
+## Ask an LLM
+
+Here are three questions you might ask an AI assistant to deepen your understanding of these concepts:
+
+- Why does the geometric average always equal or fall below the arithmetic average, and how does volatility affect the size of this gap?
+- How would you calculate the real return on an investment if the holding period spans multiple years with different inflation rates each year?
+- In what situations might a lower APR actually result in a higher effective annual rate than a competitor's higher APR?
+- How do inflation-indexed securities like TIPS account for the distinction between nominal and real returns in their design?
