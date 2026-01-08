@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.361">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Investments - Optimal Asset Allocation</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body class="nav-sidebar docked">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Lectures</li><li class="breadcrumb-item"><a href="../../lectures/lecture08/lecture.html">Lecture 8: Optimal Asset Allocation</a></li><li class="breadcrumb-item"><a href="../../lectures/lecture08/lecture.html">Pre-class Reading</a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../../">Investments</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../schedule.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Schedule</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../syllabus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Syllabus</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">Lectures</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
+ <span class="menu-text">Lecture 1: The Investment Environment</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lectures/lecture01/lecture.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Pre-class Reading</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">
+ <span class="menu-text">Lecture 2: Foundations of Financial Markets</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lectures/lecture02/lecture.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Pre-class Reading</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lectures/lecture02/lab.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lab</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false">
+ <span class="menu-text">Lecture 3: Measuring and Comparing Returns</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lectures/lecture03/lecture.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Pre-class Reading</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lectures/lecture03/lab.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lab</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false">
+ <span class="menu-text">Lecture 4: Measuring Risk and Expected Return</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lectures/lecture04/lecture.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Pre-class Reading</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lectures/lecture04/lab.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lab</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false">
+ <span class="menu-text">Lecture 5: Portfolio Risk and Returns</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lectures/lecture05/lecture.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Pre-class Reading</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lectures/lecture05/lab.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lab</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false">
+ <span class="menu-text">Lecture 6: Optimal Capital Allocation</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lectures/lecture06/lecture.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Pre-class Reading</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lectures/lecture06/lab.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lab</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false">
+ <span class="menu-text">Lecture 7: Mean-Variance Portfolio Optimization</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lectures/lecture07/lecture.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Pre-class Reading</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lectures/lecture07/lab.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lab</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="true">
+ <span class="menu-text">Lecture 8: Optimal Asset Allocation</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth2 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lectures/lecture08/lecture.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Pre-class Reading</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lectures/lecture08/lab.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lab</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="false">
+ <span class="menu-text">Lecture 9: Review Session</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lectures/lecture09/lab.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lab</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">1</span> Introduction</a></li>
+  <li><a href="#the-three-step-framework" id="toc-the-three-step-framework" class="nav-link" data-scroll-target="#the-three-step-framework"><span class="header-section-number">2</span> The Three-Step Framework</a></li>
+  <li><a href="#step-1-finding-the-tangency-portfolio" id="toc-step-1-finding-the-tangency-portfolio" class="nav-link" data-scroll-target="#step-1-finding-the-tangency-portfolio"><span class="header-section-number">3</span> Step 1: Finding the Tangency Portfolio</a></li>
+  <li><a href="#step-2-finding-the-optimal-capital-allocation" id="toc-step-2-finding-the-optimal-capital-allocation" class="nav-link" data-scroll-target="#step-2-finding-the-optimal-capital-allocation"><span class="header-section-number">4</span> Step 2: Finding the Optimal Capital Allocation</a></li>
+  <li><a href="#step-3-the-complete-asset-allocation" id="toc-step-3-the-complete-asset-allocation" class="nav-link" data-scroll-target="#step-3-the-complete-asset-allocation"><span class="header-section-number">5</span> Step 3: The Complete Asset Allocation</a></li>
+  <li><a href="#the-two-asset-special-case" id="toc-the-two-asset-special-case" class="nav-link" data-scroll-target="#the-two-asset-special-case"><span class="header-section-number">6</span> The Two-Asset Special Case</a>
+  <ul class="collapse">
+  <li><a href="#step-1-with-two-assets" id="toc-step-1-with-two-assets" class="nav-link" data-scroll-target="#step-1-with-two-assets"><span class="header-section-number">6.1</span> Step 1 with Two Assets</a></li>
+  <li><a href="#step-2-with-two-assets" id="toc-step-2-with-two-assets" class="nav-link" data-scroll-target="#step-2-with-two-assets"><span class="header-section-number">6.2</span> Step 2 with Two Assets</a></li>
+  <li><a href="#step-3-with-two-assets" id="toc-step-3-with-two-assets" class="nav-link" data-scroll-target="#step-3-with-two-assets"><span class="header-section-number">6.3</span> Step 3 with Two Assets</a></li>
+  </ul></li>
+  <li><a href="#key-takeaways" id="toc-key-takeaways" class="nav-link" data-scroll-target="#key-takeaways"><span class="header-section-number">7</span> Key Takeaways</a></li>
+  <li><a href="#key-formulas-summary" id="toc-key-formulas-summary" class="nav-link" data-scroll-target="#key-formulas-summary"><span class="header-section-number">8</span> Key Formulas Summary</a></li>
+  <li><a href="#practice-problems" id="toc-practice-problems" class="nav-link" data-scroll-target="#practice-problems"><span class="header-section-number">9</span> Practice Problems</a></li>
+  <li><a href="#ask-an-llm" id="toc-ask-an-llm" class="nav-link" data-scroll-target="#ask-an-llm"><span class="header-section-number">10</span> Ask an LLM</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Optimal Asset Allocation</h1>
+<p class="subtitle lead">Building the complete portfolio combining the tangency portfolio and the risk-free asset</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="introduction" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">1</span> Introduction</h2>
+<p>How should you divide your investment dollars among stocks, bonds, and cash? This deceptively simple question sits at the heart of practical investing, and getting it right can mean the difference between a comfortable retirement and one filled with financial anxiety. In this lecture, we bring together everything you’ve learned in the previous two lectures—optimal risky portfolios and capital allocation—into a unified framework for making complete investment decisions.</p>
+<p>The beauty of optimal asset allocation is that it breaks a seemingly overwhelming problem into manageable pieces. Rather than trying to simultaneously decide how much to invest in dozens of individual securities <em>and</em> how much risk to take, we solve two separate problems and then combine the solutions. First, we find the best possible combination of risky assets—the one offering the highest reward per unit of risk. Second, we determine how much of our wealth to expose to that optimal risky combination versus keeping safely in risk-free assets. Finally, we translate these decisions into specific dollar amounts for each security in our portfolio.</p>
+<p>This approach has profound practical implications. When you set up your 401(k) and choose how to split your contributions between stock funds, bond funds, and money market accounts, you are making exactly this type of decision. The framework we develop here provides a principled, mathematically grounded way to make these choices rather than relying on rules of thumb or gut feelings.</p>
+</section>
+<section id="the-three-step-framework" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="the-three-step-framework"><span class="header-section-number">2</span> The Three-Step Framework</h2>
+<p>Optimal asset allocation proceeds in three distinct steps, each building on the previous one. Understanding why we separate the problem this way—rather than solving everything at once—reveals deep insights about how risk and return interact in portfolio construction.</p>
+<p><strong>Step 1</strong> involves finding the tangency portfolio, which combines your risky assets in a way that maximizes the Sharpe ratio. This step is sometimes called finding the “optimal risky portfolio.” The remarkable insight here is that this step depends only on the statistical properties of the risky assets—their expected returns, standard deviations, and correlations—and not at all on how risk-averse you are. Whether you are a conservative investor who loses sleep over small losses or an aggressive investor comfortable with large swings, the same tangency portfolio is optimal for you.</p>
+<p><strong>Step 2</strong> involves finding the optimal capital allocation—that is, deciding what fraction of your total wealth to invest in the tangency portfolio from Step 1, with the remainder going into a risk-free asset. This step is where your personal risk tolerance enters the picture. A more risk-averse investor will allocate less to the tangency portfolio and hold more in the risk-free asset, while a less risk-averse investor will do the opposite.</p>
+<p><strong>Step 3</strong> simply combines the results from the first two steps. If Step 2 tells you to put 60% of your wealth in the tangency portfolio, and Step 1 tells you that Stock A should be 40% of the tangency portfolio, then your final allocation to Stock A is <span class="math inline">\(0.60 \times 0.40 = 0.24\)</span>, or 24% of your total wealth.</p>
+<p>This separation is elegant because it means you can solve the technical optimization problem (finding the best Sharpe ratio) without knowing anything about the investor, and then customize the solution for any particular investor’s risk preferences.</p>
+</section>
+<section id="step-1-finding-the-tangency-portfolio" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="step-1-finding-the-tangency-portfolio"><span class="header-section-number">3</span> Step 1: Finding the Tangency Portfolio</h2>
+<p>Given a set of <span class="math inline">\(N\)</span> risky assets, the tangency portfolio is the combination of those assets that achieves the highest possible Sharpe ratio. We covered the derivation in the previous lecture, but let’s review the key result and make sure we understand each component.</p>
+<p>The weights in the tangency portfolio are given by:</p>
+<p><span class="math display">\[\mathbf{W}_{\text{tan}} = \frac{\boldsymbol{\Sigma}^{-1} \boldsymbol{\mu}^e}{\mathbf{1}^T \boldsymbol{\Sigma}^{-1} \boldsymbol{\mu}^e}\]</span></p>
+<p>Let’s unpack this formula carefully. The vector <span class="math inline">\(\boldsymbol{\mu}^e\)</span> contains the <em>excess returns</em> (also called risk premiums) for each of the <span class="math inline">\(N\)</span> assets—that is, each asset’s expected return minus the risk-free rate. The matrix <span class="math inline">\(\boldsymbol{\Sigma}\)</span> is the variance-covariance matrix of the <span class="math inline">\(N\)</span> assets, and <span class="math inline">\(\boldsymbol{\Sigma}^{-1}\)</span> is its inverse. The vector <span class="math inline">\(\mathbf{1}\)</span> is simply a column of ones, so <span class="math inline">\(\mathbf{1}^T \boldsymbol{\Sigma}^{-1} \boldsymbol{\mu}^e\)</span> is a scalar that serves to normalize the weights so they sum to one.</p>
+<p>The result <span class="math inline">\(\mathbf{W}_{\text{tan}}\)</span> is a vector containing <span class="math inline">\(N\)</span> weights:</p>
+<p><span class="math display">\[\mathbf{W}_{\text{tan}} = \begin{pmatrix} w_{1,\text{tan}} \\ w_{2,\text{tan}} \\ \vdots \\ w_{N,\text{tan}} \end{pmatrix}\]</span></p>
+<p>Each element <span class="math inline">\(w_{i,\text{tan}}\)</span> tells us what fraction of the tangency portfolio should be invested in asset <span class="math inline">\(i\)</span>. These weights sum to 1, and some of them may be negative if short-selling is optimal.</p>
+</section>
+<section id="step-2-finding-the-optimal-capital-allocation" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="step-2-finding-the-optimal-capital-allocation"><span class="header-section-number">4</span> Step 2: Finding the Optimal Capital Allocation</h2>
+<p>Once we have identified the tangency portfolio, we need to decide how to split our wealth between this risky portfolio and the risk-free asset. From our earlier lecture on capital allocation, we know that an investor with risk aversion coefficient <span class="math inline">\(A\)</span> should invest the following fraction of their wealth in the risky portfolio:</p>
+<p><span class="math display">\[w_{\text{oca}} = \frac{E[R_P] - R_f}{A \sigma_P^2}\]</span></p>
+<p>In this formula, <span class="math inline">\(E[R_P]\)</span> is the expected return of the risky portfolio (in our case, the tangency portfolio), <span class="math inline">\(R_f\)</span> is the risk-free rate, <span class="math inline">\(\sigma_P^2\)</span> is the variance of the risky portfolio’s returns, and <span class="math inline">\(A\)</span> is the investor’s risk aversion coefficient.</p>
+<p>To apply this formula, we need to compute the expected return and variance of the tangency portfolio. Since we already know the weights from Step 1, this is straightforward.</p>
+<p>The expected excess return (risk premium) of the tangency portfolio is:</p>
+<p><span class="math display">\[E[R_P] - R_f = \mathbf{W}_{\text{tan}}^T \cdot \boldsymbol{\mu}^e\]</span></p>
+<p>Written out element by element, this is:</p>
+<p><span class="math display">\[E[R_P] - R_f = w_{1,\text{tan}}(E[R_1] - R_f) + w_{2,\text{tan}}(E[R_2] - R_f) + \ldots + w_{N,\text{tan}}(E[R_N] - R_f)\]</span></p>
+<p>This is simply the weighted average of the individual asset excess returns, where the weights are the tangency portfolio weights.</p>
+<p>The variance of the tangency portfolio is:</p>
+<p><span class="math display">\[\sigma_P^2 = \mathbf{W}_{\text{tan}}^T \cdot \boldsymbol{\Sigma} \cdot \mathbf{W}_{\text{tan}}\]</span></p>
+<p>Written in the more familiar summation form, this becomes:</p>
+<p><span class="math display">\[\sigma_P^2 = \sum_{i=1}^{N} w_{i,\text{tan}}^2 \sigma_i^2 + \sum_{i \neq j} 2 w_{i,\text{tan}} w_{j,\text{tan}} \text{Cov}[R_i, R_j]\]</span></p>
+<p>The superscript <span class="math inline">\(T\)</span> in <span class="math inline">\(\mathbf{W}_{\text{tan}}^T\)</span> denotes the transpose operation, which reshapes the column vector into a row vector:</p>
+<p><span class="math display">\[\mathbf{W}_{\text{tan}}^T = \begin{pmatrix} w_{1,\text{tan}} &amp; w_{2,\text{tan}} &amp; \ldots &amp; w_{N,\text{tan}} \end{pmatrix}\]</span></p>
+</section>
+<section id="step-3-the-complete-asset-allocation" class="level2" data-number="5">
+<h2 data-number="5" class="anchored" data-anchor-id="step-3-the-complete-asset-allocation"><span class="header-section-number">5</span> Step 3: The Complete Asset Allocation</h2>
+<p>Now we combine our results. Step 2 told us to invest fraction <span class="math inline">\(w_{\text{oca}}\)</span> in the tangency portfolio and fraction <span class="math inline">\(1 - w_{\text{oca}}\)</span> in the risk-free asset. Step 1 told us the composition of the tangency portfolio. Putting these together:</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Asset</th>
+<th>Final Portfolio Weight</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Risk-free asset</td>
+<td><span class="math inline">\(1 - w_{\text{oca}}\)</span></td>
+</tr>
+<tr class="even">
+<td>Risky asset 1</td>
+<td><span class="math inline">\(w_{\text{oca}} \times w_{1,\text{tan}}\)</span></td>
+</tr>
+<tr class="odd">
+<td>Risky asset 2</td>
+<td><span class="math inline">\(w_{\text{oca}} \times w_{2,\text{tan}}\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\vdots\)</span></td>
+<td><span class="math inline">\(\vdots\)</span></td>
+</tr>
+<tr class="odd">
+<td>Risky asset <span class="math inline">\(N\)</span></td>
+<td><span class="math inline">\(w_{\text{oca}} \times w_{N,\text{tan}}\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>The logic is intuitive: if 60% of your wealth goes to the tangency portfolio, and within that portfolio 40% goes to Stock A, then 24% of your total wealth ends up in Stock A.</p>
+</section>
+<section id="the-two-asset-special-case" class="level2" data-number="6">
+<h2 data-number="6" class="anchored" data-anchor-id="the-two-asset-special-case"><span class="header-section-number">6</span> The Two-Asset Special Case</h2>
+<p>While the general formulas above work for any number of risky assets, examining the special case of just two risky assets builds important intuition. This case is also practically significant because your “assets” don’t have to be individual stocks—they can be diversified portfolios. For example, you might think of Asset A as a total stock market ETF (like SPY) and Asset B as a total bond market ETF (like BND). In this framing, the optimal asset allocation problem becomes the classic stocks-bonds-cash allocation decision that every investor faces.</p>
+<section id="step-1-with-two-assets" class="level3" data-number="6.1">
+<h3 data-number="6.1" class="anchored" data-anchor-id="step-1-with-two-assets"><span class="header-section-number">6.1</span> Step 1 with Two Assets</h3>
+<p>When there are only two risky assets, A and B, the tangency portfolio weights have a closed-form solution. The weight on asset A is:</p>
+<p><span class="math display">\[w_{A,\text{tan}} = \frac{(E[R_A] - R_f)\sigma_B^2 - (E[R_B] - R_f)\text{Cov}[R_A, R_B]}{(E[R_A] - R_f)\sigma_B^2 + (E[R_B] - R_f)\sigma_A^2 - (E[R_A] - R_f + E[R_B] - R_f)\text{Cov}[R_A, R_B]}\]</span></p>
+<p>The weight on asset B is simply <span class="math inline">\(w_{B,\text{tan}} = 1 - w_{A,\text{tan}}\)</span>.</p>
+<p>While this formula looks intimidating at first, notice what it captures: the optimal weight in asset A depends on both assets’ risk premiums, both assets’ variances, and their covariance. Assets with higher risk premiums get more weight, assets with higher variance get less weight (all else equal), and the covariance term captures how the assets interact.</p>
+</section>
+<section id="step-2-with-two-assets" class="level3" data-number="6.2">
+<h3 data-number="6.2" class="anchored" data-anchor-id="step-2-with-two-assets"><span class="header-section-number">6.2</span> Step 2 with Two Assets</h3>
+<p>The capital allocation formula remains the same:</p>
+<p><span class="math display">\[w_{\text{oca}} = \frac{E[R_P] - R_f}{A \sigma_P^2}\]</span></p>
+<p>However, we now compute the tangency portfolio’s expected return and variance using the two-asset formulas:</p>
+<p><span class="math display">\[E[R_P] = w_{A,\text{tan}} E[R_A] + w_{B,\text{tan}} E[R_B]\]</span></p>
+<p><span class="math display">\[\sigma_P^2 = w_{A,\text{tan}}^2 \sigma_A^2 + w_{B,\text{tan}}^2 \sigma_B^2 + 2 w_{A,\text{tan}} w_{B,\text{tan}} \text{Cov}[R_A, R_B]\]</span></p>
+</section>
+<section id="step-3-with-two-assets" class="level3" data-number="6.3">
+<h3 data-number="6.3" class="anchored" data-anchor-id="step-3-with-two-assets"><span class="header-section-number">6.3</span> Step 3 with Two Assets</h3>
+<p>The final allocation places:</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Asset</th>
+<th>Final Portfolio Weight</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Risk-free asset</td>
+<td><span class="math inline">\(1 - w_{\text{oca}}\)</span></td>
+</tr>
+<tr class="even">
+<td>Risky asset A</td>
+<td><span class="math inline">\(w_{\text{oca}} \times w_{A,\text{tan}}\)</span></td>
+</tr>
+<tr class="odd">
+<td>Risky asset B</td>
+<td><span class="math inline">\(w_{\text{oca}} \times w_{B,\text{tan}}\)</span></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example: Allocating Between Two Stocks and the Risk-Free Asset</strong></p>
+<p><em>You want to invest in Facebook (FB) and Netflix (NFLX) and the risk-free asset but are not sure how much to invest in each. You have estimated that the expected returns of FB and NFLX are 10% and 15% respectively, their standard deviations are 20% and 25% respectively, and their covariance is 0.02. The risk-free rate is 5%. Find the optimal asset allocation between the three assets assuming that your risk-aversion coefficient is 5.</em></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Given information:</strong></p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Parameter</th>
+<th>FB (Asset A)</th>
+<th>NFLX (Asset B)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Expected return</td>
+<td><span class="math inline">\(E[R_A] = 10\%\)</span></td>
+<td><span class="math inline">\(E[R_B] = 15\%\)</span></td>
+</tr>
+<tr class="even">
+<td>Standard deviation</td>
+<td><span class="math inline">\(\sigma_A = 20\%\)</span></td>
+<td><span class="math inline">\(\sigma_B = 25\%\)</span></td>
+</tr>
+<tr class="odd">
+<td>Variance</td>
+<td><span class="math inline">\(\sigma_A^2 = 0.04\)</span></td>
+<td><span class="math inline">\(\sigma_B^2 = 0.0625\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>Additional parameters: <span class="math inline">\(\text{Cov}[R_A, R_B] = 0.02\)</span>, <span class="math inline">\(R_f = 5\%\)</span>, and <span class="math inline">\(A = 5\)</span>.</p>
+<p><strong>Step 1: Find the tangency portfolio weights</strong></p>
+<p>First, we compute the risk premiums (excess returns):</p>
+<ul>
+<li>FB risk premium: <span class="math inline">\(E[R_A] - R_f = 10\% - 5\% = 5\% = 0.05\)</span></li>
+<li>NFLX risk premium: <span class="math inline">\(E[R_B] - R_f = 15\% - 5\% = 10\% = 0.10\)</span></li>
+</ul>
+<p>Now we apply the two-asset tangency weight formula. Let’s compute the numerator and denominator separately:</p>
+<p>Numerator for <span class="math inline">\(w_{A,\text{tan}}\)</span>: <span class="math display">\[(E[R_A] - R_f)\sigma_B^2 - (E[R_B] - R_f)\text{Cov}[R_A, R_B]\]</span> <span class="math display">\[= (0.05)(0.0625) - (0.10)(0.02)\]</span> <span class="math display">\[= 0.003125 - 0.002 = 0.001125\]</span></p>
+<p>Denominator: <span class="math display">\[(E[R_A] - R_f)\sigma_B^2 + (E[R_B] - R_f)\sigma_A^2 - (E[R_A] - R_f + E[R_B] - R_f)\text{Cov}[R_A, R_B]\]</span> <span class="math display">\[= (0.05)(0.0625) + (0.10)(0.04) - (0.05 + 0.10)(0.02)\]</span> <span class="math display">\[= 0.003125 + 0.004 - 0.003 = 0.004125\]</span></p>
+<p>Therefore: <span class="math display">\[w_{A,\text{tan}} = \frac{0.001125}{0.004125} = 0.2727 \approx 27.27\%\]</span></p>
+<p><span class="math display">\[w_{B,\text{tan}} = 1 - 0.2727 = 0.7273 \approx 72.73\%\]</span></p>
+<p>The tangency portfolio consists of 27.27% in FB and 72.73% in NFLX.</p>
+<p><strong>Step 2: Find the optimal capital allocation</strong></p>
+<p>First, we need the expected return and variance of the tangency portfolio:</p>
+<p><span class="math display">\[E[R_P] = w_{A,\text{tan}} E[R_A] + w_{B,\text{tan}} E[R_B]\]</span> <span class="math display">\[= (0.2727)(0.10) + (0.7273)(0.15) = 0.02727 + 0.10909 = 0.1364 = 13.64\%\]</span></p>
+<p><span class="math display">\[\sigma_P^2 = w_{A,\text{tan}}^2 \sigma_A^2 + w_{B,\text{tan}}^2 \sigma_B^2 + 2 w_{A,\text{tan}} w_{B,\text{tan}} \text{Cov}[R_A, R_B]\]</span> <span class="math display">\[= (0.2727)^2(0.04) + (0.7273)^2(0.0625) + 2(0.2727)(0.7273)(0.02)\]</span> <span class="math display">\[= 0.00297 + 0.03306 + 0.00793 = 0.04396\]</span></p>
+<p>The tangency portfolio has an expected return of 13.64% and variance of 0.04396 (standard deviation of 20.97%).</p>
+<p>Now we apply the capital allocation formula: <span class="math display">\[w_{\text{oca}} = \frac{E[R_P] - R_f}{A \sigma_P^2} = \frac{0.1364 - 0.05}{5 \times 0.04396} = \frac{0.0864}{0.2198} = 0.393 \approx 39.3\%\]</span></p>
+<p>An investor with risk aversion of 5 should put 39.3% of their wealth in the tangency portfolio and 60.7% in the risk-free asset.</p>
+<p><strong>Step 3: The complete asset allocation</strong></p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Asset</th>
+<th>Calculation</th>
+<th>Final Weight</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Risk-free asset</td>
+<td><span class="math inline">\(1 - 0.393\)</span></td>
+<td><strong>60.7%</strong></td>
+</tr>
+<tr class="even">
+<td>FB</td>
+<td><span class="math inline">\(0.393 \times 0.2727\)</span></td>
+<td><strong>10.7%</strong></td>
+</tr>
+<tr class="odd">
+<td>NFLX</td>
+<td><span class="math inline">\(0.393 \times 0.7273\)</span></td>
+<td><strong>28.6%</strong></td>
+</tr>
+<tr class="even">
+<td><strong>Total</strong></td>
+<td></td>
+<td><strong>100.0%</strong></td>
+</tr>
+</tbody>
+</table>
+<p>The optimal allocation for this investor is to put 60.7% in the risk-free asset, 10.7% in Facebook, and 28.6% in Netflix.</p>
+<p><strong>Interpretation:</strong> Even though the tangency portfolio is heavily weighted toward the higher-returning NFLX (72.73%), this moderately risk-averse investor only commits about 39% of their wealth to the risky portfolio, resulting in a final allocation that is dominated by the safe asset.</p>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="key-takeaways" class="level2" data-number="7">
+<h2 data-number="7" class="anchored" data-anchor-id="key-takeaways"><span class="header-section-number">7</span> Key Takeaways</h2>
+<p>The optimal asset allocation framework provides a systematic approach to one of investing’s most fundamental decisions: how to divide wealth among available investment opportunities. The key insight is that this complex problem can be decomposed into two simpler problems that are solved sequentially and then combined.</p>
+<p>The first problem—finding the tangency portfolio—is purely technical. It asks: given the expected returns, risks, and correlations of our risky assets, what combination delivers the highest Sharpe ratio? This problem has the same solution regardless of who is investing; a conservative retiree and an aggressive young professional would hold their risky assets in exactly the same proportions. The tangency portfolio represents the most efficient way to harvest the risk premium available in the market.</p>
+<p>The second problem—capital allocation—is where personal circumstances enter. Here we ask: how much risk should this particular investor take? The answer depends on the investor’s risk aversion coefficient, which captures their willingness to accept volatility in exchange for higher expected returns. More risk-averse investors tilt toward the safety of the risk-free asset, while less risk-averse investors lean into the tangency portfolio.</p>
+<p>The final step simply multiplies these decisions together. If the tangency portfolio says “hold 40% in stocks,” and capital allocation says “hold 60% in the risky portfolio,” then stocks get 24% of total wealth. This multiplicative structure explains why even an investor with a stock-heavy tangency portfolio might end up with a conservative overall allocation if their risk aversion is high.</p>
+<p>The two-asset case, while simplified, captures the essential logic and has direct practical applications. When the two “assets” are broad market portfolios—such as a stock index and a bond index—this framework guides the classic stocks-bonds-cash allocation decision. The mathematics tells us not only that diversification across asset classes is beneficial, but precisely how much to hold in each category given our risk tolerance and market expectations.</p>
+</section>
+<section id="key-formulas-summary" class="level2" data-number="8">
+<h2 data-number="8" class="anchored" data-anchor-id="key-formulas-summary"><span class="header-section-number">8</span> Key Formulas Summary</h2>
+<table class="table">
+<colgroup>
+<col style="width: 29%">
+<col style="width: 29%">
+<col style="width: 41%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Concept</th>
+<th>Formula</th>
+<th>When to Use</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Tangency portfolio weights (general)</td>
+<td><span class="math inline">\(\mathbf{W}_{\text{tan}} = \frac{\boldsymbol{\Sigma}^{-1} \boldsymbol{\mu}^e}{\mathbf{1}^T \boldsymbol{\Sigma}^{-1} \boldsymbol{\mu}^e}\)</span></td>
+<td>Finding the optimal combination of <span class="math inline">\(N\)</span> risky assets that maximizes the Sharpe ratio</td>
+</tr>
+<tr class="even">
+<td>Tangency weight on asset A (two-asset case)</td>
+<td><span class="math inline">\(w_{A,\text{tan}} = \frac{(E[R_A] - R_f)\sigma_B^2 - (E[R_B] - R_f)\text{Cov}[R_A, R_B]}{(E[R_A] - R_f)\sigma_B^2 + (E[R_B] - R_f)\sigma_A^2 - (E[R_A] - R_f + E[R_B] - R_f)\text{Cov}[R_A, R_B]}\)</span></td>
+<td>Finding the tangency portfolio when you have exactly two risky assets</td>
+</tr>
+<tr class="odd">
+<td>Optimal capital allocation weight</td>
+<td><span class="math inline">\(w_{\text{oca}} = \frac{E[R_P] - R_f}{A \sigma_P^2}\)</span></td>
+<td>Determining what fraction of wealth to invest in the tangency portfolio given risk aversion <span class="math inline">\(A\)</span></td>
+</tr>
+<tr class="even">
+<td>Portfolio expected return</td>
+<td><span class="math inline">\(E[R_P] = \sum_{i=1}^{N} w_i E[R_i]\)</span></td>
+<td>Computing the expected return of any portfolio from its weights</td>
+</tr>
+<tr class="odd">
+<td>Portfolio variance (general)</td>
+<td><span class="math inline">\(\sigma_P^2 = \mathbf{W}^T \boldsymbol{\Sigma} \mathbf{W}\)</span></td>
+<td>Computing portfolio risk using matrix notation</td>
+</tr>
+<tr class="even">
+<td>Portfolio variance (two assets)</td>
+<td><span class="math inline">\(\sigma_P^2 = w_A^2 \sigma_A^2 + w_B^2 \sigma_B^2 + 2 w_A w_B \text{Cov}[R_A, R_B]\)</span></td>
+<td>Computing portfolio variance when combining two assets</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="practice-problems" class="level2" data-number="9">
+<h2 data-number="9" class="anchored" data-anchor-id="practice-problems"><span class="header-section-number">9</span> Practice Problems</h2>
+<p><strong>Example: A Conservative Investor’s Allocation</strong></p>
+<p><em>Consider the same two assets from the previous example (FB with expected return 10% and standard deviation 20%, and NFLX with expected return 15% and standard deviation 25%, covariance 0.02, risk-free rate 5%). Now suppose the investor has a risk-aversion coefficient of 10 instead of 5. Find the optimal asset allocation for this more risk-averse investor.</em></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Step 1: Find the tangency portfolio weights</strong></p>
+<p>The tangency portfolio weights do not depend on risk aversion, so they are the same as before:</p>
+<ul>
+<li><span class="math inline">\(w_{A,\text{tan}} = 27.27\%\)</span> (FB)</li>
+<li><span class="math inline">\(w_{B,\text{tan}} = 72.73\%\)</span> (NFLX)</li>
+</ul>
+<p><strong>Step 2: Find the optimal capital allocation</strong></p>
+<p>The tangency portfolio statistics are also unchanged:</p>
+<ul>
+<li><span class="math inline">\(E[R_P] = 13.64\%\)</span></li>
+<li><span class="math inline">\(\sigma_P^2 = 0.04396\)</span></li>
+</ul>
+<p>But now we use <span class="math inline">\(A = 10\)</span>:</p>
+<p><span class="math display">\[w_{\text{oca}} = \frac{E[R_P] - R_f}{A \sigma_P^2} = \frac{0.1364 - 0.05}{10 \times 0.04396} = \frac{0.0864}{0.4396} = 0.197 \approx 19.7\%\]</span></p>
+<p>This more risk-averse investor should put only 19.7% in the tangency portfolio, compared to 39.3% for the investor with <span class="math inline">\(A = 5\)</span>.</p>
+<p><strong>Step 3: The complete asset allocation</strong></p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Asset</th>
+<th>Calculation</th>
+<th>Final Weight</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Risk-free asset</td>
+<td><span class="math inline">\(1 - 0.197\)</span></td>
+<td><strong>80.3%</strong></td>
+</tr>
+<tr class="even">
+<td>FB</td>
+<td><span class="math inline">\(0.197 \times 0.2727\)</span></td>
+<td><strong>5.4%</strong></td>
+</tr>
+<tr class="odd">
+<td>NFLX</td>
+<td><span class="math inline">\(0.197 \times 0.7273\)</span></td>
+<td><strong>14.3%</strong></td>
+</tr>
+<tr class="even">
+<td><strong>Total</strong></td>
+<td></td>
+<td><strong>100.0%</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Interpretation:</strong> Doubling the risk aversion (from 5 to 10) approximately halves the allocation to risky assets. The investor with <span class="math inline">\(A = 10\)</span> holds 80.3% in the risk-free asset compared to 60.7% for the investor with <span class="math inline">\(A = 5\)</span>. Note that the <em>composition</em> of the risky portion (the split between FB and NFLX) remains unchanged—only the <em>size</em> of the risky position changes with risk aversion.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="ask-an-llm" class="level2" data-number="10">
+<h2 data-number="10" class="anchored" data-anchor-id="ask-an-llm"><span class="header-section-number">10</span> Ask an LLM</h2>
+<p>Here are three questions you might ask an AI assistant to deepen your understanding of these concepts:</p>
+<ul>
+<li>In the real world, individuals cannot borrow at the risk-free rate. How does this constraint affect optimal asset allocation, and what happens to the efficient frontier when borrowing and lending rates differ?</li>
+<li>How does imposing a no-short-selling constraint (requiring all portfolio weights to be non-negative) change the tangency portfolio, and why might this matter for individual investors?</li>
+<li>Why is it that the tangency portfolio is the same for all investors regardless of their risk aversion? Intuitively, shouldn’t more aggressive investors want different stocks than conservative investors?</li>
+<li>If an investor’s estimates of expected returns are uncertain or contain errors, which inputs to the optimization (expected returns, variances, or covariances) tend to have the biggest impact on the resulting portfolio weights, and what are the practical implications?</li>
+<li>How would the optimal asset allocation framework change if we included transaction costs or taxes, and why might the “optimal” portfolio differ from what the basic theory suggests?</li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

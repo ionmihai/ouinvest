@@ -1,43 +1,123 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://ionmihai.github.io/ouinvest/syllabus.html</loc>
-    <lastmod>2026-01-01T22:48:25.372Z</lastmod>
-  </url>
-  <url>
     <loc>https://ionmihai.github.io/ouinvest/WORKFLOW.html</loc>
-    <lastmod>2026-01-01T22:48:24.947Z</lastmod>
+    <lastmod>2026-01-08T17:54:27.348Z</lastmod>
   </url>
   <url>
     <loc>https://ionmihai.github.io/ouinvest/data.html</loc>
-    <lastmod>2026-01-01T22:48:24.483Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ionmihai.github.io/ouinvest/lectures/lecture1/lab.html</loc>
-    <lastmod>2026-01-01T22:48:24.059Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ionmihai.github.io/ouinvest/lectures/lecture2/lab.html</loc>
-    <lastmod>2026-01-01T22:48:23.288Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ionmihai.github.io/ouinvest/lectures/lecture2/reading_template.html</loc>
-    <lastmod>2026-01-01T22:48:23.051Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ionmihai.github.io/ouinvest/lectures/lecture2/reading.html</loc>
-    <lastmod>2026-01-01T22:48:23.846Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ionmihai.github.io/ouinvest/lectures/lecture1/reading.html</loc>
-    <lastmod>2026-01-01T22:48:24.274Z</lastmod>
+    <lastmod>2026-01-08T17:54:27.722Z</lastmod>
   </url>
   <url>
     <loc>https://ionmihai.github.io/ouinvest/index.html</loc>
-    <lastmod>2026-01-01T22:48:24.716Z</lastmod>
+    <lastmod>2026-01-08T17:54:28.066Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ionmihai.github.io/ouinvest/syllabus.html</loc>
+    <lastmod>2026-01-08T17:54:28.426Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ionmihai.github.io/ouinvest/lectures/lecture05/portfolio_returns_risk.html</loc>
+    <lastmod>2026-01-08T17:54:29.848Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ionmihai.github.io/ouinvest/lectures/lecture05/lecture.html</loc>
+    <lastmod>2026-01-08T17:54:31.190Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ionmihai.github.io/ouinvest/lectures/lecture05/lab.html</loc>
+    <lastmod>2026-01-08T17:54:31.529Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ionmihai.github.io/ouinvest/lectures/lecture01/lecture.html</loc>
+    <lastmod>2026-01-08T17:54:32.001Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ionmihai.github.io/ouinvest/lectures/lecture03/measuring-returns-lecture.html</loc>
+    <lastmod>2026-01-08T17:54:33.205Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ionmihai.github.io/ouinvest/lectures/lecture03/L02_Foundations_1_Past_Returns_Rewrite.html</loc>
+    <lastmod>2026-01-08T17:54:34.348Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ionmihai.github.io/ouinvest/lectures/lecture03/lecture.html</loc>
+    <lastmod>2026-01-08T17:54:35.763Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ionmihai.github.io/ouinvest/lectures/lecture03/lab.html</loc>
+    <lastmod>2026-01-08T17:54:36.202Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ionmihai.github.io/ouinvest/lectures/lecture03/reading.html</loc>
+    <lastmod>2026-01-08T17:54:37.603Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ionmihai.github.io/ouinvest/lectures/lecture03/measuring_stock_returns.html</loc>
+    <lastmod>2026-01-08T17:54:38.959Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ionmihai.github.io/ouinvest/lectures/lecture09/lab.html</loc>
+    <lastmod>2026-01-08T17:54:39.387Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ionmihai.github.io/ouinvest/lectures/lecture02/lecture.html</loc>
+    <lastmod>2026-01-08T17:54:40.390Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ionmihai.github.io/ouinvest/lectures/lecture02/lab.html</loc>
+    <lastmod>2026-01-08T17:54:40.816Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ionmihai.github.io/ouinvest/lectures/lecture08/lecture.html</loc>
+    <lastmod>2026-01-08T17:54:41.839Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ionmihai.github.io/ouinvest/lectures/lecture08/lab.html</loc>
+    <lastmod>2026-01-08T17:54:42.187Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ionmihai.github.io/ouinvest/lectures/lecture08/optimal_asset_allocation.html</loc>
+    <lastmod>2026-01-08T17:54:43.153Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ionmihai.github.io/ouinvest/lectures/lecture04/lecture.html</loc>
+    <lastmod>2026-01-08T17:54:44.501Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ionmihai.github.io/ouinvest/lectures/lecture04/lab.html</loc>
+    <lastmod>2026-01-08T17:54:44.888Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ionmihai.github.io/ouinvest/lectures/lecture04/lecture_risk_return.html</loc>
+    <lastmod>2026-01-08T17:54:46.135Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ionmihai.github.io/ouinvest/lectures/lecture06/capital_allocation_lecture.html</loc>
+    <lastmod>2026-01-08T17:54:47.700Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ionmihai.github.io/ouinvest/lectures/lecture06/lecture.html</loc>
+    <lastmod>2026-01-08T17:54:49.252Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ionmihai.github.io/ouinvest/lectures/lecture06/lab.html</loc>
+    <lastmod>2026-01-08T17:54:49.656Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ionmihai.github.io/ouinvest/lectures/lecture07/lecture.html</loc>
+    <lastmod>2026-01-08T17:54:51.151Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ionmihai.github.io/ouinvest/lectures/lecture07/lab.html</loc>
+    <lastmod>2026-01-08T17:54:51.501Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ionmihai.github.io/ouinvest/lectures/lecture07/portfolio_optimization_lecture.html</loc>
+    <lastmod>2026-01-08T17:54:52.993Z</lastmod>
   </url>
   <url>
     <loc>https://ionmihai.github.io/ouinvest/schedule.html</loc>
-    <lastmod>2026-01-01T22:48:25.158Z</lastmod>
+    <lastmod>2026-01-08T17:54:53.361Z</lastmod>
   </url>
 </urlset>

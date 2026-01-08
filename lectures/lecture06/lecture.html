@@ -1,0 +1,1326 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.361">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Investments - Optimal Capital Allocation</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body class="nav-sidebar docked">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Lectures</li><li class="breadcrumb-item"><a href="../../lectures/lecture06/lecture.html">Lecture 6: Optimal Capital Allocation</a></li><li class="breadcrumb-item"><a href="../../lectures/lecture06/lecture.html">Pre-class Reading</a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../../">Investments</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../schedule.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Schedule</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../syllabus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Syllabus</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">Lectures</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
+ <span class="menu-text">Lecture 1: The Investment Environment</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lectures/lecture01/lecture.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Pre-class Reading</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">
+ <span class="menu-text">Lecture 2: Foundations of Financial Markets</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lectures/lecture02/lecture.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Pre-class Reading</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lectures/lecture02/lab.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lab</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false">
+ <span class="menu-text">Lecture 3: Measuring and Comparing Returns</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lectures/lecture03/lecture.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Pre-class Reading</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lectures/lecture03/lab.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lab</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false">
+ <span class="menu-text">Lecture 4: Measuring Risk and Expected Return</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lectures/lecture04/lecture.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Pre-class Reading</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lectures/lecture04/lab.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lab</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false">
+ <span class="menu-text">Lecture 5: Portfolio Risk and Returns</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lectures/lecture05/lecture.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Pre-class Reading</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lectures/lecture05/lab.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lab</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true">
+ <span class="menu-text">Lecture 6: Optimal Capital Allocation</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth2 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lectures/lecture06/lecture.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Pre-class Reading</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lectures/lecture06/lab.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lab</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false">
+ <span class="menu-text">Lecture 7: Mean-Variance Portfolio Optimization</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lectures/lecture07/lecture.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Pre-class Reading</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lectures/lecture07/lab.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lab</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false">
+ <span class="menu-text">Lecture 8: Optimal Asset Allocation</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lectures/lecture08/lecture.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Pre-class Reading</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lectures/lecture08/lab.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lab</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="false">
+ <span class="menu-text">Lecture 9: Review Session</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lectures/lecture09/lab.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lab</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">1</span> Introduction</a></li>
+  <li><a href="#the-capital-allocation-line-cal" id="toc-the-capital-allocation-line-cal" class="nav-link" data-scroll-target="#the-capital-allocation-line-cal"><span class="header-section-number">2</span> The Capital Allocation Line (CAL)</a>
+  <ul class="collapse">
+  <li><a href="#constructing-the-complete-portfolio" id="toc-constructing-the-complete-portfolio" class="nav-link" data-scroll-target="#constructing-the-complete-portfolio"><span class="header-section-number">2.1</span> Constructing the Complete Portfolio</a></li>
+  <li><a href="#expected-return-of-the-complete-portfolio" id="toc-expected-return-of-the-complete-portfolio" class="nav-link" data-scroll-target="#expected-return-of-the-complete-portfolio"><span class="header-section-number">2.2</span> Expected Return of the Complete Portfolio</a></li>
+  <li><a href="#risk-of-the-complete-portfolio" id="toc-risk-of-the-complete-portfolio" class="nav-link" data-scroll-target="#risk-of-the-complete-portfolio"><span class="header-section-number">2.3</span> Risk of the Complete Portfolio</a></li>
+  </ul></li>
+  <li><a href="#characteristics-of-the-capital-allocation-line" id="toc-characteristics-of-the-capital-allocation-line" class="nav-link" data-scroll-target="#characteristics-of-the-capital-allocation-line"><span class="header-section-number">3</span> Characteristics of the Capital Allocation Line</a>
+  <ul class="collapse">
+  <li><a href="#the-geometry-of-risk-return-trade-offs" id="toc-the-geometry-of-risk-return-trade-offs" class="nav-link" data-scroll-target="#the-geometry-of-risk-return-trade-offs"><span class="header-section-number">3.1</span> The Geometry of Risk-Return Trade-offs</a></li>
+  <li><a href="#the-slope-of-the-cal-the-sharpe-ratio" id="toc-the-slope-of-the-cal-the-sharpe-ratio" class="nav-link" data-scroll-target="#the-slope-of-the-cal-the-sharpe-ratio"><span class="header-section-number">3.2</span> The Slope of the CAL: The Sharpe Ratio</a></li>
+  <li><a href="#the-analytical-equation-for-the-cal" id="toc-the-analytical-equation-for-the-cal" class="nav-link" data-scroll-target="#the-analytical-equation-for-the-cal"><span class="header-section-number">3.3</span> The Analytical Equation for the CAL</a></li>
+  </ul></li>
+  <li><a href="#optimal-capital-allocation" id="toc-optimal-capital-allocation" class="nav-link" data-scroll-target="#optimal-capital-allocation"><span class="header-section-number">4</span> Optimal Capital Allocation</a>
+  <ul class="collapse">
+  <li><a href="#understanding-risk-aversion" id="toc-understanding-risk-aversion" class="nav-link" data-scroll-target="#understanding-risk-aversion"><span class="header-section-number">4.1</span> Understanding Risk Aversion</a></li>
+  <li><a href="#quantifying-risk-aversion-the-utility-function" id="toc-quantifying-risk-aversion-the-utility-function" class="nav-link" data-scroll-target="#quantifying-risk-aversion-the-utility-function"><span class="header-section-number">4.2</span> Quantifying Risk Aversion: The Utility Function</a></li>
+  <li><a href="#interpreting-the-risk-aversion-coefficient" id="toc-interpreting-the-risk-aversion-coefficient" class="nav-link" data-scroll-target="#interpreting-the-risk-aversion-coefficient"><span class="header-section-number">4.3</span> Interpreting the Risk Aversion Coefficient</a></li>
+  <li><a href="#deriving-the-optimal-capital-allocation" id="toc-deriving-the-optimal-capital-allocation" class="nav-link" data-scroll-target="#deriving-the-optimal-capital-allocation"><span class="header-section-number">4.4</span> Deriving the Optimal Capital Allocation</a></li>
+  <li><a href="#understanding-the-optimal-allocation-formula" id="toc-understanding-the-optimal-allocation-formula" class="nav-link" data-scroll-target="#understanding-the-optimal-allocation-formula"><span class="header-section-number">4.5</span> Understanding the Optimal Allocation Formula</a></li>
+  <li><a href="#important-limitations" id="toc-important-limitations" class="nav-link" data-scroll-target="#important-limitations"><span class="header-section-number">4.6</span> Important Limitations</a></li>
+  </ul></li>
+  <li><a href="#key-takeaways" id="toc-key-takeaways" class="nav-link" data-scroll-target="#key-takeaways"><span class="header-section-number">5</span> Key Takeaways</a></li>
+  <li><a href="#key-formulas-summary" id="toc-key-formulas-summary" class="nav-link" data-scroll-target="#key-formulas-summary"><span class="header-section-number">6</span> Key Formulas Summary</a></li>
+  <li><a href="#practice-problems" id="toc-practice-problems" class="nav-link" data-scroll-target="#practice-problems"><span class="header-section-number">7</span> Practice Problems</a></li>
+  <li><a href="#ask-an-llm" id="toc-ask-an-llm" class="nav-link" data-scroll-target="#ask-an-llm"><span class="header-section-number">8</span> Ask an LLM</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Optimal Capital Allocation</h1>
+<p class="subtitle lead">The capital allocation line (CAL), risk aversion, and the choice between risky and risk-free assets</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="introduction" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">1</span> Introduction</h2>
+<p>One of the most fundamental decisions any investor faces is deceptively simple: how much of your wealth should you put at risk? This question sits at the heart of portfolio construction and connects deeply to who you are as an investor—your goals, your timeline, and perhaps most importantly, your tolerance for uncertainty.</p>
+<p>In this lecture, we develop the analytical framework for answering this question rigorously. We begin by understanding how combining a risky asset with a risk-free asset creates a spectrum of investment possibilities, all lying along what we call the Capital Allocation Line. We then turn to the deeper question of where along this line you should position yourself, which requires us to grapple with the concept of risk aversion and how to measure it.</p>
+<p>The tools we develop here have immediate practical application. Whether you’re deciding how much of your retirement savings to put in stocks versus Treasury bills, or advising a client on their asset allocation, the framework in this lecture provides the quantitative foundation for making these decisions systematically rather than by gut feeling.</p>
+</section>
+<section id="the-capital-allocation-line-cal" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="the-capital-allocation-line-cal"><span class="header-section-number">2</span> The Capital Allocation Line (CAL)</h2>
+<section id="constructing-the-complete-portfolio" class="level3" data-number="2.1">
+<h3 data-number="2.1" class="anchored" data-anchor-id="constructing-the-complete-portfolio"><span class="header-section-number">2.1</span> Constructing the Complete Portfolio</h3>
+<p>Suppose you have identified a risky asset (or portfolio of risky assets) that you want to invest in—call it P. This could be a single stock like Tesla, an index fund tracking the S&amp;P 500, or a carefully constructed portfolio of multiple securities. Alongside P, you have access to a risk-free asset, such as a U.S. Treasury bill, which offers a guaranteed return.</p>
+<p>The central question of capital allocation is: what fraction of your wealth should you invest in P versus the risk-free asset? We denote this fraction as <span class="math inline">\(w_c\)</span>, where the subscript “c” stands for “complete portfolio”—the final portfolio containing both risky and risk-free components. If you invest proportion <span class="math inline">\(w_c\)</span> in the risky asset P, then the remaining proportion <span class="math inline">\((1 - w_c)\)</span> goes into the risk-free asset.</p>
+<p>Your complete portfolio C has a return that is simply the weighted average of the returns on its two components:</p>
+<p><span class="math display">\[R_C = w_c R_P + (1 - w_c) R_f\]</span></p>
+<p>where <span class="math inline">\(R_P\)</span> is the return on the risky asset and <span class="math inline">\(R_f\)</span> is the risk-free rate.</p>
+</section>
+<section id="expected-return-of-the-complete-portfolio" class="level3" data-number="2.2">
+<h3 data-number="2.2" class="anchored" data-anchor-id="expected-return-of-the-complete-portfolio"><span class="header-section-number">2.2</span> Expected Return of the Complete Portfolio</h3>
+<p>Taking expectations of both sides, we find the expected return of the complete portfolio:</p>
+<p><span class="math display">\[E[R_C] = w_c E[R_P] + (1 - w_c) R_f\]</span></p>
+<p>Notice something important here: we wrote <span class="math inline">\(R_f\)</span> rather than <span class="math inline">\(E[R_f]\)</span> for the risk-free component. This is because the risk-free asset, by definition, has no uncertainty about its return—it’s guaranteed by the U.S. government. A constant has no randomness, so its expected value equals itself.</p>
+<p>This formula tells us that we can achieve any expected return between <span class="math inline">\(R_f\)</span> (when <span class="math inline">\(w_c = 0\)</span>) and <span class="math inline">\(E[R_P]\)</span> (when <span class="math inline">\(w_c = 1\)</span>) by choosing the appropriate weight. We can even achieve expected returns above <span class="math inline">\(E[R_P]\)</span> by setting <span class="math inline">\(w_c &gt; 1\)</span>, which means borrowing at the risk-free rate to invest more than 100% of our wealth in the risky asset—a strategy called leveraging.</p>
+</section>
+<section id="risk-of-the-complete-portfolio" class="level3" data-number="2.3">
+<h3 data-number="2.3" class="anchored" data-anchor-id="risk-of-the-complete-portfolio"><span class="header-section-number">2.3</span> Risk of the Complete Portfolio</h3>
+<p>What about the risk of our complete portfolio? Using the formula for the variance of a weighted sum of random variables:</p>
+<p><span class="math display">\[\text{Var}[R_C] = w_c^2 \text{Var}[R_P] + (1-w_c)^2 \text{Var}[R_f] + 2w_c(1-w_c)\text{Cov}[R_P, R_f]\]</span></p>
+<p>Here’s where the special nature of the risk-free asset simplifies things dramatically. Because <span class="math inline">\(R_f\)</span> is a constant (not a random variable), its variance is zero and its covariance with any other random variable is also zero. Substituting <span class="math inline">\(\text{Var}[R_f] = 0\)</span> and <span class="math inline">\(\text{Cov}[R_P, R_f] = 0\)</span>, we get:</p>
+<p><span class="math display">\[\text{Var}[R_C] = w_c^2 \text{Var}[R_P]\]</span></p>
+<p>Taking the square root of both sides gives us the standard deviation of the complete portfolio:</p>
+<p><span class="math display">\[\sigma_C = w_c \sigma_P\]</span></p>
+<p>This result is elegant and intuitive: the risk of your complete portfolio is simply your allocation to the risky asset multiplied by that asset’s risk. If you put half your money in the risky asset, you bear half its risk. If you leverage to 150% in the risky asset, you bear 1.5 times its risk.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Example 1: Constructing Capital Allocations">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Example 1: Constructing Capital Allocations
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p>Assume you have estimated that the expected return on TSLA is 10% and the standard deviation of its future returns is 12%. The risk-free rate is 1%. Create capital allocations with weights in TSLA ranging from 0% to 200% in increments of 10%. Calculate the expected return and standard deviation for each complete portfolio.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Solution to Example 1">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution to Example 1
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>We apply the formulas <span class="math inline">\(E[R_C] = w_c E[R_P] + (1 - w_c) R_f\)</span> and <span class="math inline">\(\sigma_C = w_c \sigma_P\)</span> for each weight.</p>
+<p><strong>Given information:</strong></p>
+<ul>
+<li><span class="math inline">\(E[R_P] = 10\%\)</span> (expected return on TSLA)</li>
+<li><span class="math inline">\(\sigma_P = 12\%\)</span> (standard deviation of TSLA)</li>
+<li><span class="math inline">\(R_f = 1\%\)</span> (risk-free rate)</li>
+</ul>
+<p><strong>Calculations:</strong></p>
+<p>For <span class="math inline">\(w_c = 0\%\)</span>: <span class="math inline">\(E[R_C] = 0(0.10) + 1(0.01) = 1\%\)</span>, <span class="math inline">\(\sigma_C = 0(0.12) = 0\%\)</span></p>
+<p>For <span class="math inline">\(w_c = 50\%\)</span>: <span class="math inline">\(E[R_C] = 0.5(0.10) + 0.5(0.01) = 5.5\%\)</span>, <span class="math inline">\(\sigma_C = 0.5(0.12) = 6\%\)</span></p>
+<p>For <span class="math inline">\(w_c = 100\%\)</span>: <span class="math inline">\(E[R_C] = 1(0.10) + 0(0.01) = 10\%\)</span>, <span class="math inline">\(\sigma_C = 1(0.12) = 12\%\)</span></p>
+<p>For <span class="math inline">\(w_c = 150\%\)</span>: <span class="math inline">\(E[R_C] = 1.5(0.10) + (-0.5)(0.01) = 14.5\%\)</span>, <span class="math inline">\(\sigma_C = 1.5(0.12) = 18\%\)</span></p>
+<p>For <span class="math inline">\(w_c = 200\%\)</span>: <span class="math inline">\(E[R_C] = 2(0.10) + (-1)(0.01) = 19\%\)</span>, <span class="math inline">\(\sigma_C = 2(0.12) = 24\%\)</span></p>
+<table class="table">
+<colgroup>
+<col style="width: 29%">
+<col style="width: 25%">
+<col style="width: 20%">
+<col style="width: 24%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Weight in TSLA (<span class="math inline">\(w_c\)</span>)</th>
+<th style="text-align: center;">Weight in Risk-Free</th>
+<th style="text-align: center;">Expected Return</th>
+<th style="text-align: center;">Standard Deviation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">0%</td>
+<td style="text-align: center;">100%</td>
+<td style="text-align: center;">1.0%</td>
+<td style="text-align: center;">0.0%</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">10%</td>
+<td style="text-align: center;">90%</td>
+<td style="text-align: center;">1.9%</td>
+<td style="text-align: center;">1.2%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">20%</td>
+<td style="text-align: center;">80%</td>
+<td style="text-align: center;">2.8%</td>
+<td style="text-align: center;">2.4%</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">30%</td>
+<td style="text-align: center;">70%</td>
+<td style="text-align: center;">3.7%</td>
+<td style="text-align: center;">3.6%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">40%</td>
+<td style="text-align: center;">60%</td>
+<td style="text-align: center;">4.6%</td>
+<td style="text-align: center;">4.8%</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">50%</td>
+<td style="text-align: center;">50%</td>
+<td style="text-align: center;">5.5%</td>
+<td style="text-align: center;">6.0%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">60%</td>
+<td style="text-align: center;">40%</td>
+<td style="text-align: center;">6.4%</td>
+<td style="text-align: center;">7.2%</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">70%</td>
+<td style="text-align: center;">30%</td>
+<td style="text-align: center;">7.3%</td>
+<td style="text-align: center;">8.4%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">80%</td>
+<td style="text-align: center;">20%</td>
+<td style="text-align: center;">8.2%</td>
+<td style="text-align: center;">9.6%</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">90%</td>
+<td style="text-align: center;">10%</td>
+<td style="text-align: center;">9.1%</td>
+<td style="text-align: center;">10.8%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">100%</td>
+<td style="text-align: center;">0%</td>
+<td style="text-align: center;">10.0%</td>
+<td style="text-align: center;">12.0%</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">110%</td>
+<td style="text-align: center;">-10%</td>
+<td style="text-align: center;">10.9%</td>
+<td style="text-align: center;">13.2%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">120%</td>
+<td style="text-align: center;">-20%</td>
+<td style="text-align: center;">11.8%</td>
+<td style="text-align: center;">14.4%</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">130%</td>
+<td style="text-align: center;">-30%</td>
+<td style="text-align: center;">12.7%</td>
+<td style="text-align: center;">15.6%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">140%</td>
+<td style="text-align: center;">-40%</td>
+<td style="text-align: center;">13.6%</td>
+<td style="text-align: center;">16.8%</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">150%</td>
+<td style="text-align: center;">-50%</td>
+<td style="text-align: center;">14.5%</td>
+<td style="text-align: center;">18.0%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">160%</td>
+<td style="text-align: center;">-60%</td>
+<td style="text-align: center;">15.4%</td>
+<td style="text-align: center;">19.2%</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">170%</td>
+<td style="text-align: center;">-70%</td>
+<td style="text-align: center;">16.3%</td>
+<td style="text-align: center;">20.4%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">180%</td>
+<td style="text-align: center;">-80%</td>
+<td style="text-align: center;">17.2%</td>
+<td style="text-align: center;">21.6%</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">190%</td>
+<td style="text-align: center;">-90%</td>
+<td style="text-align: center;">18.1%</td>
+<td style="text-align: center;">22.8%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">200%</td>
+<td style="text-align: center;">-100%</td>
+<td style="text-align: center;">19.0%</td>
+<td style="text-align: center;">24.0%</td>
+</tr>
+</tbody>
+</table>
+<p>When plotted in mean-volatility space (with standard deviation on the x-axis and expected return on the y-axis), these points form a straight line starting at <span class="math inline">\((0\%, 1\%)\)</span> and passing through <span class="math inline">\((12\%, 10\%)\)</span>. This line is the Capital Allocation Line for TSLA.</p>
+<p>Note that weights above 100% involve borrowing at the risk-free rate (negative weight in the risk-free asset) to invest more than your initial wealth in TSLA. This is called leveraging and increases both expected return and risk proportionally.</p>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="characteristics-of-the-capital-allocation-line" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="characteristics-of-the-capital-allocation-line"><span class="header-section-number">3</span> Characteristics of the Capital Allocation Line</h2>
+<section id="the-geometry-of-risk-return-trade-offs" class="level3" data-number="3.1">
+<h3 data-number="3.1" class="anchored" data-anchor-id="the-geometry-of-risk-return-trade-offs"><span class="header-section-number">3.1</span> The Geometry of Risk-Return Trade-offs</h3>
+<p>The calculations in Example 1 reveal something remarkable: all possible complete portfolios lie on a straight line in mean-volatility space. This line is called the Capital Allocation Line (CAL), and understanding its properties gives us deep insight into the risk-return trade-off available to investors.</p>
+<p>Every risky asset (or portfolio) has its own CAL. The line always starts at the point <span class="math inline">\((0, R_f)\)</span>—representing 100% investment in the risk-free asset—and extends upward and to the right through the point <span class="math inline">\((\sigma_P, E[R_P])\)</span>—representing 100% investment in the risky asset. Beyond this point, the line continues into the leveraged region where <span class="math inline">\(w_c &gt; 1\)</span>.</p>
+</section>
+<section id="the-slope-of-the-cal-the-sharpe-ratio" class="level3" data-number="3.2">
+<h3 data-number="3.2" class="anchored" data-anchor-id="the-slope-of-the-cal-the-sharpe-ratio"><span class="header-section-number">3.2</span> The Slope of the CAL: The Sharpe Ratio</h3>
+<p>The slope of any straight line is “rise over run.” For the CAL, the rise is the increase in expected return, and the run is the increase in standard deviation. Using two points on the line—the risk-free asset at <span class="math inline">\((0, R_f)\)</span> and the risky asset at <span class="math inline">\((\sigma_P, E[R_P])\)</span>—we find:</p>
+<p><span class="math display">\[\text{Slope of CAL} = \frac{E[R_P] - R_f}{\sigma_P}\]</span></p>
+<p>This ratio has a name you’ll encounter constantly in finance: the <strong>Sharpe ratio</strong>. It measures the excess return (return above the risk-free rate) per unit of risk. The Sharpe ratio tells you how much extra return you earn for each additional percentage point of volatility you accept.</p>
+<p>A higher Sharpe ratio means a steeper CAL, which means better risk-return trade-offs. If two risky assets have the same expected return but different volatilities, the less volatile one has a higher Sharpe ratio and a more attractive CAL. This is why the Sharpe ratio is one of the most widely used performance metrics in investment management.</p>
+</section>
+<section id="the-analytical-equation-for-the-cal" class="level3" data-number="3.3">
+<h3 data-number="3.3" class="anchored" data-anchor-id="the-analytical-equation-for-the-cal"><span class="header-section-number">3.3</span> The Analytical Equation for the CAL</h3>
+<p>We can express the expected return of any complete portfolio as a function of its standard deviation by rearranging our formulas. Since <span class="math inline">\(\sigma_C = w_c \sigma_P\)</span>, we have <span class="math inline">\(w_c = \sigma_C / \sigma_P\)</span>. Substituting this into the expected return formula:</p>
+<p><span class="math display">\[E[R_C] = R_f + \sigma_C \times \frac{E[R_P] - R_f}{\sigma_P}\]</span></p>
+<p>Or more compactly:</p>
+<p><span class="math display">\[E[R_C] = R_f + \sigma_C \times \text{Sharpe Ratio}\]</span></p>
+<p>This equation is powerful because it tells us the exact relationship between risk and expected return for our complete portfolio. Given the Sharpe ratio of our risky asset, we can immediately calculate what expected return we’ll earn for any level of risk we choose to take on.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Example 2: Using the CAL Equation">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Example 2: Using the CAL Equation
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p>Assume you want to invest in TSLA and a risk-free asset (a 3-month T-bill). You have estimated that the Sharpe ratio of TSLA stock is 0.5. The yield on the 3-month T-bill is 0.4%. You would like the complete portfolio (made up of TSLA and the 3-month T-bill) to give you an expected return of 5.4%. What will be the total risk (standard deviation) of the complete portfolio?</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Solution to Example 2">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution to Example 2
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>We use the CAL equation to find the standard deviation that corresponds to our target expected return.</p>
+<p><strong>Given information:</strong></p>
+<ul>
+<li>Sharpe ratio of TSLA = 0.5</li>
+<li><span class="math inline">\(R_f = 0.4\%\)</span></li>
+<li>Target <span class="math inline">\(E[R_C] = 5.4\%\)</span></li>
+</ul>
+<p><strong>Setting up the equation:</strong></p>
+<p><span class="math display">\[E[R_C] = R_f + \sigma_C \times \text{Sharpe Ratio}\]</span></p>
+<p><span class="math display">\[5.4\% = 0.4\% + \sigma_C \times 0.5\]</span></p>
+<p><strong>Solving for <span class="math inline">\(\sigma_C\)</span>:</strong></p>
+<p><span class="math display">\[5.4\% - 0.4\% = \sigma_C \times 0.5\]</span></p>
+<p><span class="math display">\[5.0\% = \sigma_C \times 0.5\]</span></p>
+<p><span class="math display">\[\sigma_C = \frac{5.0\%}{0.5} = 10\%\]</span></p>
+<p><strong>Interpretation:</strong></p>
+<p>To achieve an expected return of 5.4%, you must accept a portfolio standard deviation of 10%.</p>
+<p>We can verify this makes sense by finding the implied weight in TSLA. First, we need TSLA’s volatility. Since Sharpe ratio = <span class="math inline">\((E[R_P] - R_f)/\sigma_P\)</span> and we know the Sharpe ratio is 0.5, we can work backwards: if the Sharpe ratio is 0.5 and <span class="math inline">\(\sigma_C = w_c \sigma_P = 10\%\)</span>, then <span class="math inline">\(w_c = \sigma_C / \sigma_P = 10\% / \sigma_P\)</span>.</p>
+<p>Alternatively, using <span class="math inline">\(E[R_C] = w_c E[R_P] + (1-w_c)R_f\)</span> and the fact that the excess return of 5% must come entirely from TSLA’s excess return: <span class="math inline">\(w_c \times (E[R_P] - R_f) = 5\%\)</span>, and since Sharpe ratio <span class="math inline">\(= 0.5 = (E[R_P] - R_f)/\sigma_P\)</span>, we have <span class="math inline">\((E[R_P] - R_f) = 0.5 \sigma_P\)</span>.</p>
+<p>The key result is that the CAL tells us precisely what risk level we must accept for any given target return.</p>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="optimal-capital-allocation" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="optimal-capital-allocation"><span class="header-section-number">4</span> Optimal Capital Allocation</h2>
+<p>We now know how to calculate the risk and expected return of any complete portfolio given a capital allocation weight <span class="math inline">\(w_c\)</span>. But this raises a crucial question: how should we choose <span class="math inline">\(w_c\)</span>? The answer depends fundamentally on how the investor feels about risk.</p>
+<section id="understanding-risk-aversion" class="level3" data-number="4.1">
+<h3 data-number="4.1" class="anchored" data-anchor-id="understanding-risk-aversion"><span class="header-section-number">4.1</span> Understanding Risk Aversion</h3>
+<p>Different people have different attitudes toward risk. Consider a simple thought experiment: I offer you a choice between (A) receiving $50 for certain, or (B) flipping a fair coin where you win $100 if heads and $0 if tails. Both options have the same expected value of $50, but option B involves risk while option A does not.</p>
+<p>Most people prefer option A—the certain $50. This preference for certainty when expected values are equal is called <strong>risk aversion</strong>. A risk-averse person requires compensation (in the form of higher expected returns) to accept risk. The more risk-averse someone is, the more compensation they demand.</p>
+<p>Some people might be indifferent between A and B—these are <strong>risk-neutral</strong> individuals who care only about expected value, not about risk. And a few might actually prefer B—these are <strong>risk-seeking</strong> individuals who enjoy the thrill of uncertainty.</p>
+<p>In financial markets, most investors are risk-averse. This is why risky assets must offer higher expected returns than risk-free assets—the extra return is the compensation that risk-averse investors demand for bearing uncertainty.</p>
+</section>
+<section id="quantifying-risk-aversion-the-utility-function" class="level3" data-number="4.2">
+<h3 data-number="4.2" class="anchored" data-anchor-id="quantifying-risk-aversion-the-utility-function"><span class="header-section-number">4.2</span> Quantifying Risk Aversion: The Utility Function</h3>
+<p>To make optimal decisions, we need a way to quantify how much an investor dislikes risk. Economists and financial theorists do this using a <strong>utility function</strong>—a mathematical function that converts portfolio characteristics into a single number representing the investor’s satisfaction or “utility.”</p>
+<p>The most common utility function in finance is the <strong>mean-variance utility function</strong> (sometimes called quadratic utility):</p>
+<p><span class="math display">\[U = E[R] - \frac{1}{2} A \sigma^2\]</span></p>
+<p>Here, <span class="math inline">\(U\)</span> represents the investor’s utility (satisfaction) from a portfolio with expected return <span class="math inline">\(E[R]\)</span> and variance <span class="math inline">\(\sigma^2\)</span>. The parameter <span class="math inline">\(A\)</span> is the <strong>coefficient of risk aversion</strong>—it measures how much the investor dislikes variance.</p>
+<p>Let’s unpack this formula. The first term, <span class="math inline">\(E[R]\)</span>, says that investors like higher expected returns—this increases utility. The second term, <span class="math inline">\(-\frac{1}{2}A\sigma^2\)</span>, says that investors dislike variance—this decreases utility. The coefficient <span class="math inline">\(A\)</span> determines how severely variance is penalized relative to expected return.</p>
+<p>For a risk-averse investor, <span class="math inline">\(A &gt; 0\)</span>. Higher values of <span class="math inline">\(A\)</span> mean greater risk aversion—the investor penalizes variance more heavily and requires more expected return to compensate for a given level of risk. For a risk-neutral investor, <span class="math inline">\(A = 0\)</span>, and the utility function reduces to just the expected return. For a risk-seeking investor, <span class="math inline">\(A &lt; 0\)</span>, but this case is rare and not our focus.</p>
+</section>
+<section id="interpreting-the-risk-aversion-coefficient" class="level3" data-number="4.3">
+<h3 data-number="4.3" class="anchored" data-anchor-id="interpreting-the-risk-aversion-coefficient"><span class="header-section-number">4.3</span> Interpreting the Risk Aversion Coefficient</h3>
+<p>What does a risk aversion coefficient of, say, <span class="math inline">\(A = 4\)</span> actually mean? One intuitive interpretation comes from thinking about certainty equivalents.</p>
+<p>Imagine asking an investor: “If you were to invest all your wealth in a risky asset with variance <span class="math inline">\(\sigma^2\)</span>, what is the minimum expected return you would require to make the investment worthwhile compared to earning the risk-free rate?”</p>
+<p>If the investor answers that they require an expected return of <span class="math inline">\(E[R]\)</span>, and they’re indifferent between this risky investment and the risk-free alternative, then their risk aversion coefficient is:</p>
+<p><span class="math display">\[A = \frac{E[R] - R_f}{\sigma^2}\]</span></p>
+<p>For example, if an investor requires an expected return of 10% to hold an asset with variance of 0.04 (standard deviation of 20%) when the risk-free rate is 2%, their risk aversion coefficient is:</p>
+<p><span class="math display">\[A = \frac{0.10 - 0.02}{0.04} = \frac{0.08}{0.04} = 2\]</span></p>
+<p>Common values of <span class="math inline">\(A\)</span> in practice range from about 2 to 6, with 4 being a frequently used “moderate” value. An investor with <span class="math inline">\(A = 2\)</span> is relatively tolerant of risk, while <span class="math inline">\(A = 6\)</span> indicates significant risk aversion.</p>
+</section>
+<section id="deriving-the-optimal-capital-allocation" class="level3" data-number="4.4">
+<h3 data-number="4.4" class="anchored" data-anchor-id="deriving-the-optimal-capital-allocation"><span class="header-section-number">4.4</span> Deriving the Optimal Capital Allocation</h3>
+<p>Now we can solve for the optimal capital allocation. The investor wants to choose the weight <span class="math inline">\(w_c\)</span> that maximizes their utility. Substituting our formulas for the complete portfolio into the utility function:</p>
+<p><span class="math display">\[U = E[R_C] - \frac{1}{2}A\sigma_C^2\]</span></p>
+<p><span class="math display">\[U = w_c E[R_P] + (1-w_c)R_f - \frac{1}{2}A(w_c\sigma_P)^2\]</span></p>
+<p><span class="math display">\[U = R_f + w_c(E[R_P] - R_f) - \frac{1}{2}Aw_c^2\sigma_P^2\]</span></p>
+<p>To find the maximum, we take the derivative with respect to <span class="math inline">\(w_c\)</span> and set it equal to zero:</p>
+<p><span class="math display">\[\frac{dU}{dw_c} = (E[R_P] - R_f) - Aw_c\sigma_P^2 = 0\]</span></p>
+<p>Solving for <span class="math inline">\(w_c\)</span> gives us the <strong>optimal capital allocation</strong>:</p>
+<p><span class="math display">\[w^*_c = \frac{E[R_P] - R_f}{A\sigma_P^2}\]</span></p>
+<p>This elegant formula tells us exactly what proportion of our wealth to invest in the risky asset as a function of three things: the risky asset’s risk premium <span class="math inline">\((E[R_P] - R_f)\)</span>, the investor’s risk aversion <span class="math inline">\((A)\)</span>, and the risky asset’s variance <span class="math inline">\((\sigma_P^2)\)</span>.</p>
+</section>
+<section id="understanding-the-optimal-allocation-formula" class="level3" data-number="4.5">
+<h3 data-number="4.5" class="anchored" data-anchor-id="understanding-the-optimal-allocation-formula"><span class="header-section-number">4.5</span> Understanding the Optimal Allocation Formula</h3>
+<p>The formula makes intuitive sense on several levels. The optimal allocation to risky assets increases with the risk premium—if the expected excess return is higher, you should invest more. The allocation decreases with risk aversion—more risk-averse investors hold less in risky assets. And the allocation decreases with variance—riskier assets warrant smaller positions.</p>
+<p>Notice that the formula uses variance <span class="math inline">\((\sigma_P^2)\)</span> in the denominator, not standard deviation <span class="math inline">\((\sigma_P)\)</span>. This is because the utility function penalizes variance, and the mathematics of optimization naturally produces this result. It means that the allocation is very sensitive to risk: doubling the standard deviation quadruples the variance and thus reduces the optimal allocation by a factor of four.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Example 3: Finding the Optimal Capital Allocation">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Example 3: Finding the Optimal Capital Allocation
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p>Assume you have estimated that the expected return on TSLA is 5.6% and the standard deviation of its future returns is 18.6%. The risk-free rate is 0.1%. Your coefficient of risk aversion is 4. What is your optimal capital allocation?</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Solution to Example 3">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution to Example 3
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>We apply the optimal capital allocation formula directly.</p>
+<p><strong>Given information:</strong></p>
+<ul>
+<li><span class="math inline">\(E[R_P] = 5.6\%\)</span> (expected return on TSLA)</li>
+<li><span class="math inline">\(\sigma_P = 18.6\%\)</span> (standard deviation of TSLA)</li>
+<li><span class="math inline">\(R_f = 0.1\%\)</span> (risk-free rate)</li>
+<li><span class="math inline">\(A = 4\)</span> (coefficient of risk aversion)</li>
+</ul>
+<p><strong>Calculate the variance:</strong></p>
+<p><span class="math display">\[\sigma_P^2 = (0.186)^2 = 0.0346\]</span></p>
+<p><strong>Apply the optimal capital allocation formula:</strong></p>
+<p><span class="math display">\[w^*_c = \frac{E[R_P] - R_f}{A\sigma_P^2}\]</span></p>
+<p><span class="math display">\[w^*_c = \frac{0.056 - 0.001}{4 \times 0.0346}\]</span></p>
+<p><span class="math display">\[w^*_c = \frac{0.055}{0.1384}\]</span></p>
+<p><span class="math display">\[w^*_c = 0.397 \approx 39.7\%\]</span></p>
+<p><strong>Interpretation:</strong></p>
+<p>Given your risk aversion of 4, you should invest approximately 39.7% of your wealth in TSLA and the remaining 60.3% in the risk-free asset.</p>
+<p><strong>What would change with different risk aversion?</strong></p>
+<ul>
+<li>If <span class="math inline">\(A = 2\)</span> (less risk-averse): <span class="math inline">\(w^*_c = 0.055/(2 \times 0.0346) = 79.5\%\)</span></li>
+<li>If <span class="math inline">\(A = 6\)</span> (more risk-averse): <span class="math inline">\(w^*_c = 0.055/(6 \times 0.0346) = 26.5\%\)</span></li>
+</ul>
+<p>This illustrates how dramatically risk aversion affects the optimal allocation.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="important-limitations" class="level3" data-number="4.6">
+<h3 data-number="4.6" class="anchored" data-anchor-id="important-limitations"><span class="header-section-number">4.6</span> Important Limitations</h3>
+<p>The optimal capital allocation formula we’ve derived assumes that the standard deviation <span class="math inline">\(\sigma_P\)</span> correctly measures the risk you’re exposed to from investing in P. This is true if P is your only investment—if your complete portfolio C represents your entire wealth.</p>
+<p>However, if you own other assets and P becomes just one component of a larger overall portfolio, the formula may not apply directly. That’s because much of P’s total risk (<span class="math inline">\(\sigma_P\)</span>) will be diversified away when combined with other assets. In that case, what matters is not P’s total risk, but its contribution to the risk of your overall portfolio—a concept we’ll explore when we study portfolio diversification.</p>
+<p>For now, think of the optimal capital allocation formula as applicable when you’re deciding how to split your investable wealth between a single risky portfolio P and the risk-free asset, where P represents your entire exposure to risky assets.</p>
+</section>
+</section>
+<section id="key-takeaways" class="level2" data-number="5">
+<h2 data-number="5" class="anchored" data-anchor-id="key-takeaways"><span class="header-section-number">5</span> Key Takeaways</h2>
+<p>The framework we’ve developed in this lecture provides the foundation for one of the most important decisions in investing: how much risk to take. By combining a risky asset with a risk-free asset, investors can create complete portfolios anywhere along the Capital Allocation Line, trading off between the safety of the risk-free rate and the higher expected returns (but also higher volatility) of risky assets.</p>
+<p>The CAL is characterized by its slope, which equals the Sharpe ratio of the risky asset. This ratio—excess return per unit of risk—serves as a universal measure of the quality of the risk-return trade-off. Higher Sharpe ratios mean steeper CALs and better investment opportunities. The CAL equation <span class="math inline">\(E[R_C] = R_f + \sigma_C \times \text{Sharpe Ratio}\)</span> allows us to translate any target expected return into the corresponding risk level, or vice versa.</p>
+<p>The question of where to position yourself along the CAL depends on your risk aversion, captured by the coefficient <span class="math inline">\(A\)</span> in the mean-variance utility function. This utility function formalizes the trade-off between wanting higher expected returns and disliking risk. By maximizing utility, we derived the optimal capital allocation formula, which tells us exactly what fraction of wealth to invest in risky assets given the risk premium, our risk aversion, and the asset’s variance.</p>
+<p>These concepts connect to nearly everything else in investments. The Sharpe ratio will reappear when we evaluate portfolio performance and when we study how to construct the best possible risky portfolio. Risk aversion underlies asset pricing models that explain why different securities have different expected returns. And the principle of optimal capital allocation extends naturally to multi-asset portfolios, where the challenge becomes finding the best risky portfolio P before deciding how much to allocate to it.</p>
+</section>
+<section id="key-formulas-summary" class="level2" data-number="6">
+<h2 data-number="6" class="anchored" data-anchor-id="key-formulas-summary"><span class="header-section-number">6</span> Key Formulas Summary</h2>
+<table class="table">
+<colgroup>
+<col style="width: 29%">
+<col style="width: 29%">
+<col style="width: 41%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Concept</th>
+<th style="text-align: left;">Formula</th>
+<th style="text-align: left;">When to Use</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Complete portfolio return</td>
+<td style="text-align: left;"><span class="math inline">\(R_C = w_c R_P + (1-w_c)R_f\)</span></td>
+<td style="text-align: left;">To calculate the actual return of a portfolio mixing risky and risk-free assets</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Expected return of complete portfolio</td>
+<td style="text-align: left;"><span class="math inline">\(E[R_C] = w_c E[R_P] + (1-w_c)R_f\)</span></td>
+<td style="text-align: left;">To find the expected return given an allocation weight</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Standard deviation of complete portfolio</td>
+<td style="text-align: left;"><span class="math inline">\(\sigma_C = w_c \sigma_P\)</span></td>
+<td style="text-align: left;">To find the risk of the complete portfolio</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Sharpe ratio (slope of CAL)</td>
+<td style="text-align: left;"><span class="math inline">\(\frac{E[R_P] - R_f}{\sigma_P}\)</span></td>
+<td style="text-align: left;">To measure excess return per unit of risk; to compare investment quality</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Capital Allocation Line equation</td>
+<td style="text-align: left;"><span class="math inline">\(E[R_C] = R_f + \sigma_C \times \frac{E[R_P]-R_f}{\sigma_P}\)</span></td>
+<td style="text-align: left;">To find expected return for any risk level, or risk for any target return</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Mean-variance utility</td>
+<td style="text-align: left;"><span class="math inline">\(U = E[R] - \frac{1}{2}A\sigma^2\)</span></td>
+<td style="text-align: left;">To quantify investor satisfaction accounting for risk aversion</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Optimal capital allocation</td>
+<td style="text-align: left;"><span class="math inline">\(w^*_c = \frac{E[R_P] - R_f}{A\sigma_P^2}\)</span></td>
+<td style="text-align: left;">To find the wealth fraction to invest in risky assets given risk aversion</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="practice-problems" class="level2" data-number="7">
+<h2 data-number="7" class="anchored" data-anchor-id="practice-problems"><span class="header-section-number">7</span> Practice Problems</h2>
+<div class="callout callout-style-default callout-note callout-titled" title="Practice Problem 1: Capital Allocation Calculations">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Practice Problem 1: Capital Allocation Calculations
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p>You are considering investing in an S&amp;P 500 index fund. Based on historical data and your analysis, you estimate the expected return of the index fund to be 8% with a standard deviation of 16%. The current yield on 1-year Treasury bills is 3%. Calculate the expected return and standard deviation for complete portfolios with weights of 0%, 25%, 50%, 75%, 100%, and 125% in the index fund.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Solution to Practice Problem 1">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution to Practice Problem 1
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Given information:</strong></p>
+<ul>
+<li><span class="math inline">\(E[R_P] = 8\%\)</span></li>
+<li><span class="math inline">\(\sigma_P = 16\%\)</span></li>
+<li><span class="math inline">\(R_f = 3\%\)</span></li>
+</ul>
+<p><strong>Applying the formulas:</strong></p>
+<p>For each weight <span class="math inline">\(w_c\)</span>:</p>
+<ul>
+<li><span class="math inline">\(E[R_C] = w_c(8\%) + (1-w_c)(3\%)\)</span></li>
+<li><span class="math inline">\(\sigma_C = w_c(16\%)\)</span></li>
+</ul>
+<table class="table">
+<colgroup>
+<col style="width: 21%">
+<col style="width: 35%">
+<col style="width: 42%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Weight (<span class="math inline">\(w_c\)</span>)</th>
+<th style="text-align: center;">Expected Return <span class="math inline">\(E[R_C]\)</span></th>
+<th style="text-align: center;">Standard Deviation <span class="math inline">\(\sigma_C\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">0%</td>
+<td style="text-align: center;"><span class="math inline">\(0(8\%) + 1(3\%) = 3.0\%\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(0(16\%) = 0\%\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">25%</td>
+<td style="text-align: center;"><span class="math inline">\(0.25(8\%) + 0.75(3\%) = 4.25\%\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(0.25(16\%) = 4\%\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">50%</td>
+<td style="text-align: center;"><span class="math inline">\(0.5(8\%) + 0.5(3\%) = 5.5\%\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(0.5(16\%) = 8\%\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">75%</td>
+<td style="text-align: center;"><span class="math inline">\(0.75(8\%) + 0.25(3\%) = 6.75\%\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(0.75(16\%) = 12\%\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">100%</td>
+<td style="text-align: center;"><span class="math inline">\(1(8\%) + 0(3\%) = 8.0\%\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(1(16\%) = 16\%\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">125%</td>
+<td style="text-align: center;"><span class="math inline">\(1.25(8\%) - 0.25(3\%) = 9.25\%\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(1.25(16\%) = 20\%\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>The 125% allocation involves borrowing 25% of your wealth at the risk-free rate to invest 125% in the index fund. Notice that both expected return and standard deviation increase linearly with the weight in the risky asset.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Practice Problem 2: Using the CAL to Find Risk">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Practice Problem 2: Using the CAL to Find Risk
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-9" class="callout-9-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p>An investor is considering a diversified equity portfolio with a Sharpe ratio of 0.4. The current risk-free rate is 2%. If the investor wants to achieve an expected return of 6% on their complete portfolio, what standard deviation must they accept? What if they wanted a 10% expected return?</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Solution to Practice Problem 2">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution to Practice Problem 2
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-10" class="callout-10-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Given information:</strong></p>
+<ul>
+<li>Sharpe ratio = 0.4</li>
+<li><span class="math inline">\(R_f = 2\%\)</span></li>
+<li>Target expected returns: 6% and 10%</li>
+</ul>
+<p><strong>Using the CAL equation:</strong></p>
+<p><span class="math display">\[E[R_C] = R_f + \sigma_C \times \text{Sharpe Ratio}\]</span></p>
+<p>Rearranging to solve for <span class="math inline">\(\sigma_C\)</span>:</p>
+<p><span class="math display">\[\sigma_C = \frac{E[R_C] - R_f}{\text{Sharpe Ratio}}\]</span></p>
+<p><strong>For 6% expected return:</strong></p>
+<p><span class="math display">\[\sigma_C = \frac{6\% - 2\%}{0.4} = \frac{4\%}{0.4} = 10\%\]</span></p>
+<p><strong>For 10% expected return:</strong></p>
+<p><span class="math display">\[\sigma_C = \frac{10\% - 2\%}{0.4} = \frac{8\%}{0.4} = 20\%\]</span></p>
+<p><strong>Interpretation:</strong></p>
+<p>To achieve 6% expected return, the investor must accept a 10% standard deviation. To achieve 10% expected return, they must accept 20% standard deviation—twice the risk for twice the excess return. This linear relationship is the essence of the Capital Allocation Line.</p>
+<p>Note that for the 10% expected return case, the investor would need to leverage (borrow at the risk-free rate) because they’re taking on more risk than the underlying risky portfolio likely has.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Practice Problem 3: Optimal Allocation with Different Risk Aversion">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Practice Problem 3: Optimal Allocation with Different Risk Aversion
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-11" class="callout-11-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p>Consider an emerging markets equity fund with an expected return of 12% and a standard deviation of 28%. The risk-free rate is 2%. Calculate the optimal capital allocation for three investors with risk aversion coefficients of A = 2, A = 4, and A = 8. Comment on how risk aversion affects the optimal allocation.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Solution to Practice Problem 3">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-12-contents" aria-controls="callout-12" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution to Practice Problem 3
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-12" class="callout-12-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Given information:</strong></p>
+<ul>
+<li><span class="math inline">\(E[R_P] = 12\%\)</span></li>
+<li><span class="math inline">\(\sigma_P = 28\%\)</span></li>
+<li><span class="math inline">\(R_f = 2\%\)</span></li>
+<li>Risk aversion coefficients: A = 2, 4, and 8</li>
+</ul>
+<p><strong>Calculate the variance:</strong></p>
+<p><span class="math display">\[\sigma_P^2 = (0.28)^2 = 0.0784\]</span></p>
+<p><strong>Calculate the risk premium:</strong></p>
+<p><span class="math display">\[E[R_P] - R_f = 12\% - 2\% = 10\% = 0.10\]</span></p>
+<p><strong>Apply the optimal capital allocation formula for each investor:</strong></p>
+<p><span class="math display">\[w^*_c = \frac{E[R_P] - R_f}{A\sigma_P^2} = \frac{0.10}{A \times 0.0784}\]</span></p>
+<p><strong>For A = 2 (low risk aversion):</strong></p>
+<p><span class="math display">\[w^*_c = \frac{0.10}{2 \times 0.0784} = \frac{0.10}{0.1568} = 0.638 = 63.8\%\]</span></p>
+<p><strong>For A = 4 (moderate risk aversion):</strong></p>
+<p><span class="math display">\[w^*_c = \frac{0.10}{4 \times 0.0784} = \frac{0.10}{0.3136} = 0.319 = 31.9\%\]</span></p>
+<p><strong>For A = 8 (high risk aversion):</strong></p>
+<p><span class="math display">\[w^*_c = \frac{0.10}{8 \times 0.0784} = \frac{0.10}{0.6272} = 0.159 = 15.9\%\]</span></p>
+<table class="table">
+<colgroup>
+<col style="width: 24%">
+<col style="width: 40%">
+<col style="width: 35%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Risk Aversion (A)</th>
+<th style="text-align: center;">Optimal Weight in Risky Asset</th>
+<th style="text-align: center;">Weight in Risk-Free Asset</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">63.8%</td>
+<td style="text-align: center;">36.2%</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">31.9%</td>
+<td style="text-align: center;">68.1%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">15.9%</td>
+<td style="text-align: center;">84.1%</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Commentary:</strong></p>
+<p>Doubling the risk aversion coefficient exactly halves the optimal allocation to the risky asset. This is because <span class="math inline">\(A\)</span> appears in the denominator of the formula. The least risk-averse investor (A = 2) allocates nearly two-thirds of their wealth to the volatile emerging markets fund, while the most risk-averse investor (A = 8) keeps more than 80% in the safety of risk-free assets. This dramatic difference illustrates why understanding your client’s (or your own) risk tolerance is so crucial for portfolio construction.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="ask-an-llm" class="level2" data-number="8">
+<h2 data-number="8" class="anchored" data-anchor-id="ask-an-llm"><span class="header-section-number">8</span> Ask an LLM</h2>
+<p>Here are three questions you might ask an AI assistant to deepen your understanding of these concepts:</p>
+<ul>
+<li>Can you walk me through a real-world example of how a financial advisor might assess a client’s risk aversion coefficient, and explain why the quadratic utility function is commonly used despite its known limitations?</li>
+<li>If I have multiple risky assets instead of just one, how does the optimal capital allocation framework extend, and what role does the “tangency portfolio” play in this broader setting?</li>
+<li>The optimal allocation formula assumes I can borrow at the risk-free rate. In reality, borrowing rates are higher than lending rates. How does this affect the shape of the CAL and the optimal allocation decision?</li>
+<li>How would inflation expectations change my interpretation of the risk-free rate and risk premium, and should I be thinking in nominal or real terms when applying these formulas?</li>
+<li>Can you explain the connection between the risk aversion coefficient A and the concept of “certainty equivalent”? How could I use certainty equivalents to check whether my assumed value of A is reasonable?</li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
